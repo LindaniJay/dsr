@@ -1,0 +1,46 @@
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+
+const socialLinks = [
+  { href: 'https://www.instagram.com/', label: 'Instagram', icon: '/icons/instagram.svg' },
+  { href: 'https://www.facebook.com/', label: 'Facebook', icon: '/icons/facebook.svg' },
+  { href: 'https://www.tiktok.com/', label: 'TikTok', icon: '/icons/tiktok.svg' },
+];
+
+export default function Footer() {
+  return (
+    <footer className="w-full bg-white/80 backdrop-blur border-t border-[#e3e6ee] py-8 mt-16">
+      <div className="mx-auto flex max-w-6xl flex-col md:flex-row items-center justify-between gap-6 px-4 md:px-8">
+        <div className="flex items-center gap-3">
+          <Image src="/logo.png" alt="IGHOST Logo" width={40} height={40} className="rounded-xl" />
+          <span className="text-lg font-bold text-[#2e4f7a] tracking-tight">IGHOST</span>
+        </div>
+        <nav className="flex flex-wrap gap-5 text-sm font-medium text-[#5f7695]">
+          <Link href="/about">About</Link>
+          <Link href="/events">Events</Link>
+          <Link href="/shop">Shop</Link>
+          <Link href="/ambassadors">Ambassadors</Link>
+          <Link href="/contact">Contact</Link>
+        </nav>
+        <div className="flex gap-4">
+          {socialLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={link.label}
+              className="hover:scale-110 transition-transform"
+            >
+              <Image src={link.icon} alt={link.label} width={24} height={24} />
+            </a>
+          ))}
+        </div>
+      </div>
+      <div className="mt-6 text-center text-xs text-[#8a98b6]">
+        &copy; {new Date().getFullYear()} IGHOST Edutainment NPC. All rights reserved.
+      </div>
+    </footer>
+  );
+}

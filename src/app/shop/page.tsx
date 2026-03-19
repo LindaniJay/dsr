@@ -150,31 +150,39 @@ export default function ShopPage() {
 
   return (
     <div className="app-shell section-spacing">
-      <section className="panel rise overflow-hidden p-6 md:p-10">
-        <div className="grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-end">
+      {/* Hero Section with layered glassmorphism and animated floating shapes */}
+      <section className="panel rise overflow-hidden p-6 md:p-10 relative">
+        {/* Animated gradient background */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 animate-gradient-move bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#caa86a]/30 via-[#2e4f7a]/10 to-transparent opacity-80" />
+        {/* Glassmorphism overlay */}
+        <div aria-hidden="true" className="absolute left-1/2 top-0 z-0 h-[340px] w-[600px] -translate-x-1/2 rounded-3xl bg-white/30 shadow-2xl backdrop-blur-2xl blur-2xl" style={{ filter: 'blur(28px)' }} />
+        {/* Floating shapes for depth */}
+        <div aria-hidden="true" className="absolute top-10 left-10 w-20 h-20 rounded-full bg-[#caa86a]/30 blur-2xl animate-float-slow" />
+        <div aria-hidden="true" className="absolute bottom-10 right-10 w-28 h-28 rounded-full bg-[#2e4f7a]/20 blur-2xl animate-float-medium" />
+        <div className="grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-end relative z-10">
           <div>
             <span className="kicker">IGHOST Premium Store</span>
             <h1
-              className="architect-heading mt-5 text-4xl font-semibold text-[#121522] md:text-6xl"
-              style={{ fontFamily: 'var(--font-space), sans-serif' }}
+              className="architect-heading mt-5 text-4xl font-extrabold text-[#121522] md:text-6xl tracking-tight animate-fade-in-up"
+              style={{ fontFamily: 'var(--font-space), sans-serif', letterSpacing: '-0.03em' }}
             >
-              Premium Merch Designed for Culture Builders
+              <span className="inline-block bg-gradient-to-r from-[#2e4f7a] via-[#caa86a] to-[#2e4f7a] bg-clip-text text-transparent animate-gradient-text drop-shadow-lg">Premium Merch Designed for Culture Builders</span>
             </h1>
-            <p className="mt-4 max-w-3xl text-base text-muted md:text-lg">
+            <p className="mt-4 max-w-3xl text-lg text-muted md:text-xl animate-fade-in-up delay-200">
               Explore limited IGHOST apparel engineered with clean design language and production
               quality that reflects our professional standards.
             </p>
           </div>
 
-          <div className="rounded-2xl border border-[#d7dde7] bg-[linear-gradient(145deg,#f6f8fb,#ffffff)] p-5">
+          <div className="rounded-2xl border border-[#d7dde7] bg-[linear-gradient(145deg,#f6f8fb,#ffffff)/80] p-5 glassmorphism">
             <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">Store Promise</p>
             <h2
-              className="mt-2 text-2xl font-semibold text-[#121522]"
+              className="mt-2 text-2xl font-semibold text-[#121522] animate-gradient-text"
               style={{ fontFamily: 'var(--font-space), sans-serif' }}
             >
               Style With Social Return
             </h2>
-            <p className="mt-3 text-sm text-muted">
+            <p className="mt-3 text-base text-muted">
               Every purchase helps fund events, leadership pathways, and practical opportunities
               for youth creators.
             </p>
@@ -198,17 +206,19 @@ export default function ShopPage() {
       </section>
 
       {(success || error) && (
-        <section className="mt-8">
-          {success && (
-            <div className="rounded-xl border border-[#b9d8c7] bg-[#edf8f2] px-4 py-3 text-sm font-medium text-[#1f6946]">
-              {success}
-            </div>
-          )}
-          {error && (
-            <div className="rounded-xl border border-[#e5c4c4] bg-[#fff4f4] px-4 py-3 text-sm font-medium text-[#8f2f2f]">
-              {error}
-            </div>
-          )}
+        <section className="rise relative overflow-hidden">
+          {/* Animated gradient background */}
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 animate-gradient-move bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#caa86a]/30 via-[#2e4f7a]/10 to-transparent opacity-80" />
+          <span className="kicker">Shop</span>
+          <h1
+            className="architect-heading mt-5 text-4xl font-bold text-[#121522] md:text-6xl tracking-tight animate-fade-in-up"
+            style={{ fontFamily: 'var(--font-space), sans-serif' }}
+          >
+            <span className="inline-block bg-gradient-to-r from-[#2e4f7a] via-[#caa86a] to-[#2e4f7a] bg-clip-text text-transparent animate-gradient-text">IGHOST Apparel & Merch</span>
+          </h1>
+          <p className="mt-4 max-w-3xl text-base text-muted md:text-lg">
+            Shop our premium, purpose-driven apparel. Every purchase supports IGHOST events, mentorship, and youth development.
+          </p>
         </section>
       )}
 

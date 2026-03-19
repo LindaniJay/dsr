@@ -23,11 +23,11 @@ const AmbassadorForm: React.FC<AmbassadorFormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <form className="panel mx-auto flex w-full max-w-3xl flex-col gap-5 p-6 md:p-8 rise" onSubmit={handleSubmit}>
+    <form className="panel mx-auto flex w-full max-w-3xl flex-col gap-5 p-6 md:p-8 rise transition-shadow duration-300 hover:shadow-2xl" onSubmit={handleSubmit}>
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.11em] text-[#5f7695]">Application Form</p>
         <h3
-          className="mt-2 text-2xl font-semibold text-[#121522] md:text-3xl"
+          className="mt-2 text-2xl font-bold text-[#121522] md:text-3xl tracking-tight"
           style={{ fontFamily: 'var(--font-space), sans-serif' }}
         >
           Ambassador Application
@@ -43,7 +43,7 @@ const AmbassadorForm: React.FC<AmbassadorFormProps> = ({ onSubmit }) => {
           placeholder="Full name"
           value={name}
           onChange={e => setName(e.target.value)}
-          className="w-full rounded-xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#5f7695] focus:ring-2 focus:ring-[#d6dfec]"
+          className="w-full rounded-2xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#2e4f7a] focus:ring-2 focus:ring-[#caa86a] transition"
           required
         />
 
@@ -52,7 +52,7 @@ const AmbassadorForm: React.FC<AmbassadorFormProps> = ({ onSubmit }) => {
           placeholder="Email address"
           value={email}
           onChange={e => setEmail(e.target.value)}
-          className="w-full rounded-xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#5f7695] focus:ring-2 focus:ring-[#d6dfec]"
+          className="w-full rounded-2xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#2e4f7a] focus:ring-2 focus:ring-[#caa86a] transition"
           required
         />
       </div>
@@ -61,15 +61,19 @@ const AmbassadorForm: React.FC<AmbassadorFormProps> = ({ onSubmit }) => {
         placeholder="Why do you want to become an IGHOST ambassador and represent the brand?"
         value={motivation}
         onChange={e => setMotivation(e.target.value)}
-        className="min-h-32 w-full rounded-xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#5f7695] focus:ring-2 focus:ring-[#d6dfec]"
+        className="min-h-32 w-full rounded-xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#2e4f7a] focus:ring-2 focus:ring-[#caa86a] transition"
         required
+        aria-label="Motivation"
       />
 
       <button
         type="submit"
-        className="rounded-xl bg-[#2e4f7a] px-5 py-3 text-sm font-semibold text-white hover:bg-[#243c5d]"
+        className="rounded-xl bg-[#2e4f7a] px-5 py-3 text-sm font-semibold text-white hover:bg-[#243c5d] scale-100 hover:scale-105 active:scale-95 transition-transform duration-200"
+        aria-disabled={sent}
+        aria-busy={sent}
+        disabled={sent}
       >
-        Submit Application
+        {sent ? 'Submitted!' : 'Submit Application'}
       </button>
 
       {sent && (

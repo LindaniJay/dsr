@@ -52,12 +52,13 @@ const NavBar = () => {
       <nav
         className={`mx-auto w-full max-w-[1200px] rounded-2xl border transition-all duration-300 ${
           scrolled
-            ? 'border-[#d6dae2] bg-[rgba(250,250,248,0.9)] shadow-[0_10px_30px_rgba(18,24,33,0.10)] backdrop-blur-md'
-            : 'border-transparent bg-[rgba(250,250,248,0.64)]'
+            ? 'border-[#d6dae2] bg-[rgba(250,250,248,0.92)] shadow-[0_10px_30px_rgba(18,24,33,0.10)] backdrop-blur-xl'
+            : 'border-transparent bg-[rgba(250,250,248,0.64)] backdrop-blur-md'
         }`}
+        aria-label="Main navigation"
       >
         <div className="flex items-center justify-between gap-4 px-4 py-3 md:px-6">
-          <Link href="/" className="flex items-center gap-3" onClick={closeAllMenus}>
+          <Link href="/" className="flex items-center gap-3 focus-visible:ring-2 focus-visible:ring-[#caa86a] rounded-xl transition" onClick={closeAllMenus}>
             <span className="relative h-10 w-10 overflow-hidden rounded-xl border border-[#cad0d9] bg-white">
               <Image
                 src="/ighost-logo.png"
@@ -84,18 +85,21 @@ const NavBar = () => {
           <div className="hidden items-center gap-1 lg:flex">
             {primaryNavLinks.map((link) => {
               const isActive = pathname === link.href;
-
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`rounded-full px-2.5 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] ${
+                  className={`relative rounded-full px-2.5 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] focus-visible:ring-2 focus-visible:ring-[#caa86a] transition ${
                     isActive
                       ? 'bg-[#2e4f7a] text-white'
                       : 'text-[#2a2f37] hover:bg-white hover:text-[#1f3350]'
                   }`}
+                  aria-current={isActive ? 'page' : undefined}
                 >
                   {link.label}
+                  {isActive && (
+                    <span className="absolute left-1/2 -bottom-1.5 h-1 w-6 -translate-x-1/2 rounded-full bg-gradient-to-r from-[#2e4f7a] to-[#caa86a] opacity-80 animate-pulse" />
+                  )}
                 </Link>
               );
             })}

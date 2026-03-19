@@ -78,15 +78,23 @@ const timeline = [
 export default function AboutPage() {
   return (
     <div className="app-shell section-spacing">
-      <section className="rise">
+      {/* Hero Section with layered glassmorphism and animated floating shapes */}
+      <section className="rise relative overflow-hidden">
+        {/* Animated gradient background */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 animate-gradient-move bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#caa86a]/30 via-[#2e4f7a]/10 to-transparent opacity-80" />
+        {/* Glassmorphism overlay */}
+        <div aria-hidden="true" className="absolute left-1/2 top-0 z-0 h-[320px] w-[540px] -translate-x-1/2 rounded-3xl bg-white/30 shadow-2xl backdrop-blur-2xl blur-2xl" style={{ filter: 'blur(24px)' }} />
+        {/* Floating shapes for depth */}
+        <div aria-hidden="true" className="absolute top-10 left-10 w-16 h-16 rounded-full bg-[#caa86a]/30 blur-2xl animate-float-slow" />
+        <div aria-hidden="true" className="absolute bottom-10 right-10 w-20 h-20 rounded-full bg-[#2e4f7a]/20 blur-2xl animate-float-medium" />
         <span className="kicker">About IGHOST</span>
         <h1
-          className="architect-heading mt-5 text-4xl font-semibold text-[#121522] md:text-6xl"
-          style={{ fontFamily: 'var(--font-space), sans-serif' }}
+          className="architect-heading mt-5 text-4xl font-extrabold text-[#121522] md:text-6xl tracking-tight animate-fade-in-up"
+          style={{ fontFamily: 'var(--font-space), sans-serif', letterSpacing: '-0.03em' }}
         >
-          Company Overview
+          <span className="inline-block bg-gradient-to-r from-[#2e4f7a] via-[#caa86a] to-[#2e4f7a] bg-clip-text text-transparent animate-gradient-text drop-shadow-lg">Company Overview</span>
         </h1>
-        <p className="mt-4 max-w-3xl text-base text-muted md:text-lg">
+        <p className="mt-4 max-w-3xl text-lg text-muted md:text-xl animate-fade-in-up delay-200">
           IGHOST Edutainment is a non-profit company founded by Miss A. Mhlongo (iGhostikazi).
           Since September 2021, the organization has been building a home for artists and talent
           to grow, learn, and be supported through structured entertainment and community programs.
@@ -95,7 +103,7 @@ export default function AboutPage() {
 
       <section className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {overviewFacts.map((fact, index) => (
-          <article key={fact.label} className="panel p-5 rise" style={{ animationDelay: `${index * 60}ms` }}>
+          <article key={fact.label} className="panel p-5 rise transition-shadow duration-300 hover:shadow-2xl" style={{ animationDelay: `${index * 60}ms` }}>
             <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">{fact.label}</p>
             <p
               className="mt-2 text-lg font-semibold text-[#121522]"
@@ -125,7 +133,7 @@ export default function AboutPage() {
 
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           {presentationSlides.map((slide, index) => (
-            <article key={slide.src} className="rounded-[1.25rem] border border-[#d9dee8] bg-white p-4 rise" style={{ animationDelay: `${index * 70}ms` }}>
+            <article key={slide.src} className="rounded-[1.25rem] border border-[#d9dee8] bg-white p-4 rise transition-shadow duration-300 hover:shadow-2xl" style={{ animationDelay: `${index * 70}ms` }}>
               <div className="relative overflow-hidden rounded-[1rem] border border-[#d9dee8] bg-[#f7f8fb] aspect-[4/5]">
                 <Image
                   src={slide.src}

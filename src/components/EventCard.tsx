@@ -35,23 +35,28 @@ const EventCard: React.FC<EventCardProps> = ({
   const eventYear = new Date(date).getFullYear();
 
   return (
-    <article className="panel group relative overflow-hidden p-6 md:p-7 rise">
-      <div className="pointer-events-none absolute right-0 top-0 h-28 w-28 translate-x-8 -translate-y-8 rounded-full bg-[rgba(202,168,106,0.2)]" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,#2e4f7a,#caa86a)]" />
+    <article
+      className="panel group relative overflow-hidden p-6 md:p-7 rise transition-shadow duration-300 hover:shadow-2xl hover:scale-[1.025] focus-within:ring-2 focus-within:ring-[#caa86a]"
+      tabIndex={0}
+      aria-label={`Event: ${title}`}
+    >
+      <div className="pointer-events-none absolute right-0 top-0 h-28 w-28 translate-x-8 -translate-y-8 rounded-full bg-[rgba(202,168,106,0.18)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#2e4f7a] to-[#caa86a]" />
 
       <div className="mb-5 flex items-start justify-between gap-4">
         <div className="flex items-start gap-4">
-          <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border border-[#d3d8e2] bg-[#f6f8fc] text-[#2e4f7a]">
-            <EventIcon size={20} />
+          <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl border border-[#d3d8e2] bg-[#f6f8fc] text-[#2e4f7a] shadow-sm">
+            <EventIcon size={22} />
           </div>
           <div>
             <h3
-              className="text-xl font-semibold text-[#121522]"
+              className="text-xl font-bold text-[#121522] tracking-tight group-hover:text-[#2e4f7a] transition-colors"
               style={{ fontFamily: 'var(--font-space), sans-serif' }}
+              tabIndex={-1}
             >
               {title}
             </h3>
-            <p className="mt-1 flex items-center gap-2 text-sm text-muted">
+            <p className="mt-1 flex items-center gap-2 text-sm text-[#5f7695]">
               <LocationIcon size={15} className="text-[#5f7695]" />
               {location}
             </p>
