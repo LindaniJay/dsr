@@ -3,9 +3,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const socialLinks = [
-  { href: 'https://www.instagram.com/', label: 'Instagram', icon: '/globe.svg' },
-  { href: 'https://www.facebook.com/', label: 'Facebook', icon: '/file.svg' },
-  { href: 'https://www.tiktok.com/', label: 'TikTok', icon: '/window.svg' },
+  { href: 'https://www.instagram.com/', label: 'Instagram', icon: '/icons/instagram.svg' },
+  { href: 'https://www.facebook.com/', label: 'Facebook', icon: '/icons/facebook.svg' },
+  { href: 'https://www.tiktok.com/', label: 'TikTok', icon: '/icons/tiktok.svg' },
 ];
 
 export default function Footer() {
