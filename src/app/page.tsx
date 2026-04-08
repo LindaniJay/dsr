@@ -55,7 +55,7 @@ export default function Home() {
               className="architect-heading mt-4 text-3xl font-extrabold text-[#121522] sm:text-5xl lg:text-7xl tracking-tight"
               style={{ fontFamily: 'var(--font-space), sans-serif', letterSpacing: '-0.03em' }}
             >
-              Find a well-located student stay with less guesswork.
+              Find well-located student accommodation with less guesswork.
             </h1>
             <p className="mt-5 max-w-2xl text-base text-muted md:text-xl">
               Explore student accommodation near UKZN and DUT by building, compare the atmosphere and daily convenience, then choose between single and sharing rooms inside the property that suits you.
@@ -70,33 +70,33 @@ export default function Home() {
             </div>
             </div>
 
-            <div className="tonal-card rise p-5 text-white md:p-6" style={{ animationDelay: '120ms' }}>
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-white/70">City Snapshot</p>
-            <h2
-              className="mt-2 text-2xl font-semibold text-white"
-              style={{ fontFamily: 'var(--font-space), sans-serif' }}
-            >
-              Stay closer. Move through Durban with more ease.
-            </h2>
-            <div className="mt-3 flex flex-col gap-4">
-              <p className="text-base text-white/80">
-                From Berea to Glenwood and Umbilo, the best student rentals balance security, transport convenience, study-friendly interiors, and a manageable route to campus.
-              </p>
-              <div className="mt-2 grid gap-3 sm:grid-cols-3">
-                <div className="rounded-2xl border border-white/12 bg-white/8 px-4 py-4">
-                  <p className="text-[11px] uppercase tracking-[0.12em] text-white/65">Focus</p>
-                  <p className="mt-2 text-sm font-semibold">Campus routes</p>
-                </div>
-                <div className="rounded-2xl border border-white/12 bg-white/8 px-4 py-4">
-                  <p className="text-[11px] uppercase tracking-[0.12em] text-white/65">Options</p>
-                  <p className="mt-2 text-sm font-semibold">Single and sharing</p>
-                </div>
-                <div className="rounded-2xl border border-white/12 bg-white/8 px-4 py-4">
-                  <p className="text-[11px] uppercase tracking-[0.12em] text-white/65">Priority</p>
-                  <p className="mt-2 text-sm font-semibold">Straightforward viewings</p>
+            <div className="tonal-card rise min-w-0 p-5 text-white md:p-6" style={{ animationDelay: '120ms' }}>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-white/70">City Snapshot</p>
+              <h2
+                className="mt-2 text-2xl font-semibold text-white"
+                style={{ fontFamily: 'var(--font-space), sans-serif' }}
+              >
+                Stay closer. Move through Durban with more ease.
+              </h2>
+              <div className="mt-3 flex min-w-0 flex-col gap-4">
+                <p className="text-base text-white/80">
+                  From Berea to Glenwood and Umbilo, the best student rentals balance security, transport convenience, study-friendly interiors, and a manageable route to campus.
+                </p>
+                <div className="mt-2 grid gap-3 md:grid-cols-3">
+                  <div className="min-w-0 rounded-2xl border border-white/12 bg-white/8 px-4 py-4">
+                    <p className="text-[11px] uppercase tracking-[0.12em] text-white/65">Focus</p>
+                    <p className="mt-2 text-sm font-semibold leading-6 text-balance">Campus routes</p>
+                  </div>
+                  <div className="min-w-0 rounded-2xl border border-white/12 bg-white/8 px-4 py-4">
+                    <p className="text-[11px] uppercase tracking-[0.12em] text-white/65">Options</p>
+                    <p className="mt-2 text-sm font-semibold leading-6 text-balance">Single and sharing</p>
+                  </div>
+                  <div className="min-w-0 rounded-2xl border border-white/12 bg-white/8 px-4 py-4">
+                    <p className="text-[11px] uppercase tracking-[0.12em] text-white/65">Priority</p>
+                    <p className="mt-2 text-sm font-semibold leading-6 text-balance">Straightforward viewings</p>
+                  </div>
                 </div>
               </div>
-            </div>
             </div>
           </div>
         </div>

@@ -18,9 +18,9 @@ const space = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Durban Student Stays | Student Accommodation in Durban",
+  title: "Durban Student Accommodation | Student Accommodation in Durban",
   description:
-    "Durban Student Stays helps students and young renters discover rooms, shared apartments, and student-friendly accommodation near UKZN and DUT.",
+    "Durban Student Accommodation helps students and young renters discover rooms, shared apartments, and student-friendly accommodation near UKZN and DUT.",
 };
 
 export default function RootLayout({

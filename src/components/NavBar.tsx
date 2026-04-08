@@ -67,7 +67,7 @@ const NavBar = () => {
                 className="block truncate text-base font-semibold tracking-tight text-[#121522] sm:text-lg"
                 style={{ fontFamily: 'var(--font-space), sans-serif' }}
               >
-                Durban Student Stays
+                Durban Student Accommodation
               </span>
               <span className="hidden text-[10px] uppercase tracking-[0.18em] text-[#64758b] sm:block">
                 Student accommodation in Durban

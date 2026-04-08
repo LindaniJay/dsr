@@ -29,7 +29,7 @@ const focusAreas = [
 const presentationSlides = [
   {
     title: 'Market Direction',
-    caption: 'Durban Student Stays focuses on student-friendly rooms, shared flats, and compact apartments across key neighbourhoods.',
+    caption: 'Durban Student Accommodation focuses on student-friendly rooms, shared flats, and compact apartments across key neighbourhoods.',
   },
   {
     title: 'University Demand',
@@ -91,7 +91,7 @@ export default function AboutPage() {
               A more focused way to search for student accommodation in Durban.
             </h1>
             <p className="text-base text-muted md:text-lg">
-              Durban Student Stays is built around the realities that shape student renting here: transport pressure, neighbourhood fit, campus access, and the need to compare building quality before you commit to a room.
+              Durban Student Accommodation is built around the realities that shape student renting here: transport pressure, neighbourhood fit, campus access, and the need to compare building quality before you commit to a room.
             </p>
           </div>
 

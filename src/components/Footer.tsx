@@ -16,7 +16,7 @@ export default function Footer() {
           <div className="flex items-center gap-3">
             <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#18314d,#b99258)] text-sm font-bold text-white shadow-lg">DS</span>
             <div>
-              <p className="text-xl font-extrabold tracking-tight text-[#1f3a5a]">Durban Student Stays</p>
+              <p className="text-xl font-extrabold tracking-tight text-[#1f3a5a]">Durban Student Accommodation</p>
               <p className="text-xs uppercase tracking-[0.14em] text-[#6b7a92]">Student accommodation in Durban</p>
             </div>
           </div>
@@ -62,7 +62,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="mt-8 text-center text-xs text-[#8a98b6]">
-        &copy; {new Date().getFullYear()} Durban Student Stays. All rights reserved.
+        &copy; {new Date().getFullYear()} Durban Student Accommodation. All rights reserved.
       </div>
     </footer>
   );
