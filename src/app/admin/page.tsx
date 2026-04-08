@@ -23,11 +23,119 @@ import {
   type PropertyFormValues,
 } from '../../utils/propertyRecords';
 
-type ManagedProperty = BuildingItem & { id: string };
+type EnquiryStatus = 'new' | 'contacted' | 'viewing-booked' | 'closed';
+
+type ViewingRequest = {
+  id: string;
+  buildingSlug: string;
+  buildingName: string;
+  roomTitle: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  roomMode: string;
+  campus: string;
+  moveInMonth: string;
+  budget: string;
+  preferredViewingDate: string;
+  notes: string;
+  assignee: string;
+  internalNotes: string;
+  status: EnquiryStatus;
+  createdAtLabel: string;
+  statusUpdatedAtLabel: string;
+};
+
+type ManagedProperty = BuildingItem & {
+  id: string;
+  published: boolean;
+  enquiryCount: number;
+  publishedAtLabel: string | null;
+  scheduledPublishAt: string;
+  scheduledPublishAtLabel: string | null;
+  lastEditedBy: string;
+  lastEditedAtLabel: string | null;
+};
 
 const ACCESS_STORAGE_KEY = 'durban-stays-admin-unlocked';
 
-function propertyToFormValues(property: BuildingItem): PropertyFormValues {
+const enquiryStatuses: Array<{ value: EnquiryStatus; label: string }> = [
+  { value: 'new', label: 'New' },
+  { value: 'contacted', label: 'Contacted' },
+  { value: 'viewing-booked', label: 'Viewing booked' },
+  { value: 'closed', label: 'Closed' },
+];
+
+function formatStatusLabel(status: EnquiryStatus) {
+  return enquiryStatuses.find((item) => item.value === status)?.label ?? 'New';
+}
+
+function getStatusBadgeClass(status: EnquiryStatus) {
+  switch (status) {
+    case 'contacted':
+      return 'bg-[#edf5ff] text-[#31557a]';
+    case 'viewing-booked':
+      return 'bg-[#eef8ef] text-[#2e6640]';
+    case 'closed':
+      return 'bg-[#f4f6f9] text-[#556477]';
+    default:
+      return 'bg-[#fff4e8] text-[#8b6124]';
+  }
+}
+
+function getPropertyVisibilityState(property: ManagedProperty) {
+  if (!property.published) {
+    return 'draft' as const;
+  }
+
+  if (property.scheduledPublishAt) {
+    const scheduledTime = new Date(property.scheduledPublishAt).getTime();
+    if (!Number.isNaN(scheduledTime) && scheduledTime > Date.now()) {
+      return 'scheduled' as const;
+    }
+  }
+
+  return 'published' as const;
+}
+
+function getPropertyVisibilityBadgeClass(state: 'draft' | 'scheduled' | 'published') {
+  switch (state) {
+    case 'scheduled':
+      return 'bg-[#edf5ff] text-[#31557a]';
+    case 'published':
+      return 'bg-[#eef8ef] text-[#2e6640]';
+    default:
+      return 'bg-[#fff4e8] text-[#8b6124]';
+  }
+}
+
+function getPropertyVisibilityLabel(state: 'draft' | 'scheduled' | 'published') {
+  switch (state) {
+    case 'scheduled':
+      return 'Scheduled';
+    case 'published':
+      return 'Published';
+    default:
+      return 'Draft';
+  }
+}
+
+function splitMultiline(value: string) {
+  return value.split(/\r?\n/);
+}
+
+function setMultilineValue(value: string, index: number, nextValue: string) {
+  const entries = splitMultiline(value);
+
+  while (entries.length < 4) {
+    entries.push('');
+  }
+
+  entries[index] = nextValue;
+  return entries.join('\n');
+}
+
+function propertyToFormValues(property: BuildingItem & { published?: boolean }): PropertyFormValues {
   const singleRoom = property.roomOptions.find((room) => room.mode === 'single');
   const sharingRoom = property.roomOptions.find((room) => room.mode === 'sharing');
 
@@ -36,6 +144,11 @@ function propertyToFormValues(property: BuildingItem): PropertyFormValues {
     name: property.name,
     area: property.area,
     badge: property.badge,
+    published: property.published !== false,
+    scheduledPublishAt:
+      'scheduledPublishAt' in property && typeof property.scheduledPublishAt === 'string' ? property.scheduledPublishAt : '',
+    lastEditedBy:
+      'lastEditedBy' in property && typeof property.lastEditedBy === 'string' ? property.lastEditedBy : 'Admin team',
     priceFrom: property.priceFrom,
     latitude: property.coordinates.latitude,
     longitude: property.coordinates.longitude,
@@ -44,6 +157,8 @@ function propertyToFormValues(property: BuildingItem): PropertyFormValues {
     headline: property.headline,
     summary: property.summary,
     heroImage: property.heroImage,
+    galleryImageUrls: property.gallery.map((item) => item.src).join('\n'),
+    galleryCaptions: property.gallery.map((item) => item.caption).join('\n'),
     amenities: property.amenities.join('\n'),
     highlights: property.highlights.join('\n'),
     workflowNotes: property.workflowNotes.join('\n'),
@@ -61,7 +176,7 @@ function propertyToFormValues(property: BuildingItem): PropertyFormValues {
   };
 }
 
-function parseManagedProperty(raw: Record<string, unknown>, id: string): ManagedProperty | null {
+function parseManagedProperty(raw: Record<string, unknown>, id: string, enquiryCount: number): ManagedProperty | null {
   const property = parsePropertyRecord(raw);
 
   if (!property) {
@@ -71,6 +186,66 @@ function parseManagedProperty(raw: Record<string, unknown>, id: string): Managed
   return {
     ...property,
     id,
+    published: raw.published !== false,
+    enquiryCount,
+    publishedAtLabel:
+      typeof raw.publishedAtText === 'string' && raw.publishedAtText.trim().length > 0 ? raw.publishedAtText : null,
+    scheduledPublishAt: typeof raw.scheduledPublishAtIso === 'string' ? raw.scheduledPublishAtIso : '',
+    scheduledPublishAtLabel:
+      typeof raw.scheduledPublishAtText === 'string' && raw.scheduledPublishAtText.trim().length > 0
+        ? raw.scheduledPublishAtText
+        : null,
+    lastEditedBy: typeof raw.lastEditedBy === 'string' && raw.lastEditedBy.trim().length > 0 ? raw.lastEditedBy : 'Admin team',
+    lastEditedAtLabel:
+      typeof raw.lastEditedAtText === 'string' && raw.lastEditedAtText.trim().length > 0 ? raw.lastEditedAtText : null,
+  };
+}
+
+function parseViewingRequest(raw: Record<string, unknown>, id: string): ViewingRequest | null {
+  if (
+    typeof raw.buildingSlug !== 'string' ||
+    typeof raw.buildingName !== 'string' ||
+    typeof raw.fullName !== 'string' ||
+    typeof raw.phone !== 'string' ||
+    typeof raw.roomMode !== 'string' ||
+    typeof raw.moveInMonth !== 'string' ||
+    typeof raw.budget !== 'string'
+  ) {
+    return null;
+  }
+
+  const status =
+    raw.status === 'contacted' || raw.status === 'viewing-booked' || raw.status === 'closed' || raw.status === 'new'
+      ? raw.status
+      : 'new';
+
+  const createdAtLabel =
+    typeof raw.createdAtText === 'string' && raw.createdAtText.trim().length > 0
+      ? raw.createdAtText
+      : 'Recent enquiry';
+
+  return {
+    id,
+    buildingSlug: raw.buildingSlug,
+    buildingName: raw.buildingName,
+    roomTitle: typeof raw.roomTitle === 'string' ? raw.roomTitle : '',
+    fullName: raw.fullName,
+    email: typeof raw.email === 'string' ? raw.email : 'Not provided',
+    phone: raw.phone,
+    roomMode: raw.roomMode,
+    campus: typeof raw.campus === 'string' ? raw.campus : 'Not provided',
+    moveInMonth: raw.moveInMonth,
+    budget: raw.budget,
+    preferredViewingDate: typeof raw.preferredViewingDate === 'string' ? raw.preferredViewingDate : '',
+    notes: typeof raw.notes === 'string' ? raw.notes : '',
+    assignee: typeof raw.assignee === 'string' ? raw.assignee : '',
+    internalNotes: typeof raw.internalNotes === 'string' ? raw.internalNotes : '',
+    status,
+    createdAtLabel,
+    statusUpdatedAtLabel:
+      typeof raw.statusUpdatedAtText === 'string' && raw.statusUpdatedAtText.trim().length > 0
+        ? raw.statusUpdatedAtText
+        : createdAtLabel,
   };
 }
 
@@ -87,7 +262,7 @@ function PropertyInput({
   value: string | number;
   onChange: (value: string) => void;
   placeholder?: string;
-  type?: 'text' | 'number';
+  type?: 'text' | 'number' | 'datetime-local';
   min?: number;
   required?: boolean;
 }) {
@@ -136,6 +311,9 @@ function PropertyTextarea({
 
 export default function AdminPage() {
   const [properties, setProperties] = useState<ManagedProperty[]>([]);
+  const [viewingRequests, setViewingRequests] = useState<ViewingRequest[]>([]);
+  const [requestDrafts, setRequestDrafts] = useState<Record<string, { assignee: string; internalNotes: string }>>({});
+  const [requestFilter, setRequestFilter] = useState<'all' | EnquiryStatus>('all');
   const [propertyForm, setPropertyForm] = useState<PropertyFormValues>(emptyPropertyForm);
   const [propertyEditId, setPropertyEditId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -157,9 +335,36 @@ export default function AdminPage() {
       0,
     );
     const lowestPrice = properties.length > 0 ? Math.min(...properties.map((property) => property.priceFrom)) : 0;
+    const publishedCount = properties.filter((property) => property.published).length;
+    const scheduledCount = properties.filter((property) => getPropertyVisibilityState(property) === 'scheduled').length;
+    const totalEnquiries = viewingRequests.length;
+    const enquiryByStatus = enquiryStatuses.reduce<Record<EnquiryStatus, number>>((accumulator, status) => {
+      accumulator[status.value] = viewingRequests.filter((request) => request.status === status.value).length;
+      return accumulator;
+    }, {
+      new: 0,
+      contacted: 0,
+      'viewing-booked': 0,
+      closed: 0,
+    });
+    const mostEnquired = properties.reduce<ManagedProperty | null>((currentBest, property) => {
+      if (!currentBest || property.enquiryCount > currentBest.enquiryCount) {
+        return property;
+      }
 
-    return { singleOptions, sharingOptions, lowestPrice };
-  }, [properties]);
+      return currentBest;
+    }, null);
+
+    return { singleOptions, sharingOptions, lowestPrice, publishedCount, scheduledCount, totalEnquiries, enquiryByStatus, mostEnquired };
+  }, [properties, viewingRequests]);
+
+  const filteredViewingRequests = useMemo(() => {
+    if (requestFilter === 'all') {
+      return viewingRequests;
+    }
+
+    return viewingRequests.filter((request) => request.status === requestFilter);
+  }, [requestFilter, viewingRequests]);
 
   const loadContent = async () => {
     setLoading(true);
@@ -167,11 +372,29 @@ export default function AdminPage() {
 
     try {
       const db = getFirestore(app);
-      const propertySnapshot = await getDocs(query(collection(db, 'properties'), orderBy('createdAt', 'desc')));
+      const [propertySnapshot, requestSnapshot] = await Promise.all([
+        getDocs(query(collection(db, 'properties'), orderBy('createdAt', 'desc'))),
+        getDocs(query(collection(db, 'viewingRequests'), orderBy('createdAt', 'desc'))),
+      ]);
+
+      const parsedRequests = requestSnapshot.docs
+        .map((item) => parseViewingRequest(item.data() as Record<string, unknown>, item.id))
+        .filter((item): item is ViewingRequest => item !== null);
+
+      const enquiryCountBySlug = parsedRequests.reduce<Record<string, number>>((accumulator, request) => {
+        accumulator[request.buildingSlug] = (accumulator[request.buildingSlug] ?? 0) + 1;
+        return accumulator;
+      }, {});
+
       const parsedProperties = propertySnapshot.docs
-        .map((item) => parseManagedProperty(item.data() as Record<string, unknown>, item.id))
+        .map((item) => {
+          const data = item.data() as Record<string, unknown>;
+          const slug = typeof data.slug === 'string' ? data.slug : '';
+          return parseManagedProperty(data, item.id, enquiryCountBySlug[slug] ?? 0);
+        })
         .filter((item): item is ManagedProperty => item !== null);
 
+      setViewingRequests(parsedRequests);
       setProperties(parsedProperties);
     } catch {
       setError('Failed to load properties. Check Firebase settings and Firestore rules.');
@@ -197,6 +420,30 @@ export default function AdminPage() {
 
     loadContent();
   }, [unlocked]);
+
+  useEffect(() => {
+    setRequestDrafts((current) => {
+      const nextDrafts = viewingRequests.reduce<Record<string, { assignee: string; internalNotes: string }>>((accumulator, request) => {
+        accumulator[request.id] = current[request.id] ?? {
+          assignee: request.assignee,
+          internalNotes: request.internalNotes,
+        };
+        return accumulator;
+      }, {});
+
+      const currentKeys = Object.keys(current);
+      const nextKeys = Object.keys(nextDrafts);
+      const unchanged =
+        currentKeys.length === nextKeys.length &&
+        nextKeys.every(
+          (key) =>
+            current[key]?.assignee === nextDrafts[key]?.assignee &&
+            current[key]?.internalNotes === nextDrafts[key]?.internalNotes,
+        );
+
+      return unchanged ? current : nextDrafts;
+    });
+  }, [viewingRequests]);
 
   const handleUnlock = () => {
     if (!adminCode) {
@@ -227,6 +474,25 @@ export default function AdminPage() {
 
     try {
       const db = getFirestore(app);
+      const scheduledPublishAtIso =
+        propertyForm.scheduledPublishAt && !Number.isNaN(new Date(propertyForm.scheduledPublishAt).getTime())
+          ? new Date(propertyForm.scheduledPublishAt).toISOString()
+          : '';
+      const scheduledPublishAtText = scheduledPublishAtIso
+        ? new Date(scheduledPublishAtIso).toLocaleString('en-ZA', {
+            day: '2-digit',
+            month: 'short',
+            hour: '2-digit',
+            minute: '2-digit',
+          })
+        : '';
+      const lastEditedBy = propertyForm.lastEditedBy.trim();
+      const lastEditedAtText = new Date().toLocaleString('en-ZA', {
+        day: '2-digit',
+        month: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
       const record = buildPropertyRecord({
         ...propertyForm,
         slug: propertyForm.slug.trim() || slugifyPropertyName(propertyForm.name),
@@ -241,6 +507,16 @@ export default function AdminPage() {
 
       const payload = {
         ...record,
+        published: propertyForm.published,
+        publishedAt: propertyForm.published ? serverTimestamp() : null,
+        publishedAtText: propertyForm.published
+          ? new Date().toLocaleString('en-ZA', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })
+          : '',
+        scheduledPublishAtIso,
+        scheduledPublishAtText,
+        lastEditedBy,
+        lastEditedAt: serverTimestamp(),
+        lastEditedAtText,
         updatedAt: serverTimestamp(),
       };
 
@@ -283,6 +559,84 @@ export default function AdminPage() {
     }
   };
 
+  const handleTogglePublished = async (property: ManagedProperty) => {
+    setError(null);
+    setMessage(null);
+
+    try {
+      const db = getFirestore(app);
+      const nextPublished = !property.published;
+      await updateDoc(doc(db, 'properties', property.id), {
+        published: nextPublished,
+        publishedAt: nextPublished ? serverTimestamp() : null,
+        publishedAtText: nextPublished
+          ? new Date().toLocaleString('en-ZA', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })
+          : '',
+        scheduledPublishAtIso: nextPublished ? '' : property.scheduledPublishAt,
+        scheduledPublishAtText: nextPublished ? '' : property.scheduledPublishAtLabel,
+        updatedAt: serverTimestamp(),
+        lastEditedAt: serverTimestamp(),
+        lastEditedAtText: new Date().toLocaleString('en-ZA', {
+          day: '2-digit',
+          month: 'short',
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
+      });
+      setMessage(nextPublished ? 'Property published.' : 'Property moved to draft.');
+      await loadContent();
+    } catch {
+      setError('Could not update publishing status.');
+    }
+  };
+
+  const handleUpdateRequestStatus = async (requestId: string, status: EnquiryStatus) => {
+    setError(null);
+    setMessage(null);
+
+    try {
+      const db = getFirestore(app);
+      await updateDoc(doc(db, 'viewingRequests', requestId), {
+        status,
+        statusUpdatedAt: serverTimestamp(),
+        statusUpdatedAtText: new Date().toLocaleString('en-ZA', {
+          day: '2-digit',
+          month: 'short',
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
+      });
+      setMessage(`Enquiry marked as ${formatStatusLabel(status).toLowerCase()}.`);
+      await loadContent();
+    } catch {
+      setError('Could not update enquiry status.');
+    }
+  };
+
+  const handleSaveRequestNotes = async (requestId: string) => {
+    const draft = requestDrafts[requestId];
+
+    if (!draft) {
+      return;
+    }
+
+    setError(null);
+    setMessage(null);
+
+    try {
+      const db = getFirestore(app);
+      await updateDoc(doc(db, 'viewingRequests', requestId), {
+        assignee: draft.assignee.trim(),
+        internalNotes: draft.internalNotes.trim(),
+        updatedAt: serverTimestamp(),
+      });
+      setMessage('Enquiry notes updated.');
+      await loadContent();
+    } catch {
+      setError('Could not save enquiry notes.');
+    }
+  };
+
   const seedDefaults = async () => {
     setSaving(true);
     setError(null);
@@ -294,6 +648,14 @@ export default function AdminPage() {
       for (const property of defaultBuildings) {
         await addDoc(collection(db, 'properties'), {
           ...property,
+          published: true,
+          publishedAt: serverTimestamp(),
+          publishedAtText: new Date().toLocaleString('en-ZA', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }),
+          scheduledPublishAtIso: '',
+          scheduledPublishAtText: '',
+          lastEditedBy: 'Admin seed',
+          lastEditedAt: serverTimestamp(),
+          lastEditedAtText: new Date().toLocaleString('en-ZA', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }),
           createdAt: serverTimestamp(),
           updatedAt: serverTimestamp(),
         });
@@ -378,10 +740,18 @@ export default function AdminPage() {
           </div>
         </div>
 
-        <div className="mt-6 grid gap-3 md:grid-cols-4">
+        <div className="mt-6 grid gap-3 md:grid-cols-7">
           <div className="rounded-xl border border-[#d9dee8] bg-white px-4 py-3">
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#5f7695]">Live Buildings</p>
             <p className="mt-1 text-2xl font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>{properties.length}</p>
+          </div>
+          <div className="rounded-xl border border-[#d9dee8] bg-white px-4 py-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#5f7695]">Published</p>
+            <p className="mt-1 text-2xl font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>{stats.publishedCount}</p>
+          </div>
+          <div className="rounded-xl border border-[#d9dee8] bg-white px-4 py-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#5f7695]">Scheduled</p>
+            <p className="mt-1 text-2xl font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>{stats.scheduledCount}</p>
           </div>
           <div className="rounded-xl border border-[#d9dee8] bg-white px-4 py-3">
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#5f7695]">Single Options</p>
@@ -397,7 +767,21 @@ export default function AdminPage() {
               {stats.lowestPrice > 0 ? `R${stats.lowestPrice}` : 'Not set'}
             </p>
           </div>
+          <div className="rounded-xl border border-[#d9dee8] bg-white px-4 py-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#5f7695]">Viewing Requests</p>
+            <p className="mt-1 text-2xl font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>{stats.totalEnquiries}</p>
+          </div>
+          <div className="rounded-xl border border-[#d9dee8] bg-white px-4 py-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#5f7695]">New Enquiries</p>
+            <p className="mt-1 text-2xl font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>{stats.enquiryByStatus.new}</p>
+          </div>
         </div>
+
+        {stats.mostEnquired && stats.mostEnquired.enquiryCount > 0 && (
+          <div className="mt-5 rounded-2xl border border-[#d8dee8] bg-white px-5 py-4 text-sm text-[#324052]">
+            <span className="font-semibold text-[#162033]">Most enquired:</span> {stats.mostEnquired.name} with {stats.mostEnquired.enquiryCount} viewing request{stats.mostEnquired.enquiryCount === 1 ? '' : 's'}.
+          </div>
+        )}
 
         {(message || error) && (
           <div className="mt-5">
@@ -464,6 +848,25 @@ export default function AdminPage() {
               onChange={(value) => setPropertyForm((prev) => ({ ...prev, badge: value }))}
               placeholder="Quiet academic block"
             />
+            <label className="grid gap-2 text-sm text-[#243041]">
+              <span className="text-xs font-semibold uppercase tracking-[0.08em] text-[#5f7695]">Publishing Status</span>
+              <select
+                value={propertyForm.published ? 'published' : 'draft'}
+                onChange={(event) => setPropertyForm((prev) => ({ ...prev, published: event.target.value === 'published' }))}
+                className="w-full rounded-xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#5f7695] focus:ring-2 focus:ring-[#d6dfec]"
+              >
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+              </select>
+            </label>
+            <PropertyInput
+              label="Scheduled Publish"
+              type="datetime-local"
+              value={propertyForm.scheduledPublishAt}
+              onChange={(value) => setPropertyForm((prev) => ({ ...prev, scheduledPublishAt: value }))}
+              placeholder=""
+              required={false}
+            />
             <PropertyInput
               label="Price From"
               type="number"
@@ -494,6 +897,58 @@ export default function AdminPage() {
               placeholder="31.0134"
               required={false}
             />
+            <PropertyInput
+              label="Last Edited By"
+              value={propertyForm.lastEditedBy}
+              onChange={(value) => setPropertyForm((prev) => ({ ...prev, lastEditedBy: value }))}
+              placeholder="Lungile"
+              required={false}
+            />
+          </div>
+
+          <div className="grid gap-4">
+            <div>
+              <span className="kicker">Gallery Slots</span>
+              <p className="mt-2 text-sm text-muted">Each slot controls both the image order and the caption shown on the public building page.</p>
+            </div>
+            <div className="grid gap-4 lg:grid-cols-2">
+              {Array.from({ length: 4 }, (_, index) => {
+                const imageValue = splitMultiline(propertyForm.galleryImageUrls)[index] ?? '';
+                const captionValue = splitMultiline(propertyForm.galleryCaptions)[index] ?? '';
+
+                return (
+                  <div key={`gallery-slot-${index + 1}`} className="rounded-[1.4rem] border border-[#dde2ea] bg-[#fbfcfe] p-5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">Slot {index + 1}</p>
+                    <div className="mt-4 grid gap-4">
+                      <PropertyInput
+                        label="Image URL"
+                        value={imageValue}
+                        onChange={(value) =>
+                          setPropertyForm((prev) => ({
+                            ...prev,
+                            galleryImageUrls: setMultilineValue(prev.galleryImageUrls, index, value),
+                          }))
+                        }
+                        placeholder={index === 0 ? 'Leading image URL' : 'Additional gallery image URL'}
+                        required={false}
+                      />
+                      <PropertyTextarea
+                        label="Caption"
+                        value={captionValue}
+                        onChange={(value) =>
+                          setPropertyForm((prev) => ({
+                            ...prev,
+                            galleryCaptions: setMultilineValue(prev.galleryCaptions, index, value),
+                          }))
+                        }
+                        placeholder={index === 0 ? 'Arrival view or lead photo story caption' : 'Caption for this gallery slot'}
+                        rows={3}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           <div className="grid gap-4 lg:grid-cols-2">
@@ -684,6 +1139,9 @@ export default function AdminPage() {
                     <div className="mb-3 flex flex-wrap gap-2">
                       <span className="rounded-full bg-[#edf2f9] px-2.5 py-0.5 text-[11px] font-semibold text-[#2e4f7a]">{property.badge}</span>
                       <span className="rounded-full bg-[#f4f6f9] px-2.5 py-0.5 text-[11px] font-semibold text-[#4d6580]">{property.area}</span>
+                      <span className={`rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${getPropertyVisibilityBadgeClass(getPropertyVisibilityState(property))}`}>
+                        {getPropertyVisibilityLabel(getPropertyVisibilityState(property))}
+                      </span>
                     </div>
                     <h3 className="text-2xl font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
                       {property.name}
@@ -721,6 +1179,29 @@ export default function AdminPage() {
                       ))}
                     </div>
 
+                    <div className="rounded-xl border border-[#dde2ea] bg-white px-4 py-3 text-sm text-[#324052]">
+                      <span className="font-semibold text-[#162033]">Enquiries:</span> {property.enquiryCount}
+                    </div>
+
+                    {property.publishedAtLabel && property.published && getPropertyVisibilityState(property) === 'published' && (
+                      <div className="rounded-xl border border-[#dde2ea] bg-white px-4 py-3 text-sm text-[#324052]">
+                        <span className="font-semibold text-[#162033]">Published:</span> {property.publishedAtLabel}
+                      </div>
+                    )}
+
+                    {property.scheduledPublishAtLabel && getPropertyVisibilityState(property) === 'scheduled' && (
+                      <div className="rounded-xl border border-[#dde2ea] bg-white px-4 py-3 text-sm text-[#324052]">
+                        <span className="font-semibold text-[#162033]">Scheduled for:</span> {property.scheduledPublishAtLabel}
+                      </div>
+                    )}
+
+                    {(property.lastEditedBy || property.lastEditedAtLabel) && (
+                      <div className="rounded-xl border border-[#dde2ea] bg-white px-4 py-3 text-sm text-[#324052]">
+                        <span className="font-semibold text-[#162033]">Last edited:</span>{' '}
+                        {[property.lastEditedBy, property.lastEditedAtLabel].filter(Boolean).join(' · ')}
+                      </div>
+                    )}
+
                     <div className="flex flex-wrap gap-2">
                       {property.amenities.slice(0, 3).map((amenity) => (
                         <span key={amenity} className="rounded-full border border-[#d4dae4] bg-[#f7f8fb] px-3 py-1 text-xs font-medium text-[#405066]">
@@ -745,10 +1226,146 @@ export default function AdminPage() {
                   </button>
                   <button
                     type="button"
+                    className={`rounded-lg px-3 py-2 text-xs font-semibold ${property.published ? 'border border-[#d6b06a] bg-[#fff7e8] text-[#8b6124] hover:bg-[#ffefcb]' : 'bg-[#1f6946] text-white hover:bg-[#175236]'}`}
+                    onClick={() => handleTogglePublished(property)}
+                  >
+                    {property.published ? 'Move To Draft' : 'Publish Now'}
+                  </button>
+                  <button
+                    type="button"
                     className="rounded-lg border border-[#e3caca] bg-white px-3 py-2 text-xs font-semibold text-[#8b3535] hover:bg-[#fff4f4]"
                     onClick={() => handleDeleteProperty(property.id)}
                   >
                     Delete
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <section className="mt-8 panel rise p-6 md:p-8">
+        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <span className="kicker">Enquiry Inbox</span>
+            <h2 className="mt-3 text-3xl font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
+              Viewing requests from the public site
+            </h2>
+          </div>
+          <p className="max-w-xl text-sm text-muted">
+            These requests are captured from the contact page and grouped here so you can see which buildings are pulling the most intent.
+          </p>
+        </div>
+
+        <div className="mt-6 flex flex-wrap gap-2">
+          <button type="button" onClick={() => setRequestFilter('all')} className={requestFilter === 'all' ? 'btn-primary' : 'btn-secondary'}>
+            All ({viewingRequests.length})
+          </button>
+          {enquiryStatuses.map((status) => (
+            <button
+              key={status.value}
+              type="button"
+              onClick={() => setRequestFilter(status.value)}
+              className={requestFilter === status.value ? 'btn-primary' : 'btn-secondary'}
+            >
+              {status.label} ({stats.enquiryByStatus[status.value]})
+            </button>
+          ))}
+        </div>
+
+        {filteredViewingRequests.length === 0 ? (
+          <div className="mt-6 rounded-[1.4rem] border border-[#d8dee8] bg-white px-5 py-5 text-sm text-[#324052]">
+            {viewingRequests.length === 0
+              ? 'No viewing requests yet. Once renters submit the upgraded contact form, enquiries will appear here.'
+              : 'No enquiries match the current status filter.'}
+          </div>
+        ) : (
+          <div className="mt-6 grid gap-4 xl:grid-cols-2">
+            {filteredViewingRequests.map((request) => (
+              <article key={request.id} className="rounded-[1.4rem] border border-[#d8dee8] bg-white p-5 shadow-sm">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.12em] text-[#6a7891]">{request.createdAtLabel}</p>
+                    <h3 className="mt-2 text-xl font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
+                      {request.fullName}
+                    </h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="rounded-full bg-[#edf2f9] px-3 py-1 text-[11px] font-semibold text-[#2e4f7a]">
+                      {request.buildingName}
+                    </span>
+                    <span className={`rounded-full px-3 py-1 text-[11px] font-semibold ${getStatusBadgeClass(request.status)}`}>
+                      {formatStatusLabel(request.status)}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mt-4 grid gap-3 text-sm text-[#324052]">
+                  <div className="rounded-xl border border-[#e1e6ee] bg-[#fbfcfe] px-4 py-3"><span className="font-semibold text-[#162033]">Email:</span> {request.email}</div>
+                  <div className="rounded-xl border border-[#e1e6ee] bg-[#fbfcfe] px-4 py-3"><span className="font-semibold text-[#162033]">Phone:</span> {request.phone}</div>
+                  <div className="rounded-xl border border-[#e1e6ee] bg-[#fbfcfe] px-4 py-3"><span className="font-semibold text-[#162033]">Room mode:</span> {request.roomMode}</div>
+                  {request.roomTitle && (
+                    <div className="rounded-xl border border-[#e1e6ee] bg-[#fbfcfe] px-4 py-3"><span className="font-semibold text-[#162033]">Requested room:</span> {request.roomTitle}</div>
+                  )}
+                  <div className="rounded-xl border border-[#e1e6ee] bg-[#fbfcfe] px-4 py-3"><span className="font-semibold text-[#162033]">Campus:</span> {request.campus}</div>
+                  <div className="rounded-xl border border-[#e1e6ee] bg-[#fbfcfe] px-4 py-3"><span className="font-semibold text-[#162033]">Move-in month:</span> {request.moveInMonth}</div>
+                  <div className="rounded-xl border border-[#e1e6ee] bg-[#fbfcfe] px-4 py-3"><span className="font-semibold text-[#162033]">Budget:</span> {request.budget}</div>
+                  {request.preferredViewingDate && (
+                    <div className="rounded-xl border border-[#e1e6ee] bg-[#fbfcfe] px-4 py-3"><span className="font-semibold text-[#162033]">Preferred date:</span> {request.preferredViewingDate}</div>
+                  )}
+                  {request.notes && (
+                    <div className="rounded-xl border border-[#e1e6ee] bg-[#fbfcfe] px-4 py-3"><span className="font-semibold text-[#162033]">Notes:</span> {request.notes}</div>
+                  )}
+                  <div className="rounded-xl border border-[#e1e6ee] bg-[#fbfcfe] px-4 py-3"><span className="font-semibold text-[#162033]">Last status update:</span> {request.statusUpdatedAtLabel}</div>
+                </div>
+
+                <div className="mt-4 grid gap-4 lg:grid-cols-2">
+                  <PropertyInput
+                    label="Assignee"
+                    value={requestDrafts[request.id]?.assignee ?? request.assignee}
+                    onChange={(value) =>
+                      setRequestDrafts((prev) => ({
+                        ...prev,
+                        [request.id]: {
+                          ...(prev[request.id] ?? { assignee: request.assignee, internalNotes: request.internalNotes }),
+                          assignee: value,
+                        },
+                      }))
+                    }
+                    placeholder="Team member name"
+                    required={false}
+                  />
+                  <PropertyTextarea
+                    label="Internal Notes"
+                    value={requestDrafts[request.id]?.internalNotes ?? request.internalNotes}
+                    onChange={(value) =>
+                      setRequestDrafts((prev) => ({
+                        ...prev,
+                        [request.id]: {
+                          ...(prev[request.id] ?? { assignee: request.assignee, internalNotes: request.internalNotes }),
+                          internalNotes: value,
+                        },
+                      }))
+                    }
+                    placeholder="Follow-up context, call notes, blockers, or next actions"
+                    rows={4}
+                  />
+                </div>
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {enquiryStatuses.map((status) => (
+                    <button
+                      key={`${request.id}-${status.value}`}
+                      type="button"
+                      onClick={() => handleUpdateRequestStatus(request.id, status.value)}
+                      className={request.status === status.value ? 'btn-primary' : 'btn-secondary'}
+                    >
+                      {status.label}
+                    </button>
+                  ))}
+                  <button type="button" onClick={() => handleSaveRequestNotes(request.id)} className="btn-secondary">
+                    Save Notes
                   </button>
                 </div>
               </article>

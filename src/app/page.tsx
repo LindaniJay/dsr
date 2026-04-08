@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import PropertyGrid from '../components/PropertyGrid';
+import { homepageProofSignals } from '../utils/siteExperience';
 
 const servicePillars = [
   {
@@ -45,31 +46,31 @@ const focusAreas = [
 export default function Home() {
   return (
     <div>
-      <section className="app-shell section-spacing pt-12 md:pt-16">
-        <div className="page-hero px-6 py-8 md:px-10 md:py-12">
-          <div className="grid gap-8 md:grid-cols-[1.25fr_0.85fr] md:items-end relative z-10">
-          <div className="rise">
+      <section className="app-shell section-spacing pt-8 md:pt-16">
+        <div className="page-hero px-5 py-6 md:px-10 md:py-12">
+          <div className="relative z-10 grid gap-6 md:grid-cols-[1.25fr_0.85fr] md:items-end md:gap-8">
+            <div className="rise">
             <span className="kicker">Durban Student Accommodation</span>
             <h1
-              className="architect-heading mt-5 text-4xl font-extrabold text-[#121522] sm:text-6xl lg:text-7xl tracking-tight"
+              className="architect-heading mt-4 text-3xl font-extrabold text-[#121522] sm:text-5xl lg:text-7xl tracking-tight"
               style={{ fontFamily: 'var(--font-space), sans-serif', letterSpacing: '-0.03em' }}
             >
               Find a well-located student stay with less guesswork.
             </h1>
-            <p className="mt-6 max-w-2xl text-lg text-muted md:text-xl">
+            <p className="mt-5 max-w-2xl text-base text-muted md:text-xl">
               Explore student accommodation near UKZN and DUT by building, compare the atmosphere and daily convenience, then choose between single and sharing rooms inside the property that suits you.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/buildings" className="btn-primary shadow-lg">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Link href="/buildings" className="btn-primary w-full text-center shadow-lg sm:w-auto">
                 Explore Buildings
               </Link>
-              <Link href="/contact" className="btn-secondary">
+              <Link href="/contact" className="btn-secondary w-full text-center sm:w-auto">
                 Ask About Availability
               </Link>
             </div>
-          </div>
+            </div>
 
-          <div className="tonal-card rise p-6 text-white" style={{ animationDelay: '120ms' }}>
+            <div className="tonal-card rise p-5 text-white md:p-6" style={{ animationDelay: '120ms' }}>
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-white/70">City Snapshot</p>
             <h2
               className="mt-2 text-2xl font-semibold text-white"
@@ -81,7 +82,7 @@ export default function Home() {
               <p className="text-base text-white/80">
                 From Berea to Glenwood and Umbilo, the best student rentals balance security, transport convenience, study-friendly interiors, and a manageable route to campus.
               </p>
-              <div className="grid gap-3 sm:grid-cols-3 mt-2">
+              <div className="mt-2 grid gap-3 sm:grid-cols-3">
                 <div className="rounded-2xl border border-white/12 bg-white/8 px-4 py-4">
                   <p className="text-[11px] uppercase tracking-[0.12em] text-white/65">Focus</p>
                   <p className="mt-2 text-sm font-semibold">Campus routes</p>
@@ -96,8 +97,8 @@ export default function Home() {
                 </div>
               </div>
             </div>
+            </div>
           </div>
-        </div>
         </div>
       </section>
 
@@ -118,8 +119,27 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="app-shell section-spacing pt-2">
+        <div className="editorial-card rise p-6 md:p-8">
+          <div className="mb-6 section-heading">
+            <span className="kicker">Proof and Trust</span>
+            <h2 className="text-3xl font-semibold text-[#121522] md:text-4xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
+              Add confidence before the first viewing.
+            </h2>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            {homepageProofSignals.map((signal) => (
+              <article key={signal.label} className="rounded-[1.3rem] border border-[#d9dee8] bg-white px-5 py-5">
+                <p className="stat-label">{signal.label}</p>
+                <p className="mt-3 text-base font-semibold text-[#162033]">{signal.value}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="app-shell section-spacing pt-2" id="top-buildings">
-        <div className="mb-7 flex items-end justify-between gap-4">
+        <div className="mb-7 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div className="section-heading">
             <span className="kicker">Featured Buildings</span>
             <h2 className="architect-heading mt-4 text-3xl font-semibold text-[#121522] md:text-4xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
@@ -138,7 +158,7 @@ export default function Home() {
       </section>
 
       <section className="app-shell section-spacing">
-        <div className="mb-7 flex items-end justify-between gap-4">
+        <div className="mb-7 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div className="section-heading">
             <span className="kicker">What We Build</span>
             <h2
@@ -173,7 +193,7 @@ export default function Home() {
       </section>
 
       <section className="app-shell section-spacing pt-2">
-          <div className="mb-7 section-heading">
+        <div className="mb-7 section-heading">
           <span className="kicker">How We Operate</span>
           <h2
             className="architect-heading mt-4 text-3xl font-semibold text-[#121522] md:text-4xl"
@@ -237,7 +257,7 @@ export default function Home() {
       </section>
 
       <section className="app-shell section-spacing pt-2">
-        <div className="rounded-[1.8rem] border border-[#d4d9e2] bg-[linear-gradient(130deg,#17273b,#1f3a5a)] px-6 py-10 text-white md:px-10 shadow-[0_20px_50px_rgba(19,29,43,0.18)]">
+        <div className="rounded-[1.8rem] border border-[#d4d9e2] bg-[linear-gradient(130deg,#17273b,#1f3a5a)] px-5 py-8 text-white md:px-10 md:py-10 shadow-[0_20px_50px_rgba(19,29,43,0.18)]">
           <p className="text-xs font-semibold uppercase tracking-[0.13em] text-[#d9e4f5]">Start Your Search</p>
           <h2
             className="mt-3 max-w-2xl text-3xl font-semibold md:text-4xl"
@@ -248,12 +268,15 @@ export default function Home() {
           <p className="mt-4 max-w-xl text-sm text-[#d9e1ec] md:text-base">
             Start with the building, compare room types, and move into a viewing enquiry with more confidence.
           </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Link href="/buildings" className="btn-secondary !border-white/35 !bg-white !text-[#1d2a3d]">
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Link href="/buildings" className="btn-secondary w-full text-center !border-white/35 !bg-white !text-[#1d2a3d] sm:w-auto">
               Browse Buildings
             </Link>
-            <Link href="/ambassadors" className="btn-secondary !border-white/35 !bg-transparent !text-white hover:!bg-white/10">
+            <Link href="/ambassadors" className="btn-secondary w-full text-center !border-white/35 !bg-transparent !text-white hover:!bg-white/10 sm:w-auto">
               Rental Guide
+            </Link>
+            <Link href="/apply" className="btn-secondary w-full text-center !border-white/35 !bg-transparent !text-white hover:!bg-white/10 sm:w-auto">
+              Application Guide
             </Link>
           </div>
         </div>

@@ -5,11 +5,11 @@ import { buildingCompareChecklist, rentalWorkflowStages } from '../../utils/cont
 export default function BuildingsPage() {
   return (
     <div className="app-shell section-spacing">
-      <section className="page-hero rise px-6 py-8 md:px-10 md:py-12">
+      <section className="page-hero rise px-5 py-6 md:px-10 md:py-12">
         <div className="grid gap-8 md:grid-cols-[1.15fr_0.85fr] md:items-end">
           <div className="section-heading">
             <span className="kicker">Browse Buildings</span>
-            <h1 className="architect-heading mt-5 text-4xl font-semibold text-[#121522] md:text-6xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
+            <h1 className="architect-heading mt-4 text-3xl font-semibold text-[#121522] md:text-6xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
               Find the right building before you narrow down to the room.
             </h1>
             <p className="mt-5 max-w-3xl text-base text-muted md:text-lg">
@@ -79,9 +79,10 @@ export default function BuildingsPage() {
           <p className="mt-4 max-w-2xl text-sm text-muted md:text-base">
             The strongest enquiries include the building you prefer, the room type you want, and your expected move-in timing. That gives the next conversation a clearer starting point.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="#top-buildings" className="btn-primary">Compare Buildings</Link>
-            <Link href="/contact" className="btn-secondary">Ask About Viewings</Link>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Link href="#top-buildings" className="btn-primary w-full text-center sm:w-auto">Compare Buildings</Link>
+            <Link href="/contact" className="btn-secondary w-full text-center sm:w-auto">Ask About Viewings</Link>
+            <Link href="/apply" className="btn-secondary w-full text-center sm:w-auto">Application Guide</Link>
           </div>
         </article>
       </section>

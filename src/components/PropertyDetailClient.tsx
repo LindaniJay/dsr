@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
 import app from '../utils/firebase';
 import type { BuildingItem } from '../utils/contentData';
-import { parsePropertyRecord } from '../utils/propertyRecords';
+import { isPropertyPublicRecord, parsePropertyRecord } from '../utils/propertyRecords';
+import { getBuildingExperience } from '../utils/siteExperience';
 import BuildingRoomExplorer from './BuildingRoomExplorer';
 
 type PropertyDetailClientProps = {
@@ -23,7 +24,9 @@ export default function PropertyDetailClient({ slug, initialBuilding }: Property
         const db = getFirestore(app);
         const snapshot = await getDocs(query(collection(db, 'properties'), where('slug', '==', slug)));
         const property = snapshot.docs
-          .map((item) => parsePropertyRecord(item.data() as Record<string, unknown>))
+          .map((item) => item.data() as Record<string, unknown>)
+          .filter((item) => isPropertyPublicRecord(item))
+          .map((item) => parsePropertyRecord(item))
           .find((item): item is BuildingItem => item !== null) ?? null;
 
         if (property) {
@@ -61,6 +64,8 @@ export default function PropertyDetailClient({ slug, initialBuilding }: Property
     );
   }
 
+  const experience = getBuildingExperience(building.slug);
+
   return (
     <>
       <section className="mb-8 rise">
@@ -93,6 +98,28 @@ export default function PropertyDetailClient({ slug, initialBuilding }: Property
                 {highlight}
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-10 editorial-card rise p-6 md:p-8">
+        <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+          <div>
+            <span className="kicker">Next Step</span>
+            <h2 className="mt-4 text-3xl font-semibold text-[#121522] md:text-4xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
+              Prepare a cleaner viewing request before you apply.
+            </h2>
+            <p className="mt-3 text-sm text-muted md:text-base">
+              Use the application guide to confirm your documents, rent structure, and move-in timing before you lock in this building.
+            </p>
+          </div>
+          <div className="grid gap-3">
+            <div className="rounded-xl border border-[#dde2ea] bg-white px-4 py-4 text-sm text-[#324052]">{experience.operator.verification}</div>
+            <div className="rounded-xl border border-[#dde2ea] bg-white px-4 py-4 text-sm text-[#324052]">Viewing schedule: {experience.operator.viewingDays}</div>
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Link href={`/contact?building=${building.slug}`} className="btn-primary w-full text-center sm:w-auto">Request a Viewing</Link>
+              <Link href="/apply" className="btn-secondary w-full text-center sm:w-auto">Application Guide</Link>
+            </div>
           </div>
         </div>
       </section>

@@ -1,15 +1,26 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import type { BuildingItem } from '../utils/contentData';
+import { useSavedBuildings } from '../hooks/useSavedBuildings';
+import { getBuildingExperience, getAvailabilityClassName, getAvailabilityLabel, inferAvailabilityState } from '../utils/siteExperience';
 
 type BuildingCardProps = {
   building: BuildingItem;
   priority?: boolean;
+  active?: boolean;
 };
 
-export default function BuildingCard({ building, priority = false }: BuildingCardProps) {
+export default function BuildingCard({ building, priority = false, active = false }: BuildingCardProps) {
+  const { shortlist, compare, toggleShortlist, toggleCompare } = useSavedBuildings();
+  const experience = getBuildingExperience(building.slug);
+  const buildingAvailability = inferAvailabilityState(building.roomOptions.map((room) => room.availability).join(' '));
+  const isSaved = shortlist.includes(building.slug);
+  const isCompared = compare.includes(building.slug);
+
   return (
-    <article className="panel rise overflow-hidden rounded-[1.7rem]">
+    <article id={`building-card-${building.slug}`} className={`panel rise overflow-hidden rounded-[1.7rem] transition-all ${active ? 'ring-2 ring-[#b99258] ring-offset-4 ring-offset-[#f6f1e8]' : ''}`}>
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image
           src={building.heroImage}
@@ -23,6 +34,9 @@ export default function BuildingCard({ building, priority = false }: BuildingCar
         <div className="absolute left-4 top-4 rounded-full border border-white/35 bg-white/18 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-md">
           {building.badge}
         </div>
+        <div className={`absolute right-4 top-4 rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ${getAvailabilityClassName(buildingAvailability)}`}>
+          {getAvailabilityLabel(buildingAvailability)}
+        </div>
         <div className="absolute inset-x-4 bottom-4 text-white">
           <p className="text-xs uppercase tracking-[0.14em] text-white/80">{building.area}</p>
           <h2 className="mt-2 text-2xl font-semibold" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
@@ -34,6 +48,10 @@ export default function BuildingCard({ building, priority = false }: BuildingCar
 
       <div className="space-y-5 p-5 md:p-6">
         <p className="text-sm text-muted">{building.summary}</p>
+
+        <div className="rounded-xl border border-[#e1e6ee] bg-[#fbfcfe] px-4 py-3 text-sm text-[#324052]">
+          <span className="font-semibold text-[#162033]">Best for:</span> {experience.bestFor}
+        </div>
 
         <div className="compact-meta-grid">
           <div className="compact-meta-item">
@@ -66,13 +84,30 @@ export default function BuildingCard({ building, priority = false }: BuildingCar
           ))}
         </div>
 
+        <div className="grid gap-2 text-sm text-[#324052]">
+          {experience.trustSignals.slice(0, 2).map((signal) => (
+            <div key={signal} className="rounded-xl border border-[#e1e6ee] bg-white px-4 py-3">
+              {signal}
+            </div>
+          ))}
+        </div>
+
         <div className="flex flex-wrap gap-3">
           <Link href={`/buildings/${building.slug}`} className="btn-primary">
             View Rooms
           </Link>
-          <Link href="/contact" className="btn-secondary">
+          <Link href={`/contact?building=${building.slug}`} className="btn-secondary">
             Ask About Availability
           </Link>
+        </div>
+
+        <div className="grid gap-2 sm:grid-cols-2">
+          <button type="button" onClick={() => toggleShortlist(building.slug)} className="btn-secondary">
+            {isSaved ? 'Saved to shortlist' : 'Save shortlist'}
+          </button>
+          <button type="button" onClick={() => toggleCompare(building.slug)} className="btn-secondary">
+            {isCompared ? 'Added to compare' : 'Compare building'}
+          </button>
         </div>
       </div>
     </article>

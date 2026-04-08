@@ -99,12 +99,12 @@ export default function BuildingMap({ buildings, activeSlug, onActiveSlugChange,
   }
 
   return (
-    <section className="editorial-card rise p-6 md:p-8">
+    <section className="editorial-card rise p-5 md:p-8">
       <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
         <div>
           <div className="section-heading">
             <span className="kicker">Interactive Map</span>
-            <h2 className="text-3xl font-semibold text-[#121522] md:text-4xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
+            <h2 className="text-2xl font-semibold text-[#121522] md:text-4xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
               Compare buildings, room mixes, and nearby essentials on a live map.
             </h2>
             <p className="text-sm text-muted md:text-base">
@@ -116,7 +116,7 @@ export default function BuildingMap({ buildings, activeSlug, onActiveSlugChange,
             <Map
               initialViewState={initialViewState}
               mapStyle={mapStyle}
-              style={{ width: '100%', height: 540 }}
+              style={{ width: '100%', height: 420 }}
             >
               <NavigationControl position="top-right" showCompass={false} />
 
@@ -154,7 +154,7 @@ export default function BuildingMap({ buildings, activeSlug, onActiveSlugChange,
                     <button
                       type="button"
                       onClick={() => onActiveSlugChange(building.slug)}
-                      className={`rounded-full border-2 px-3 py-2 text-xs font-semibold shadow-[0_10px_22px_rgba(19,29,43,0.18)] ${
+                      className={`max-w-[132px] truncate rounded-full border-2 px-2.5 py-1.5 text-[11px] font-semibold shadow-[0_10px_22px_rgba(19,29,43,0.18)] md:max-w-none md:px-3 md:py-2 md:text-xs ${
                         active ? 'border-[#1f3a5a] bg-[#1f3a5a] text-white' : 'border-white bg-[#b99258] text-white'
                       }`}
                     >
@@ -191,7 +191,7 @@ export default function BuildingMap({ buildings, activeSlug, onActiveSlugChange,
                 offset={24}
                 className="[&_.maplibregl-popup-content]:!rounded-2xl [&_.maplibregl-popup-content]:!border [&_.maplibregl-popup-content]:!border-[#d9dee8] [&_.maplibregl-popup-content]:!bg-white [&_.maplibregl-popup-content]:!p-0 [&_.maplibregl-popup-tip]:!border-t-white"
               >
-                <div className="min-w-[240px] p-4 text-sm text-[#243041]">
+                <div className="min-w-[180px] max-w-[220px] p-4 text-sm text-[#243041] md:min-w-[240px] md:max-w-none">
                   <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">{activeBuilding.area}</p>
                   <p className="mt-2 text-lg font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
                     {activeBuilding.name}
@@ -210,7 +210,7 @@ export default function BuildingMap({ buildings, activeSlug, onActiveSlugChange,
                   onClose={() => setSelectedNearbyId(null)}
                   className="[&_.maplibregl-popup-content]:!rounded-2xl [&_.maplibregl-popup-content]:!border [&_.maplibregl-popup-content]:!border-[#d9dee8] [&_.maplibregl-popup-content]:!bg-white [&_.maplibregl-popup-content]:!p-0 [&_.maplibregl-popup-tip]:!border-t-white"
                 >
-                  <div className="min-w-[220px] p-4 text-sm text-[#243041]">
+                  <div className="min-w-[180px] max-w-[220px] p-4 text-sm text-[#243041] md:min-w-[220px] md:max-w-none">
                     <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">{selectedNearbyPlace.category}</p>
                     <p className="mt-2 text-base font-semibold text-[#121522]">{selectedNearbyPlace.name}</p>
                     <p className="mt-2 text-sm text-muted">{selectedNearbyPlace.distance}</p>
@@ -223,7 +223,7 @@ export default function BuildingMap({ buildings, activeSlug, onActiveSlugChange,
 
         <aside className="panel p-6 lg:sticky lg:top-28">
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#5f7695]">Selected Building</p>
-          <h3 className="mt-3 text-3xl font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
+          <h3 className="mt-3 text-2xl font-semibold text-[#121522] md:text-3xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
             {activeBuilding.name}
           </h3>
           <p className="mt-3 text-sm text-muted">{activeBuilding.headline}</p>
@@ -271,11 +271,11 @@ export default function BuildingMap({ buildings, activeSlug, onActiveSlugChange,
             </div>
           )}
 
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link href={`/buildings/${activeBuilding.slug}`} className="btn-primary">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Link href={`/buildings/${activeBuilding.slug}`} className="btn-primary w-full text-center sm:w-auto">
               Open Building
             </Link>
-            <Link href="/contact" className="btn-secondary">
+            <Link href="/contact" className="btn-secondary w-full text-center sm:w-auto">
               Ask About Rooms
             </Link>
           </div>

@@ -15,6 +15,7 @@ const primaryNavLinks = [
 const moreNavLinks = [
   { href: '/shop', label: 'Room Types' },
   { href: '/gallery', label: 'Neighbourhoods' },
+  { href: '/apply', label: 'Application Guide' },
   { href: '/testimonials', label: 'Reviews' },
   { href: '/faq', label: 'FAQ' },
   { href: '/admin', label: 'Dashboard' },
@@ -56,19 +57,19 @@ const NavBar = () => {
         }`}
         aria-label="Main navigation"
       >
-        <div className="grid-fade flex items-center justify-between gap-4 px-4 py-3 md:px-6">
-          <Link href="/" className="flex items-center gap-3 focus-visible:ring-2 focus-visible:ring-[#caa86a] rounded-xl transition" onClick={closeAllMenus}>
+        <div className="grid-fade flex items-center justify-between gap-3 px-3 py-3 md:px-6">
+          <Link href="/" className="flex min-w-0 items-center gap-3 rounded-xl transition focus-visible:ring-2 focus-visible:ring-[#caa86a]" onClick={closeAllMenus}>
             <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#d3c2a7] bg-[linear-gradient(135deg,#18314d,#b99258)] text-sm font-bold text-white shadow-sm">
               DS
             </span>
-            <span>
+            <span className="min-w-0">
               <span
-                className="block text-lg font-semibold tracking-tight text-[#121522]"
+                className="block truncate text-base font-semibold tracking-tight text-[#121522] sm:text-lg"
                 style={{ fontFamily: 'var(--font-space), sans-serif' }}
               >
                 Durban Student Stays
               </span>
-              <span className="block text-[10px] uppercase tracking-[0.18em] text-[#64758b]">
+              <span className="hidden text-[10px] uppercase tracking-[0.18em] text-[#64758b] sm:block">
                 Student accommodation in Durban
               </span>
             </span>
@@ -165,7 +166,7 @@ const NavBar = () => {
                   setIsMobileMenuOpen(false);
                   setIsMoreMenuOpen((prev) => !prev);
                 }}
-                className="inline-flex h-10 items-center justify-center rounded-xl border border-[#d6d9e0] bg-white px-3 text-xs font-semibold uppercase tracking-[0.08em] text-[#1f3350]"
+                className="inline-flex h-10 items-center justify-center rounded-xl border border-[#d6d9e0] bg-white px-2.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#1f3350] sm:px-3 sm:text-xs"
                 aria-label="Toggle more menu"
               >
                 More {isMoreMenuOpen ? 'x' : '+'}

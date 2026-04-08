@@ -6,6 +6,9 @@ export type PropertyFormValues = {
   name: string;
   area: string;
   badge: string;
+  published: boolean;
+  scheduledPublishAt: string;
+  lastEditedBy: string;
   priceFrom: number;
   latitude: number;
   longitude: number;
@@ -14,6 +17,8 @@ export type PropertyFormValues = {
   headline: string;
   summary: string;
   heroImage: string;
+  galleryImageUrls: string;
+  galleryCaptions: string;
   amenities: string;
   highlights: string;
   workflowNotes: string;
@@ -35,6 +40,9 @@ export const emptyPropertyForm: PropertyFormValues = {
   name: '',
   area: '',
   badge: 'Architectural student address',
+  published: true,
+  scheduledPublishAt: '',
+  lastEditedBy: 'Admin team',
   priceFrom: 4200,
   latitude: -29.8417,
   longitude: 31.0134,
@@ -43,6 +51,8 @@ export const emptyPropertyForm: PropertyFormValues = {
   headline: '',
   summary: '',
   heroImage: '/buildings/musgrave-exterior.svg',
+  galleryImageUrls: '',
+  galleryCaptions: '',
   amenities: 'Wi-Fi ready floors\nControlled access\nLaundry room\nWater backup',
   highlights: 'Near key student routes\nClear rental structure\nStrong day-to-day practicality',
   workflowNotes: 'Review the building first\nCompare single and sharing options\nAsk about utilities before deposit',
@@ -74,29 +84,34 @@ export function slugifyPropertyName(value: string) {
     .replace(/^-+|-+$/g, '');
 }
 
-function createGallery(name: string, area: string, heroImage: string): BuildingGalleryItem[] {
-  return [
-    {
-      src: heroImage,
-      alt: `${name} exterior`,
-      caption: `Arrival view of ${name} in ${area}.`,
-    },
-    {
-      src: '/buildings/room-study.svg',
-      alt: `${name} study zone`,
-      caption: 'Study-oriented common area with a calmer, more structured layout.',
-    },
-    {
-      src: '/buildings/room-single.svg',
-      alt: `${name} single room`,
-      caption: 'Private room arrangement with desk space, storage, and better light control.',
-    },
-    {
-      src: '/buildings/room-sharing.svg',
-      alt: `${name} sharing room`,
-      caption: 'Sharing layout planned around circulation, storage, and everyday practicality.',
-    },
+function createGallery(
+  name: string,
+  area: string,
+  heroImage: string,
+  galleryImageUrls: string,
+  galleryCaptions: string,
+): BuildingGalleryItem[] {
+  const customImages = splitTextList(galleryImageUrls);
+  const customCaptions = splitTextList(galleryCaptions);
+  const orderedImages = customImages.length > 0 ? customImages : [
+    heroImage,
+    '/buildings/room-study.svg',
+    '/buildings/room-single.svg',
+    '/buildings/room-sharing.svg',
   ];
+
+  const captions = [
+    `Arrival view of ${name} in ${area}.`,
+    'Study-oriented common area with a calmer, more structured layout.',
+    'Private room arrangement with desk space, storage, and better light control.',
+    'Sharing layout planned around circulation, storage, and everyday practicality.',
+  ];
+
+  return orderedImages.slice(0, 4).map((src, index) => ({
+    src,
+    alt: `${name} gallery image ${index + 1}`,
+    caption: customCaptions[index] ?? captions[index] ?? `Additional view of ${name}.`,
+  }));
 }
 
 function createRoomOptions(form: PropertyFormValues): RoomOption[] {
@@ -209,7 +224,13 @@ export function buildPropertyRecord(form: PropertyFormValues): BuildingItem {
     headline: form.headline.trim(),
     summary: form.summary.trim(),
     heroImage: form.heroImage.trim(),
-    gallery: createGallery(form.name.trim(), form.area.trim(), form.heroImage.trim()),
+    gallery: createGallery(
+      form.name.trim(),
+      form.area.trim(),
+      form.heroImage.trim(),
+      form.galleryImageUrls,
+      form.galleryCaptions,
+    ),
     amenities: splitTextList(form.amenities),
     highlights: splitTextList(form.highlights),
     workflowNotes: splitTextList(form.workflowNotes),
@@ -404,4 +425,22 @@ export function parsePropertyRecord(raw: Record<string, unknown>): BuildingItem 
       detail: review.detail,
     },
   };
+}
+
+export function isPropertyPublicRecord(raw: Record<string, unknown>, now = new Date()) {
+  if (raw.published === false) {
+    return false;
+  }
+
+  if (typeof raw.scheduledPublishAtIso !== 'string' || raw.scheduledPublishAtIso.trim().length === 0) {
+    return true;
+  }
+
+  const scheduledTime = new Date(raw.scheduledPublishAtIso).getTime();
+
+  if (Number.isNaN(scheduledTime)) {
+    return true;
+  }
+
+  return scheduledTime <= now.getTime();
 }

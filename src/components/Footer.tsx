@@ -31,6 +31,7 @@ export default function Footer() {
             <Link href="/buildings">Buildings</Link>
             <Link href="/shop">Room Types</Link>
             <Link href="/gallery">Neighbourhoods</Link>
+            <Link href="/apply">Application Guide</Link>
             <Link href="/ambassadors">Rental Guide</Link>
             <Link href="/contact">Contact</Link>
           </nav>
@@ -52,7 +53,12 @@ export default function Footer() {
             </a>
           ))}
           </div>
-          <p className="mt-5 text-sm text-[#566476]">For viewings and availability, use the contact page to send your preferred area, room type, and move-in timing.</p>
+          <div className="mt-5 grid gap-3 text-sm text-[#566476]">
+            <p>For viewings and availability, use the contact page to send your preferred area, room type, and move-in timing.</p>
+            <p>WhatsApp: +27 00 000 0000</p>
+            <p>Viewing hours: Monday to Saturday, 09:00 to 17:00</p>
+            <p>Response time: usually within one working day</p>
+          </div>
         </div>
       </div>
       <div className="mt-8 text-center text-xs text-[#8a98b6]">

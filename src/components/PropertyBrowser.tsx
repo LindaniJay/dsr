@@ -4,11 +4,19 @@ import { useEffect, useMemo, useState } from 'react';
 import { collection, getDocs, getFirestore, orderBy, query } from 'firebase/firestore';
 import app from '../utils/firebase';
 import { defaultBuildings, type BuildingItem } from '../utils/contentData';
-import { parsePropertyRecord } from '../utils/propertyRecords';
+import { isPropertyPublicRecord, parsePropertyRecord } from '../utils/propertyRecords';
+import ComparisonDock from './ComparisonDock';
 import BuildingMap from './BuildingMap';
 import PropertyGrid from './PropertyGrid';
+import ShortlistPanel from './ShortlistPanel';
 
 type RoomModeFilter = 'all' | 'single' | 'sharing';
+type CampusFocus = 'all' | 'ukzn' | 'dut';
+
+function getCommuteMinutes(text: string) {
+  const match = text.match(/(\d+)/);
+  return match ? Number(match[1]) : 999;
+}
 
 export default function PropertyBrowser() {
   const [buildings, setBuildings] = useState<BuildingItem[]>(defaultBuildings);
@@ -18,6 +26,7 @@ export default function PropertyBrowser() {
   const [maxPrice, setMaxPrice] = useState(7000);
   const [showNearbyPlaces, setShowNearbyPlaces] = useState(true);
   const [commuteTargets, setCommuteTargets] = useState<Array<'ukzn' | 'dut'>>(['ukzn', 'dut']);
+  const [campusFocus, setCampusFocus] = useState<CampusFocus>('all');
 
   useEffect(() => {
     const loadProperties = async () => {
@@ -25,7 +34,9 @@ export default function PropertyBrowser() {
         const db = getFirestore(app);
         const snapshot = await getDocs(query(collection(db, 'properties'), orderBy('createdAt', 'desc')));
         const parsed = snapshot.docs
-          .map((item) => parsePropertyRecord(item.data() as Record<string, unknown>))
+          .map((item) => item.data() as Record<string, unknown>)
+          .filter((item) => isPropertyPublicRecord(item))
+          .map((item) => parsePropertyRecord(item))
           .filter((item): item is BuildingItem => item !== null);
 
         if (parsed.length > 0) {
@@ -47,7 +58,7 @@ export default function PropertyBrowser() {
   );
 
   const filteredBuildings = useMemo(() => {
-    return buildings.filter((building) => {
+    const filtered = buildings.filter((building) => {
       const matchesArea = areaFilter === 'all' || building.area === areaFilter;
       const matchesPrice = building.priceFrom <= maxPrice;
       const matchesRoomMode =
@@ -55,7 +66,15 @@ export default function PropertyBrowser() {
 
       return matchesArea && matchesPrice && matchesRoomMode;
     });
-  }, [areaFilter, buildings, maxPrice, roomModeFilter]);
+
+    if (campusFocus === 'all') {
+      return filtered;
+    }
+
+    return [...filtered].sort((left, right) =>
+      getCommuteMinutes(left.campusAccess[campusFocus]) - getCommuteMinutes(right.campusAccess[campusFocus]),
+    );
+  }, [areaFilter, buildings, campusFocus, maxPrice, roomModeFilter]);
 
   const resolvedActiveSlug = useMemo(() => {
     if (filteredBuildings.length === 0) {
@@ -75,11 +94,11 @@ export default function PropertyBrowser() {
 
   return (
     <div className="space-y-8">
-      <section className="panel rise p-6 md:p-8">
+      <section className="panel rise p-5 md:p-8">
         <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
           <div className="section-heading">
             <span className="kicker">Map Filters</span>
-            <h2 className="text-3xl font-semibold text-[#121522] md:text-4xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
+            <h2 className="text-2xl font-semibold text-[#121522] md:text-4xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
               Narrow the map before you open a building.
             </h2>
             <p className="text-sm text-muted md:text-base">
@@ -87,7 +106,7 @@ export default function PropertyBrowser() {
             </p>
           </div>
 
-          <div className="rounded-[1.5rem] border border-[#d9dee8] bg-[#f8fafc] px-5 py-4 text-sm text-[#324052]">
+          <div className="rounded-[1.5rem] border border-[#d9dee8] bg-[#f8fafc] px-4 py-4 text-sm text-[#324052]">
             Showing {filteredBuildings.length} building{filteredBuildings.length === 1 ? '' : 's'} with {roomModeFilter === 'all' ? 'all room types' : `${roomModeFilter} rooms`} up to R{maxPrice}/mo.
           </div>
         </div>
@@ -136,25 +155,58 @@ export default function PropertyBrowser() {
           </label>
         </div>
 
-        <div className="mt-5 flex flex-wrap gap-3">
+        <div className="mt-5 grid gap-3 sm:flex sm:flex-wrap">
+          <button
+            type="button"
+            onClick={() => {
+              setCampusFocus('all');
+              setCommuteTargets(['ukzn', 'dut']);
+            }}
+            className={campusFocus === 'all' ? 'btn-primary w-full justify-center text-center sm:w-auto' : 'btn-secondary w-full justify-center text-center sm:w-auto'}
+          >
+            All campuses
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setCampusFocus('ukzn');
+              setCommuteTargets(['ukzn']);
+            }}
+            className={campusFocus === 'ukzn' ? 'btn-primary w-full justify-center text-center sm:w-auto' : 'btn-secondary w-full justify-center text-center sm:w-auto'}
+          >
+            Best for UKZN
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setCampusFocus('dut');
+              setCommuteTargets(['dut']);
+            }}
+            className={campusFocus === 'dut' ? 'btn-primary w-full justify-center text-center sm:w-auto' : 'btn-secondary w-full justify-center text-center sm:w-auto'}
+          >
+            Best for DUT
+          </button>
+        </div>
+
+        <div className="mt-5 grid gap-3 sm:flex sm:flex-wrap">
           <button
             type="button"
             onClick={() => setShowNearbyPlaces((prev) => !prev)}
-            className={showNearbyPlaces ? 'btn-primary' : 'btn-secondary'}
+            className={`${showNearbyPlaces ? 'btn-primary' : 'btn-secondary'} w-full justify-center text-center sm:w-auto`}
           >
             {showNearbyPlaces ? 'Hide nearby places' : 'Show nearby places'}
           </button>
           <button
             type="button"
             onClick={() => toggleCommuteTarget('ukzn')}
-            className={commuteTargets.includes('ukzn') ? 'btn-primary' : 'btn-secondary'}
+            className={`${commuteTargets.includes('ukzn') ? 'btn-primary' : 'btn-secondary'} w-full justify-center text-center sm:w-auto`}
           >
             UKZN overlay
           </button>
           <button
             type="button"
             onClick={() => toggleCommuteTarget('dut')}
-            className={commuteTargets.includes('dut') ? 'btn-primary' : 'btn-secondary'}
+            className={`${commuteTargets.includes('dut') ? 'btn-primary' : 'btn-secondary'} w-full justify-center text-center sm:w-auto`}
           >
             DUT overlay
           </button>
@@ -170,7 +222,9 @@ export default function PropertyBrowser() {
             showNearbyPlaces={showNearbyPlaces}
             commuteTargets={commuteTargets}
           />
-          <PropertyGrid buildings={filteredBuildings} />
+          <ComparisonDock buildings={buildings} />
+          <PropertyGrid buildings={filteredBuildings} activeSlug={resolvedActiveSlug} />
+          <ShortlistPanel buildings={buildings} />
         </>
       ) : (
         <section className="editorial-card rise p-6 md:p-8">

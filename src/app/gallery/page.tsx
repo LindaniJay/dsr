@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import { neighbourhoodGuides } from '../../utils/siteExperience';
 
 const guideStats = [
   { label: 'Best Use', value: 'Shortlist by route, not only by rent.' },
@@ -124,6 +126,30 @@ export default function GalleryPage() {
             </div>
           </article>
         ))}
+      </section>
+
+      <section className="mt-8 panel rise p-6 md:p-8">
+        <div className="mb-6 section-heading">
+          <span className="kicker">Area Pages</span>
+          <h2 className="text-3xl font-semibold text-[#121522] md:text-4xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
+            Open the neighbourhood pages for a more local decision view.
+          </h2>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {neighbourhoodGuides.map((guide) => (
+            <article key={guide.slug} className="rounded-[1.4rem] border border-[#d8dee8] bg-white p-5">
+              <p className="text-xs uppercase tracking-[0.12em] text-[#6a7891]">Neighbourhood focus</p>
+              <h3 className="mt-2 text-2xl font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
+                {guide.name}
+              </h3>
+              <p className="mt-3 text-sm text-muted">{guide.strapline}</p>
+              <Link href={`/neighbourhoods/${guide.slug}`} className="btn-secondary mt-5">
+                Open Area Page
+              </Link>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="mt-8 panel rise p-6 md:p-8">

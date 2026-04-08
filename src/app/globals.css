@@ -288,6 +288,12 @@ textarea {
   border-color: var(--brand-soft);
 }
 
+input,
+select,
+textarea {
+  font: inherit;
+}
+
 .rise {
   animation: riseIn 550ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
@@ -345,9 +351,29 @@ textarea {
 }
 
 @media (max-width: 768px) {
+  .app-shell {
+    width: min(100%, calc(100% - 1rem));
+  }
+
   .section-spacing {
     padding-top: 3.6rem;
     padding-bottom: 3.6rem;
+  }
+
+  .page-hero {
+    border-radius: 1.5rem;
+  }
+
+  .panel,
+  .editorial-card,
+  .tonal-card {
+    border-radius: 1.25rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    justify-content: center;
   }
 
   .compact-meta-grid {
