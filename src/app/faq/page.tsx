@@ -1,23 +1,23 @@
 const faqs = [
   {
-    question: 'How do I become an ambassador?',
-    answer: 'Visit the Ambassadors page, review the requirements, and submit your application with the requested supporting details.'
+    question: 'What kinds of rentals are listed here?',
+    answer: 'The site is currently set up for student-friendly rooms, shared apartments, and private studios around Durban.'
   },
   {
-    question: 'How do I register for an event?',
-    answer: 'Go to the Events page, choose the event you want, and submit your registration so the team can follow up.'
+    question: 'Which areas in Durban are a good starting point for students?',
+    answer: 'Musgrave, Glenwood, and Umbilo are practical starter zones because they sit within common routes to UKZN and DUT precincts.'
   },
   {
-    question: 'What are the ambassador requirements?',
-    answer: 'The PDF lists an upfront R500 contract payment, a professional ID picture, proof of residence, a certified ID copy or birth certificate for minors, proof of account, an active contact number, and active social media participation.'
+    question: 'How does new property inventory get added?',
+    answer: 'Property inventory is managed from the admin dashboard, so the public site stays focused on renters and the building-first search flow.'
   },
   {
-    question: 'How can I contact IGHOST?',
-    answer: 'The presentation highlights WhatsApp on +27 65 252 3189 as the main contact channel.'
+    question: 'Are these rentals only for students?',
+    answer: 'The positioning is student-focused, but the concept also works for young professionals looking for room rentals in Durban.'
   },
   {
-    question: 'What does IGHOST focus on?',
-    answer: 'IGHOST focuses on talent development, artists health, women empowerment, and drug awareness.'
+    question: 'Why does the site mention UKZN and DUT so often?',
+    answer: 'Those institutions are the clearest demand anchors for student accommodation in Durban, so the product is designed around that reality.'
   }
 ];
 
@@ -33,7 +33,7 @@ export default function FAQPage() {
           Frequently Asked Questions
         </h1>
         <p className="mt-4 max-w-2xl text-base text-muted md:text-lg">
-          Common questions based on the IGHOST presentation, ambassador program, and event process.
+          Common questions about Durban student accommodation, room types, and the building-first rental flow.
         </p>
       </section>
 

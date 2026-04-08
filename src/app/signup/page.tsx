@@ -14,11 +14,10 @@ export default function SignUpPage() {
           className="architect-heading mt-5 text-4xl font-semibold text-[#121522] md:text-6xl"
           style={{ fontFamily: 'var(--font-space), sans-serif' }}
         >
-          Create Your IGHOST Account
+          Create Your Rental Account
         </h1>
         <p className="mt-4 max-w-3xl text-base text-muted md:text-lg">
-          Join the IGHOST community to register for programs, manage your profile, and receive
-          updates about new creative opportunities.
+          Create an account to save rooms, manage enquiries, and receive alerts when new Durban room options fit your search.
         </p>
       </section>
 
@@ -92,10 +91,9 @@ export default function SignUpPage() {
               <option value="" disabled>
                 Select one option
               </option>
-              <option value="events">Events and performance opportunities</option>
-              <option value="ambassador">Ambassador program</option>
-              <option value="partnership">Partnership and collaboration</option>
-              <option value="community">Community programs</option>
+              <option value="student">Looking for student accommodation</option>
+              <option value="young-professional">Looking for a room as a young professional</option>
+              <option value="support">Need search support</option>
             </select>
           </div>
 
@@ -128,9 +126,9 @@ export default function SignUpPage() {
               Membership Benefits
             </h2>
             <ul className="mt-4 space-y-2 text-sm text-muted">
-              <li>Priority registration for selected events and workshops.</li>
-              <li>Curated updates on auditions, camps, and leadership labs.</li>
-              <li>Fast support for ambassador and partnership applications.</li>
+              <li>Save preferred room types and Durban areas.</li>
+              <li>Get updates when new room options match your search.</li>
+              <li>Keep your renter profile and building preferences in one place.</li>
             </ul>
           </article>
 

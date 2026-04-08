@@ -14,11 +14,10 @@ export default function SignInPage() {
           className="architect-heading mt-5 text-4xl font-semibold text-[#121522] md:text-6xl"
           style={{ fontFamily: 'var(--font-space), sans-serif' }}
         >
-          Sign In to Your IGHOST Account
+          Sign In to Your Rental Account
         </h1>
         <p className="mt-4 max-w-3xl text-base text-muted md:text-lg">
-          Access event registrations, ambassador resources, purchase history, and your profile in
-          one secure dashboard.
+          Access your shortlisted rooms, enquiry history, and saved details in one place.
         </p>
       </section>
 
@@ -93,9 +92,9 @@ export default function SignInPage() {
               Everything in One Place
             </h2>
             <ul className="mt-4 space-y-2 text-sm text-muted">
-              <li>Track upcoming events and attendance history.</li>
-              <li>Manage ambassador applications and updates.</li>
-              <li>Save your preferences for faster checkout.</li>
+              <li>Track room enquiries and shortlist history.</li>
+              <li>Return to saved buildings and compare room modes faster.</li>
+              <li>Save your renter profile for faster follow-up.</li>
             </ul>
           </article>
 

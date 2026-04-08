@@ -1,78 +1,56 @@
-import Image from 'next/image';
 import React from 'react';
 
 const overviewFacts = [
-  { label: 'Founder', value: 'Miss A. Mhlongo (iGhostikazi)' },
-  { label: 'Established', value: 'September 2021' },
-  { label: 'Company Type', value: 'Non-profit company' },
-  { label: 'Reach', value: 'Supporting artists and talent nationally' },
+  { label: 'Focus', value: 'Student and young renter accommodation' },
+  { label: 'Market', value: 'Durban, KwaZulu-Natal' },
+  { label: 'Demand Anchors', value: 'UKZN and DUT' },
+  { label: 'Model', value: 'Rooms, shared flats, and private studios' },
 ];
 
 const focusAreas = [
   {
-    title: 'Talent Development',
-    text: 'We host events, awards, and camps for artists so they can grow, perform, and be seen.',
+    title: 'Neighbourhood Fit',
+    text: 'A good rental search starts with areas students actually travel through, not abstract city-wide inventory.',
   },
   {
-    title: 'Artists Health',
-    text: 'We focus on physical, emotional, and mental wellness because personal wellness matters for every artist.',
+    title: 'Budget Clarity',
+    text: 'Monthly pricing needs to be readable enough for renters and parents to compare room types quickly.',
   },
   {
-    title: 'Women Empowerment',
-    text: 'We support women in different areas, including practical community support such as pad donations to local schools.',
+    title: 'Campus Demand',
+    text: 'Durban University of Technology serves roughly 33,000 students, while UKZN remains one of Africa’s leading institutions with multiple campuses in KwaZulu-Natal.',
   },
   {
-    title: 'Drug Awareness',
-    text: 'We educate young people about the dangers of drugs and support healthier ways of resolving social challenges.',
+    title: 'Durban Context',
+    text: 'Durban is a major coastal metro with warm weather, strong transport corridors, and a large student and working-age population.',
   },
 ];
 
 const presentationSlides = [
   {
-    src: '/about/overview-cover.png',
-    title: 'Overview Cover',
-    caption: 'The company overview deck introduces the IGHOST name and presentation identity.',
+    title: 'Rebrand Direction',
+    caption: 'The site now positions itself around Durban rooms and student-friendly rentals instead of the previous entertainment brand.',
   },
   {
-    src: '/about/overview-founder.png',
-    title: 'Founder and Origin',
-    caption: 'This page connects the brand directly to Miss A. Mhlongo (iGhostikazi) and the 2021 launch.',
+    title: 'University Demand',
+    caption: 'UKZN and DUT provide the clearest demand anchors for student accommodation in Durban.',
   },
   {
-    src: '/about/overview-focus-areas.png',
-    title: 'Focus Areas',
-    caption: 'The presentation outlines the four operational focus areas that shape IGHOST programming.',
+    title: 'Neighbourhood Priorities',
+    caption: 'Berea, Musgrave, Glenwood, and Umbilo are practical starting points for a student-focused inventory strategy.',
   },
   {
-    src: '/about/overview-slogan.png',
-    title: 'Slogan and Positioning',
-    caption: 'This page reinforces the non-profit positioning and the slogan: Ungaphiki Nathi, Phila Nathi.',
-  },
-];
-
-const workHistory = [
-  'Onetime',
-  'Westcoast',
-  'Community events, awards, and camps across our growth journey',
-];
-
-const historySlides = [
-  {
-    src: '/about/history-onetime.png',
-    title: 'Onetime',
-  },
-  {
-    src: '/about/history-westcoast.png',
-    title: 'Westcoast',
+    title: 'Positioning',
+    caption: 'The product is framed as a cleaner discovery layer for rooms, shared flats, and compact studios.',
   },
 ];
 
 const timeline = [
-  { year: 'Sep 2021', text: 'IGHOST launched by Miss A. Mhlongo (iGhostikazi).' },
-  { year: '2022', text: 'Expanded events, awards, and camps for artists and youth.' },
-  { year: '2023', text: 'Strengthened women empowerment and artist wellness programs.' },
-  { year: '2024', text: 'Scaled awareness campaigns and ambassador activities.' },
-  { year: 'Today', text: 'Operating nationally as a non-profit creative development platform.' },
+  { year: 'Research', text: 'Durban identified as a large coastal metro with major higher-education demand and active transport corridors.' },
+  { year: 'Demand', text: 'UKZN and DUT positioned as the strongest local student-accommodation anchors.' },
+  { year: 'Rebrand', text: 'The site was refocused from entertainment content to rooms and rental discovery.' },
+  { year: 'Launch', text: 'Starter room types, building pages, and direct contact paths were added to the experience.' },
+  { year: 'Next', text: 'Expand verified room information, maps, and richer property presentation.' },
 ];
 
 export default function AboutPage() {
@@ -87,17 +65,15 @@ export default function AboutPage() {
         {/* Floating shapes for depth */}
         <div aria-hidden="true" className="absolute top-10 left-10 w-16 h-16 rounded-full bg-[#caa86a]/30 blur-2xl animate-float-slow" />
         <div aria-hidden="true" className="absolute bottom-10 right-10 w-20 h-20 rounded-full bg-[#2e4f7a]/20 blur-2xl animate-float-medium" />
-        <span className="kicker">About IGHOST</span>
+        <span className="kicker">About</span>
         <h1
           className="architect-heading mt-5 text-4xl font-extrabold text-[#121522] md:text-6xl tracking-tight animate-fade-in-up"
           style={{ fontFamily: 'var(--font-space), sans-serif', letterSpacing: '-0.03em' }}
         >
-          <span className="inline-block bg-gradient-to-r from-[#2e4f7a] via-[#caa86a] to-[#2e4f7a] bg-clip-text text-transparent animate-gradient-text drop-shadow-lg">Company Overview</span>
+          <span className="inline-block bg-gradient-to-r from-[#2e4f7a] via-[#caa86a] to-[#2e4f7a] bg-clip-text text-transparent animate-gradient-text drop-shadow-lg">Why Durban student accommodation</span>
         </h1>
         <p className="mt-4 max-w-3xl text-lg text-muted md:text-xl animate-fade-in-up delay-200">
-          IGHOST Edutainment is a non-profit company founded by Miss A. Mhlongo (iGhostikazi).
-          Since September 2021, the organization has been building a home for artists and talent
-          to grow, learn, and be supported through structured entertainment and community programs.
+          Durban Student Stays is built around a clearer housing need: helping students and young renters find rooms and apartments in a city shaped by universities, coastal geography, and strong neighbourhood differences.
         </p>
       </section>
 
@@ -118,30 +94,29 @@ export default function AboutPage() {
       <section className="mt-8 panel p-6 md:p-8 rise" style={{ animationDelay: '20ms' }}>
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
-            <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">Presentation Archive</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">Context</span>
             <h2
               className="mt-2 text-3xl font-semibold text-[#121522]"
               style={{ fontFamily: 'var(--font-space), sans-serif' }}
             >
-              Source pages from the IGHOST presentation
+              What informs the positioning
             </h2>
           </div>
           <p className="max-w-xl text-sm text-muted md:text-base">
-            These visuals are rendered directly from the PDF presentation used to inform the website content.
+            The current site direction is anchored in Durban city context and the scale of nearby university demand rather than the previous brand narrative.
           </p>
         </div>
 
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           {presentationSlides.map((slide, index) => (
-            <article key={slide.src} className="rounded-[1.25rem] border border-[#d9dee8] bg-white p-4 rise transition-shadow duration-300 hover:shadow-2xl" style={{ animationDelay: `${index * 70}ms` }}>
-              <div className="relative overflow-hidden rounded-[1rem] border border-[#d9dee8] bg-[#f7f8fb] aspect-[4/5]">
-                <Image
-                  src={slide.src}
-                  alt={slide.title}
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
+            <article key={slide.title} className="rounded-[1.25rem] border border-[#d9dee8] bg-white p-4 rise transition-shadow duration-300 hover:shadow-2xl" style={{ animationDelay: `${index * 70}ms` }}>
+              <div className="flex aspect-[4/5] items-end overflow-hidden rounded-[1rem] border border-[#d9dee8] bg-[linear-gradient(160deg,#1f3350,#d6a45d_55%,#f7f8fb)] p-5">
+                <div className="rounded-2xl border border-white/40 bg-white/15 px-4 py-3 backdrop-blur-sm">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/80">Durban Student Stays</p>
+                  <p className="mt-2 max-w-[12rem] text-xl font-semibold text-white" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
+                    {slide.title}
+                  </p>
+                </div>
               </div>
               <h3
                 className="mt-4 text-lg font-semibold text-[#121522]"
@@ -164,8 +139,7 @@ export default function AboutPage() {
             Mission
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-muted">
-            Create real opportunities for artists and youth through events, awards, camps, and
-            mentorship that help them grow in confidence, skill, and leadership.
+            Make Durban room discovery more useful for students and young renters by focusing on neighbourhood logic, room formats, and clearer enquiries.
           </p>
         </article>
 
@@ -177,8 +151,7 @@ export default function AboutPage() {
             Vision
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-muted">
-            Be recognized nationally as a trusted home for talent development, artist wellness,
-            women empowerment, and drug awareness education.
+            Become a sharper local accommodation layer for Durban, especially around UKZN, DUT, and the student movement patterns that shape where people actually rent.
           </p>
         </article>
       </section>
@@ -186,34 +159,30 @@ export default function AboutPage() {
       <section className="mt-8 panel p-6 md:p-8 rise" style={{ animationDelay: '40ms' }}>
         <div className="grid gap-5 md:grid-cols-[0.85fr_1.15fr] md:items-start">
           <div>
-            <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">What IGHOST Means</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">Why Durban</span>
             <h2
               className="mt-2 text-3xl font-semibold text-[#121522]"
               style={{ fontFamily: 'var(--font-space), sans-serif' }}
             >
-              Spectacular Talent. I Am A Great Host.
+              A coastal city with real student housing pressure
             </h2>
           </div>
           <p className="text-sm leading-relaxed text-muted md:text-base">
-            The company presentation frames IGHOST as a brand built around hosting artists and
-            talent with confidence and purpose. The name captures both the founder's identity and
-            the company belief that artists deserve a platform where they can be seen, developed,
-            and treated like they belong.
+            Durban is one of South Africa’s largest cities on the Indian Ocean, with a warm humid climate, extensive urban sprawl, and major university traffic. That mix creates recurring demand for rentals that balance cost, transport, and campus access.
           </p>
         </div>
       </section>
 
       <section className="mt-8 panel p-6 md:p-8 rise" style={{ animationDelay: '60ms' }}>
-        <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">Slogan</span>
+        <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">Positioning</span>
         <h2
           className="mt-2 text-3xl font-semibold text-[#121522]"
           style={{ fontFamily: 'var(--font-space), sans-serif' }}
         >
-          Ungaphiki Nathi, Phila Nathi
+          Stay closer. Commute smarter.
         </h2>
         <p className="mt-3 text-sm text-muted">
-          We focus on delivery over empty promises and create a culture where people feel at home
-          with IGHOST.
+          The point is not just to show rooms, but to help renters make better decisions faster.
         </p>
       </section>
 
@@ -225,7 +194,7 @@ export default function AboutPage() {
               className="mt-2 text-3xl font-semibold text-[#121522]"
               style={{ fontFamily: 'var(--font-space), sans-serif' }}
             >
-              Talent. Wellness. Empowerment. Awareness.
+                The four operating ideas behind the site
             </h2>
           </div>
           <div className="grid gap-3 md:grid-cols-2">
@@ -247,22 +216,19 @@ export default function AboutPage() {
       <section className="mt-8 panel p-6 md:p-8 rise" style={{ animationDelay: '90ms' }}>
         <div className="grid gap-6 md:grid-cols-[1fr_1fr] md:items-start">
           <div>
-            <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">Company Type</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">Business Direction</span>
             <h2
               className="mt-2 text-3xl font-semibold text-[#121522]"
               style={{ fontFamily: 'var(--font-space), sans-serif' }}
             >
-              Built as a non-profit company
+              Built as a rental discovery product
             </h2>
             <p className="mt-3 text-sm text-muted md:text-base">
-              The presentation makes it clear that IGHOST is focused on its four core areas and on
-              delivering its best to everyone it serves.
+              The business is now oriented around accommodation discovery and room enquiries, not the previous entertainment programming model.
             </p>
           </div>
           <div className="rounded-xl border border-[#d9dee8] bg-white px-5 py-5 text-sm text-[#263244]">
-            We believe in doing the work instead of making empty promises. That promise of action,
-            care, and consistency is central to how IGHOST presents itself to artists, ambassadors,
-            and the community.
+            The strongest next step is expanding reliable Durban inventory while keeping the interface useful for students, parents, and young professionals comparing options remotely.
           </div>
         </div>
       </section>
@@ -289,44 +255,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mt-8 panel p-6 md:p-8 rise" style={{ animationDelay: '120ms' }}>
-        <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">History of Our Work</span>
-        <h2
-          className="mt-2 text-3xl font-semibold text-[#121522]"
-          style={{ fontFamily: 'var(--font-space), sans-serif' }}
-        >
-          Past work and activity references
-        </h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-3">
-          {workHistory.map((item) => (
-            <div key={item} className="rounded-xl border border-[#d9dee8] bg-white px-4 py-4 text-sm text-[#263244]">
-              {item}
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
-          {historySlides.map((slide, index) => (
-            <article key={slide.src} className="rounded-[1.25rem] border border-[#d9dee8] bg-white p-4 rise" style={{ animationDelay: `${index * 80}ms` }}>
-              <div className="relative overflow-hidden rounded-[1rem] border border-[#d9dee8] bg-[#f7f8fb] aspect-[4/5]">
-                <Image
-                  src={slide.src}
-                  alt={slide.title}
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-              <h3
-                className="mt-4 text-lg font-semibold text-[#121522]"
-                style={{ fontFamily: 'var(--font-space), sans-serif' }}
-              >
-                {slide.title}
-              </h3>
-            </article>
-          ))}
-        </div>
-      </section>
     </div>
   );
 }

@@ -21,11 +21,10 @@ export default function ContactPage() {
           className="architect-heading mt-5 text-4xl font-extrabold text-[#121522] md:text-6xl tracking-tight animate-fade-in-up"
           style={{ fontFamily: 'var(--font-space), sans-serif', letterSpacing: '-0.03em' }}
         >
-          <span className="inline-block bg-gradient-to-r from-[#2e4f7a] via-[#caa86a] to-[#2e4f7a] bg-clip-text text-transparent animate-gradient-text drop-shadow-lg">Contact IGHOST</span>
+          <span className="inline-block bg-gradient-to-r from-[#2e4f7a] via-[#caa86a] to-[#2e4f7a] bg-clip-text text-transparent animate-gradient-text drop-shadow-lg">Contact Durban Student Stays</span>
         </h1>
         <p className="mt-4 max-w-2xl text-lg text-muted md:text-xl animate-fade-in-up delay-200">
-          Reach out for event information, ambassador support, or general questions. The PDF lists
-          WhatsApp as the primary contact point for the organization.
+          Reach out for building questions, room-type guidance, or viewing support. Use the form to ask about availability.
         </p>
       </section>
 
@@ -67,7 +66,7 @@ export default function ContactPage() {
               Message
             </label>
             <textarea
-              placeholder="Tell us how IGHOST can help you."
+              placeholder="Tell us which Durban area, room type, or campus access you are looking for."
               rows={6}
               className="w-full rounded-2xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#2e4f7a] focus:ring-2 focus:ring-[#caa86a] transition"
               required
@@ -89,15 +88,15 @@ export default function ContactPage() {
           <article className="panel p-5">
             <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">WhatsApp</p>
             <a
-              href="https://wa.me/27652523189"
+              href="https://wa.me/270000000000"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-2 block text-lg font-semibold text-[#1e3150]"
               style={{ fontFamily: 'var(--font-space), sans-serif' }}
             >
-              +27 65 252 3189
+              +27 00 000 0000
             </a>
-            <p className="mt-1 text-sm text-muted">Primary contact number listed in the IGHOST presentation.</p>
+            <p className="mt-1 text-sm text-muted">Replace this placeholder with the active WhatsApp number you want renters to use.</p>
           </article>
 
           <article className="panel p-5">
@@ -123,7 +122,7 @@ export default function ContactPage() {
 
           <article className="panel p-5">
             <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">Note</p>
-            <p className="mt-2 text-sm text-muted">Follow all IGHOST social media pages for ambassador and event updates.</p>
+            <p className="mt-2 text-sm text-muted">If you already know the building or neighbourhood you want, mention it in the message so response time is faster.</p>
           </article>
         </aside>
       </section>

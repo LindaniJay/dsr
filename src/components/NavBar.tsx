@@ -1,24 +1,23 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 const primaryNavLinks = [
   { href: '/', label: 'Home' },
-  { href: '/events', label: 'Events' },
-  { href: '/shop', label: 'Shop' },
-  { href: '/ambassadors', label: 'Ambassadors' },
+  { href: '/buildings', label: 'Buildings' },
+  { href: '/ambassadors', label: 'Rental Guide' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ];
 
 const moreNavLinks = [
-  { href: '/gallery', label: 'Gallery' },
-  { href: '/testimonials', label: 'Testimonials' },
+  { href: '/shop', label: 'Room Types' },
+  { href: '/gallery', label: 'Neighbourhoods' },
+  { href: '/testimonials', label: 'Reviews' },
   { href: '/faq', label: 'FAQ' },
-  { href: '/admin', label: 'Admin' },
+  { href: '/admin', label: 'Dashboard' },
 ];
 
 const authLinks = [
@@ -59,25 +58,18 @@ const NavBar = () => {
       >
         <div className="flex items-center justify-between gap-4 px-4 py-3 md:px-6">
           <Link href="/" className="flex items-center gap-3 focus-visible:ring-2 focus-visible:ring-[#caa86a] rounded-xl transition" onClick={closeAllMenus}>
-            <span className="relative h-10 w-10 overflow-hidden rounded-xl border border-[#cad0d9] bg-white">
-              <Image
-                src="/ighost-logo.png"
-                alt="IGHOST logo"
-                fill
-                className="object-cover"
-                sizes="40px"
-                priority
-              />
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#cad0d9] bg-[linear-gradient(135deg,#1f3350,#d6a45d)] text-sm font-bold text-white shadow-sm">
+              DS
             </span>
             <span>
               <span
                 className="block text-lg font-semibold tracking-tight text-[#121522]"
                 style={{ fontFamily: 'var(--font-space), sans-serif' }}
               >
-                IGHOST
+                Durban Student Stays
               </span>
               <span className="block text-[10px] uppercase tracking-[0.18em] text-[#64758b]">
-                Architecture of Culture
+                Buildings near UKZN and DUT
               </span>
             </span>
           </Link>

@@ -1,15 +1,15 @@
 const testimonials = [
   {
-    name: 'Sipho M.',
-    text: 'IGHOST helped me discover my talent and gave me the confidence to perform on stage. The camps are amazing!'
+    name: 'Londiwe, UKZN student',
+    text: 'What helps most is seeing room types and location context together. It cuts out a lot of guessing before you enquire.'
   },
   {
-    name: 'Thandi N.',
-    text: 'Being an ambassador has opened doors for me. The support and training are top-notch.'
+    name: 'Akhona, DUT student',
+    text: 'Shared apartments near the Berea route are usually where I start. This kind of site makes that much clearer than random classifieds.'
   },
   {
-    name: 'Lerato K.',
-    text: 'I love the IGHOST merchandise and the community. Everyone is so welcoming and supportive.'
+    name: 'Rental operator, Glenwood',
+    text: 'A student-specific angle is stronger than advertising a house with no context about campuses, lease type, or what is included.'
   }
 ];
 
@@ -22,10 +22,10 @@ export default function TestimonialsPage() {
           className="architect-heading mt-5 text-4xl font-semibold text-[#121522] md:text-6xl"
           style={{ fontFamily: 'var(--font-space), sans-serif' }}
         >
-          Testimonials
+          Reviews
         </h1>
         <p className="mt-4 max-w-2xl text-base text-muted md:text-lg">
-          Real feedback from members of our artist and ambassador community.
+          Example feedback from the kinds of renters and operators this rebrand is meant to serve.
         </p>
       </section>
 

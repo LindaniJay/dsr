@@ -30,10 +30,10 @@ const AmbassadorForm: React.FC<AmbassadorFormProps> = ({ onSubmit }) => {
           className="mt-2 text-2xl font-bold text-[#121522] md:text-3xl tracking-tight"
           style={{ fontFamily: 'var(--font-space), sans-serif' }}
         >
-          Ambassador Application
+          Property Owner Inquiry
         </h3>
         <p className="mt-1 text-sm text-muted">
-          Tell us about your motivation and how you want to live a true IGHOST life as a brand ambassador.
+          Tell us about your building, rental model, and the type of students or young renters you want to attract.
         </p>
       </div>
 
@@ -58,7 +58,7 @@ const AmbassadorForm: React.FC<AmbassadorFormProps> = ({ onSubmit }) => {
       </div>
 
       <textarea
-        placeholder="Why do you want to become an IGHOST ambassador and represent the brand?"
+        placeholder="Share location, room mix, rental range, lease terms, and what makes the property a strong fit for students in Durban."
         value={motivation}
         onChange={e => setMotivation(e.target.value)}
         className="min-h-32 w-full rounded-xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#2e4f7a] focus:ring-2 focus:ring-[#caa86a] transition"
@@ -73,12 +73,12 @@ const AmbassadorForm: React.FC<AmbassadorFormProps> = ({ onSubmit }) => {
         aria-busy={sent}
         disabled={sent}
       >
-        {sent ? 'Submitted!' : 'Submit Application'}
+        {sent ? 'Submitted!' : 'Send Property Details'}
       </button>
 
       {sent && (
         <div className="rounded-xl border border-[#b8d8c7] bg-[#eef9f1] px-4 py-3 text-sm font-medium text-[#1e6a45]">
-          Application sent successfully. IGHOST will contact you soon.
+          Thanks. We have your property details and will follow up about next steps.
         </div>
       )}
     </form>

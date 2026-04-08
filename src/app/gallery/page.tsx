@@ -8,16 +8,15 @@ type GalleryItem = {
 
 const galleryItems: GalleryItem[] = [
   {
-    title: 'IGHOST Ambassador Team Portrait',
-    tag: 'Studio Session 2026',
-    image: '/gallery/ighost-team-portrait.jpg',
+    title: 'Musgrave and Berea Corridor',
+    tag: 'Near campus routes',
   },
-  { title: 'Youth Camp Workshop', tag: 'Durban 2026' },
-  { title: 'Women Empowerment Awards', tag: 'Johannesburg 2026' },
-  { title: 'Community Drug Awareness', tag: 'KwaZulu-Natal 2026' },
-  { title: 'Ambassador Onboarding', tag: 'Regional Program' },
-  { title: 'Artist Showcase Night', tag: 'Flagship Event' },
-  { title: 'Leadership Training Lab', tag: 'Monthly Session' },
+  { title: 'Glenwood Shared Housing Pocket', tag: 'Student house cluster' },
+  { title: 'Umbilo Room Market', tag: 'Private and shared options' },
+  { title: 'Howard College Access', tag: 'UKZN demand route' },
+  { title: 'DUT City Movement', tag: 'Inner-city convenience' },
+  { title: 'Beach-City Lifestyle Mix', tag: 'Durban context' },
+  { title: 'Everyday Essentials', tag: 'Shops, transport, and study life' },
 ];
 
 export default function GalleryPage() {
@@ -29,10 +28,10 @@ export default function GalleryPage() {
           className="architect-heading mt-5 text-4xl font-semibold text-[#121522] md:text-6xl"
           style={{ fontFamily: 'var(--font-space), sans-serif' }}
         >
-          Gallery
+          Neighbourhood Guide
         </h1>
         <p className="mt-4 max-w-2xl text-base text-muted md:text-lg">
-          A curated view of programs, events, and leadership moments from the IGHOST community.
+          A quick visual framing of the Durban areas and movement patterns that matter when choosing where to rent.
         </p>
       </section>
 

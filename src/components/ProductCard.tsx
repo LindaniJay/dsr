@@ -12,6 +12,8 @@ interface ProductCardProps {
   category?: string;
   edition?: string;
   onAddToCart?: (selectedSize: string) => void;
+  selectorLabel?: string;
+  actionLabel?: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ 
@@ -21,7 +23,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
   sizes, 
   category,
   edition,
-  onAddToCart 
+  onAddToCart,
+  selectorLabel = 'Select Option',
+  actionLabel = 'Add to Shortlist',
 }) => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [isAdding, setIsAdding] = useState(false);
@@ -53,7 +57,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       <div className="mb-5">
         <p className="text-[11px] font-semibold uppercase tracking-[0.11em] text-[#62728a]">
-          {category || 'IGHOST Apparel'}
+          {category || 'Student Accommodation'}
         </p>
         <h3
           className="mt-1 text-xl font-bold text-[#121522] tracking-tight group-hover:text-[#2e4f7a] transition-colors"
@@ -64,14 +68,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className="mt-2 flex items-end justify-between gap-3">
           <p className="text-2xl font-semibold text-[#2e4f7a]">R{price}</p>
           <span className="rounded-full border border-[#e0d4be] bg-[#fbf6ec] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#765b2f]">
-            Limited Run
+            Move-In Ready
           </span>
         </div>
       </div>
 
       <div className="mb-6">
         <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.08em] text-[#5d6572]">
-          Select Size
+          {selectorLabel}
         </label>
         <div className="flex flex-wrap gap-2">
           {sizes.map(size => (
@@ -109,7 +113,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           ) : (
             <>
               <CartIcon size={17} />
-              <span>{selectedSize ? `Add ${selectedSize} to Cart` : 'Select Size First'}</span>
+              <span>{selectedSize ? `${actionLabel}: ${selectedSize}` : 'Select an Option First'}</span>
             </>
           )}
         </button>

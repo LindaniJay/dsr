@@ -12,6 +12,8 @@ interface EventCardProps {
   seatsLeft?: number;
   onRegister?: () => void;
   disabled?: boolean;
+  actionLabel?: string;
+  availabilityLabel?: string;
 }
 
 const EventCard: React.FC<EventCardProps> = ({ 
@@ -23,7 +25,9 @@ const EventCard: React.FC<EventCardProps> = ({
   format,
   seatsLeft,
   onRegister, 
-  disabled 
+  disabled,
+  actionLabel = 'Book Viewing',
+  availabilityLabel = 'spaces left',
 }) => {
   const formattedDate = new Date(date).toLocaleDateString('en-ZA', {
     weekday: 'short',
@@ -38,7 +42,7 @@ const EventCard: React.FC<EventCardProps> = ({
     <article
       className="panel group relative overflow-hidden p-6 md:p-7 rise transition-shadow duration-300 hover:shadow-2xl hover:scale-[1.025] focus-within:ring-2 focus-within:ring-[#caa86a]"
       tabIndex={0}
-      aria-label={`Event: ${title}`}
+      aria-label={title}
     >
       <div className="pointer-events-none absolute right-0 top-0 h-28 w-28 translate-x-8 -translate-y-8 rounded-full bg-[rgba(202,168,106,0.18)]" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#2e4f7a] to-[#caa86a]" />
@@ -82,7 +86,7 @@ const EventCard: React.FC<EventCardProps> = ({
           )}
           {typeof seatsLeft === 'number' && (
             <span className="rounded-full border border-[#e0d4be] bg-[#fbf6ec] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#765b2f]">
-              {seatsLeft} seats left
+              {seatsLeft} {availabilityLabel}
             </span>
           )}
         </div>
@@ -105,7 +109,7 @@ const EventCard: React.FC<EventCardProps> = ({
           onClick={onRegister}
           disabled={disabled}
         >
-          {disabled ? 'Registering...' : 'Register for Event'}
+          {disabled ? 'Sending...' : actionLabel}
         </button>
       )}
     </article>

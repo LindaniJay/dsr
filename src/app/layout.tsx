@@ -1,7 +1,6 @@
 
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
-import Link from "next/link";
 import "./globals.css";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
@@ -18,13 +17,9 @@ const space = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "IGHOST | Architecture of Culture",
+  title: "Durban Student Stays | Student Accommodation in Durban",
   description:
-    "IGHOST Edutainment NPC develops artists and communities through events, awards, camps, wellness support, women empowerment, and drug awareness.",
-  icons: {
-    icon: "/icon.png",
-    apple: "/apple-icon.png",
-  },
+    "Durban Student Stays helps students and young renters discover rooms, shared apartments, and student-friendly accommodation near UKZN and DUT.",
 };
 
 export default function RootLayout({
