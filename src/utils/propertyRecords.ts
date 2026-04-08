@@ -1,4 +1,5 @@
-import type { BuildingGalleryItem, BuildingItem, RoomOption } from './contentData';
+import type { BuildingGalleryItem, BuildingItem, NearbyPlace, RoomOption } from './contentData';
+import { createFallbackNearbyPlaces, defaultBuildingCoordinates, defaultNearbyPlaces } from './contentData';
 
 export type PropertyFormValues = {
   slug: string;
@@ -6,6 +7,8 @@ export type PropertyFormValues = {
   area: string;
   badge: string;
   priceFrom: number;
+  latitude: number;
+  longitude: number;
   ukznAccess: string;
   dutAccess: string;
   headline: string;
@@ -33,6 +36,8 @@ export const emptyPropertyForm: PropertyFormValues = {
   area: '',
   badge: 'Architectural student address',
   priceFrom: 4200,
+  latitude: -29.8417,
+  longitude: 31.0134,
   ukznAccess: '',
   dutAccess: '',
   headline: '',
@@ -134,6 +139,49 @@ function createRoomOptions(form: PropertyFormValues): RoomOption[] {
   return options;
 }
 
+function parseNearbyPlaces(raw: unknown) {
+  if (!Array.isArray(raw)) {
+    return [];
+  }
+
+  return raw
+    .map((item) => {
+      if (
+        typeof item !== 'object' ||
+        item === null ||
+        typeof item.id !== 'string' ||
+        typeof item.name !== 'string' ||
+        (item.category !== 'grocery' && item.category !== 'transport' && item.category !== 'study' && item.category !== 'food') ||
+        typeof item.distance !== 'string' ||
+        typeof item.coordinates !== 'object' ||
+        item.coordinates === null ||
+        !('latitude' in item.coordinates) ||
+        !('longitude' in item.coordinates)
+      ) {
+        return null;
+      }
+
+      const latitude = Number(item.coordinates.latitude);
+      const longitude = Number(item.coordinates.longitude);
+
+      if (Number.isNaN(latitude) || Number.isNaN(longitude)) {
+        return null;
+      }
+
+      return {
+        id: item.id,
+        name: item.name,
+        category: item.category,
+        distance: item.distance,
+        coordinates: {
+          latitude,
+          longitude,
+        },
+      } satisfies NearbyPlace;
+    })
+    .filter((item): item is NearbyPlace => item !== null);
+}
+
 export function buildPropertyRecord(form: PropertyFormValues): BuildingItem {
   const slug = form.slug.trim() || slugifyPropertyName(form.name);
   const roomOptions = createRoomOptions({ ...form, slug });
@@ -144,6 +192,16 @@ export function buildPropertyRecord(form: PropertyFormValues): BuildingItem {
     area: form.area.trim(),
     badge: form.badge.trim(),
     priceFrom: Number(form.priceFrom),
+    coordinates: {
+      latitude: Number(form.latitude),
+      longitude: Number(form.longitude),
+    },
+    nearbyPlaces:
+      defaultNearbyPlaces[slug] ??
+      createFallbackNearbyPlaces(form.area.trim(), {
+        latitude: Number(form.latitude),
+        longitude: Number(form.longitude),
+      }),
     campusAccess: {
       ukzn: form.ukznAccess.trim(),
       dut: form.dutAccess.trim(),
@@ -246,10 +304,22 @@ function parseRoomOptions(raw: unknown) {
 
 export function parsePropertyRecord(raw: Record<string, unknown>): BuildingItem | null {
   const priceFrom = Number(raw.priceFrom);
+  const latitude = Number(
+    typeof raw.coordinates === 'object' && raw.coordinates !== null && 'latitude' in raw.coordinates
+      ? raw.coordinates.latitude
+      : Number.NaN,
+  );
+  const longitude = Number(
+    typeof raw.coordinates === 'object' && raw.coordinates !== null && 'longitude' in raw.coordinates
+      ? raw.coordinates.longitude
+      : Number.NaN,
+  );
   const gallery = parseGallery(raw.gallery);
   const roomOptions = parseRoomOptions(raw.roomOptions);
+  const nearbyPlaces = parseNearbyPlaces(raw.nearbyPlaces);
   const campusAccess = raw.campusAccess;
   const review = raw.review;
+  const fallbackCoordinates = typeof raw.slug === 'string' ? defaultBuildingCoordinates[raw.slug] : undefined;
   const amenities = Array.isArray(raw.amenities)
     ? raw.amenities.filter((item): item is string => typeof item === 'string' && item.trim().length > 0)
     : [];
@@ -266,6 +336,7 @@ export function parsePropertyRecord(raw: Record<string, unknown>): BuildingItem 
     typeof raw.area !== 'string' ||
     typeof raw.badge !== 'string' ||
     Number.isNaN(priceFrom) ||
+    (Number.isNaN(latitude) || Number.isNaN(longitude)) && fallbackCoordinates === undefined ||
     typeof raw.headline !== 'string' ||
     typeof raw.summary !== 'string' ||
     typeof raw.heroImage !== 'string' ||
@@ -298,6 +369,23 @@ export function parsePropertyRecord(raw: Record<string, unknown>): BuildingItem 
     area: raw.area,
     badge: raw.badge,
     priceFrom,
+    coordinates: fallbackCoordinates && (Number.isNaN(latitude) || Number.isNaN(longitude))
+      ? fallbackCoordinates
+      : {
+          latitude,
+          longitude,
+        },
+    nearbyPlaces:
+      nearbyPlaces.length > 0
+        ? nearbyPlaces
+        : typeof raw.slug === 'string' && defaultNearbyPlaces[raw.slug]
+          ? defaultNearbyPlaces[raw.slug]
+          : createFallbackNearbyPlaces(
+              raw.area,
+              fallbackCoordinates && (Number.isNaN(latitude) || Number.isNaN(longitude))
+                ? fallbackCoordinates
+                : { latitude, longitude },
+            ),
     campusAccess: {
       ukzn: campusAccess.ukzn,
       dut: campusAccess.dut,

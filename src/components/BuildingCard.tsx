@@ -9,17 +9,17 @@ type BuildingCardProps = {
 
 export default function BuildingCard({ building, priority = false }: BuildingCardProps) {
   return (
-    <article className="panel rise overflow-hidden">
+    <article className="panel rise overflow-hidden rounded-[1.7rem]">
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image
           src={building.heroImage}
           alt={building.name}
           fill
           priority={priority}
-          className="object-cover transition-transform duration-500 hover:scale-[1.03]"
+          className="object-cover transition-transform duration-700 hover:scale-[1.05]"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,17,26,0.05),rgba(12,17,26,0.62))]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,17,26,0.08),rgba(12,17,26,0.74))]" />
         <div className="absolute left-4 top-4 rounded-full border border-white/35 bg-white/18 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-md">
           {building.badge}
         </div>
@@ -28,20 +28,21 @@ export default function BuildingCard({ building, priority = false }: BuildingCar
           <h2 className="mt-2 text-2xl font-semibold" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
             {building.name}
           </h2>
+          <p className="mt-2 max-w-sm text-sm text-white/80">{building.headline}</p>
         </div>
       </div>
 
       <div className="space-y-5 p-5 md:p-6">
         <p className="text-sm text-muted">{building.summary}</p>
 
-        <div className="grid gap-3 sm:grid-cols-2">
-          <div className="rounded-2xl border border-[#dce1ea] bg-[#f8fafc] px-4 py-3">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#5f7695]">From</p>
-            <p className="mt-1 text-2xl font-semibold text-[#162033]">R{building.priceFrom}/mo</p>
+        <div className="compact-meta-grid">
+          <div className="compact-meta-item">
+            <p className="compact-meta-label">From</p>
+            <p className="compact-meta-value"><strong>R{building.priceFrom}</strong>/mo</p>
           </div>
-          <div className="rounded-2xl border border-[#dce1ea] bg-[#f8fafc] px-4 py-3">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#5f7695]">Room Mix</p>
-            <p className="mt-1 text-sm font-medium text-[#162033]">Single and sharing options</p>
+          <div className="compact-meta-item">
+            <p className="compact-meta-label">Room Mix</p>
+            <p className="compact-meta-value">Single and sharing</p>
           </div>
         </div>
 

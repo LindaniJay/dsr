@@ -18,7 +18,7 @@ export default function BuildingRoomExplorer({ building }: BuildingRoomExplorerP
   return (
     <div className="space-y-8">
       <section className="grid gap-4 lg:grid-cols-[1.35fr_0.65fr]">
-        <article className="panel overflow-hidden">
+        <article className="panel overflow-hidden rounded-[1.8rem]">
           <div className="grid gap-3 p-3 md:grid-cols-[1.35fr_0.65fr]">
             <div className="relative min-h-[300px] overflow-hidden rounded-[1.4rem] md:min-h-[420px]">
               <Image
@@ -48,7 +48,7 @@ export default function BuildingRoomExplorer({ building }: BuildingRoomExplorerP
           </div>
         </article>
 
-        <aside className="panel p-6 lg:sticky lg:top-28">
+        <aside className="editorial-card p-6 lg:sticky lg:top-28">
           <p className="text-xs font-semibold uppercase tracking-[0.13em] text-[#5f7695]">Building Snapshot</p>
           <h2 className="mt-2 text-3xl font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
             {building.name}
@@ -56,9 +56,9 @@ export default function BuildingRoomExplorer({ building }: BuildingRoomExplorerP
           <p className="mt-3 text-sm text-muted">{building.headline}</p>
 
           <div className="mt-5 grid gap-3">
-            <div className="rounded-2xl border border-[#dde2ea] bg-[#f7f9fc] px-4 py-3">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#5f7695]">From</p>
-              <p className="mt-1 text-2xl font-semibold text-[#162033]">R{building.priceFrom}/mo</p>
+            <div className="stat-chip">
+              <p className="stat-label">From</p>
+              <p className="stat-value">R{building.priceFrom}/mo</p>
             </div>
             <div className="rounded-2xl border border-[#dde2ea] bg-white px-4 py-3 text-sm text-[#324052]">
               <span className="font-semibold text-[#162033]">UKZN:</span> {building.campusAccess.ukzn}
@@ -109,10 +109,10 @@ export default function BuildingRoomExplorer({ building }: BuildingRoomExplorerP
             <div>
               <span className="kicker">Room Selector</span>
               <h2 className="mt-4 text-3xl font-semibold text-[#121522] md:text-4xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
-                Choose how you want to stay in this building
+                Room options inside this building
               </h2>
               <p className="mt-3 max-w-3xl text-sm text-muted md:text-base">
-                Switch between private and shared room stock without leaving the building page. That keeps the location, gallery, amenities, and commute context visible while you compare price and privacy.
+                Compare private and shared options while keeping the building details, amenities, and commute information in view.
               </p>
             </div>
 
@@ -138,7 +138,7 @@ export default function BuildingRoomExplorer({ building }: BuildingRoomExplorerP
 
           <div className="grid gap-5 md:grid-cols-2">
             {visibleRooms.map((room) => (
-              <article key={room.id} className="panel overflow-hidden">
+              <article key={room.id} className="panel overflow-hidden rounded-[1.7rem]">
                 <div className="relative aspect-[16/11] overflow-hidden">
                   <Image src={room.image} alt={room.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,21,31,0.04),rgba(15,21,31,0.68))]" />
@@ -163,13 +163,13 @@ export default function BuildingRoomExplorer({ building }: BuildingRoomExplorerP
                   <p className="text-sm text-muted">{room.summary}</p>
 
                   <div className="grid gap-3 sm:grid-cols-2">
-                    <div className="rounded-2xl border border-[#dde2ea] bg-[#f7f9fc] px-4 py-3 text-sm text-[#324052]">
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#5f7695]">Occupancy</p>
-                      <p className="mt-1 font-semibold text-[#162033]">{room.occupancy}</p>
+                    <div className="stat-chip">
+                      <p className="stat-label">Occupancy</p>
+                      <p className="stat-value text-base">{room.occupancy}</p>
                     </div>
-                    <div className="rounded-2xl border border-[#dde2ea] bg-[#f7f9fc] px-4 py-3 text-sm text-[#324052]">
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#5f7695]">Deposit</p>
-                      <p className="mt-1 font-semibold text-[#162033]">R{room.deposit}</p>
+                    <div className="stat-chip">
+                      <p className="stat-label">Deposit</p>
+                      <p className="stat-value text-base">R{room.deposit}</p>
                     </div>
                   </div>
 
@@ -212,7 +212,7 @@ export default function BuildingRoomExplorer({ building }: BuildingRoomExplorerP
           </div>
         </div>
 
-        <aside className="panel p-6 lg:sticky lg:top-28">
+        <aside className="editorial-card p-6 lg:sticky lg:top-28">
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#5f7695]">Resident Signal</p>
           <blockquote className="mt-3 text-base text-[#243041]">“{building.review.quote}”</blockquote>
           <p className="mt-4 text-sm font-semibold text-[#162033]">{building.review.resident}</p>

@@ -37,6 +37,8 @@ function propertyToFormValues(property: BuildingItem): PropertyFormValues {
     area: property.area,
     badge: property.badge,
     priceFrom: property.priceFrom,
+    latitude: property.coordinates.latitude,
+    longitude: property.coordinates.longitude,
     ukznAccess: property.campusAccess.ukzn,
     dutAccess: property.campusAccess.dut,
     headline: property.headline,
@@ -229,6 +231,8 @@ export default function AdminPage() {
         ...propertyForm,
         slug: propertyForm.slug.trim() || slugifyPropertyName(propertyForm.name),
         priceFrom: Number(propertyForm.priceFrom),
+        latitude: Number(propertyForm.latitude),
+        longitude: Number(propertyForm.longitude),
         singlePrice: Number(propertyForm.singlePrice),
         singleDeposit: Number(propertyForm.singleDeposit),
         sharingPrice: Number(propertyForm.sharingPrice),
@@ -474,6 +478,22 @@ export default function AdminPage() {
               onChange={(value) => setPropertyForm((prev) => ({ ...prev, heroImage: value }))}
               placeholder="/buildings/musgrave-exterior.svg"
             />
+            <PropertyInput
+              label="Latitude"
+              type="number"
+              value={propertyForm.latitude}
+              onChange={(value) => setPropertyForm((prev) => ({ ...prev, latitude: Number(value) }))}
+              placeholder="-29.8417"
+              required={false}
+            />
+            <PropertyInput
+              label="Longitude"
+              type="number"
+              value={propertyForm.longitude}
+              onChange={(value) => setPropertyForm((prev) => ({ ...prev, longitude: Number(value) }))}
+              placeholder="31.0134"
+              required={false}
+            />
           </div>
 
           <div className="grid gap-4 lg:grid-cols-2">
@@ -671,6 +691,9 @@ export default function AdminPage() {
                     <p className="mt-2 text-sm text-muted">{property.summary}</p>
 
                     <div className="mt-4 grid gap-2 text-sm text-[#324052]">
+                      <div className="rounded-xl border border-[#e1e6ee] bg-white px-4 py-3">
+                        <span className="font-semibold text-[#162033]">Coordinates:</span> {property.coordinates.latitude.toFixed(4)}, {property.coordinates.longitude.toFixed(4)}
+                      </div>
                       <div className="rounded-xl border border-[#e1e6ee] bg-white px-4 py-3">
                         <span className="font-semibold text-[#162033]">UKZN:</span> {property.campusAccess.ukzn}
                       </div>

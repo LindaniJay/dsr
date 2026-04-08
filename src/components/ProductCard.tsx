@@ -39,8 +39,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <article className="panel group relative overflow-hidden p-5 md:p-6 rise transition-shadow duration-300 hover:shadow-2xl hover:scale-[1.025]">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#2e4f7a] to-[#caa86a]" />
+    <article className="editorial-card group relative overflow-hidden p-5 md:p-6 rise transition-shadow duration-300 hover:shadow-2xl">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#1f3a5a] to-[#b99258]" />
 
       <div className="relative mb-5 aspect-square overflow-hidden rounded-2xl border border-[#d7dbe2] bg-[#eef1f5] shadow-sm">
         <Image
@@ -48,19 +48,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
           alt={name}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-110"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,14,21,0.04),rgba(10,14,21,0.5))]" />
         <div className="absolute left-3 top-3 rounded-full bg-[rgba(18,21,34,0.82)] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.09em] text-white shadow">
           {edition || 'Core Edition'}
+        </div>
+        <div className="absolute inset-x-4 bottom-4 text-white">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white/75">{category || 'Student Accommodation'}</p>
+          <p className="mt-1 text-lg font-semibold" style={{ fontFamily: 'var(--font-space), sans-serif' }}>{name}</p>
         </div>
       </div>
 
       <div className="mb-5">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.11em] text-[#62728a]">
-          {category || 'Student Accommodation'}
-        </p>
         <h3
-          className="mt-1 text-xl font-bold text-[#121522] tracking-tight group-hover:text-[#2e4f7a] transition-colors"
+          className="text-xl font-bold text-[#121522] tracking-tight group-hover:text-[#2e4f7a] transition-colors"
           style={{ fontFamily: 'var(--font-space), sans-serif' }}
         >
           {name}
@@ -80,6 +82,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className="flex flex-wrap gap-2">
           {sizes.map(size => (
             <button
+              type="button"
               key={size}
               onClick={() => setSelectedSize(size)}
               className={`rounded-full border px-3 py-1.5 text-xs font-semibold focus-visible:ring-2 focus-visible:ring-[#caa86a] scale-100 hover:scale-105 active:scale-95 transition-transform duration-200 ${
@@ -98,6 +101,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       {onAddToCart && (
         <button
+          type="button"
           className={`flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold scale-100 hover:scale-105 active:scale-95 transition-transform duration-200 ${
             selectedSize && !isAdding
               ? 'bg-[#2e4f7a] text-white hover:bg-[#243c5d] group-hover:shadow-[0_8px_20px_rgba(36,60,93,0.24)]'

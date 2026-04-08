@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import "maplibre-gl/dist/maplibre-gl.css";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import { ToastProvider } from "../components/ToastProvider";

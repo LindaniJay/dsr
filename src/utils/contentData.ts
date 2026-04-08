@@ -25,6 +25,26 @@ export type BuildingGalleryItem = {
   caption: string;
 };
 
+export type BuildingCoordinates = {
+  latitude: number;
+  longitude: number;
+};
+
+export type NearbyPlace = {
+  id: string;
+  name: string;
+  category: 'grocery' | 'transport' | 'study' | 'food';
+  distance: string;
+  coordinates: BuildingCoordinates;
+};
+
+export type CampusAnchor = {
+  id: 'ukzn' | 'dut';
+  name: string;
+  shortLabel: string;
+  coordinates: BuildingCoordinates;
+};
+
 export type RoomOption = {
   id: string;
   title: string;
@@ -46,6 +66,8 @@ export type BuildingItem = {
   area: string;
   badge: string;
   priceFrom: number;
+  coordinates: BuildingCoordinates;
+  nearbyPlaces: NearbyPlace[];
   campusAccess: {
     ukzn: string;
     dut: string;
@@ -64,6 +86,140 @@ export type BuildingItem = {
     detail: string;
   };
 };
+
+const propertyPhotography = {
+  musgraveExterior: 'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1400&q=80',
+  musgraveStudy: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1400&q=80',
+  musgraveSingle: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80',
+  glenwoodExterior: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=80',
+  glenwoodShared: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1400&q=80',
+  glenwoodCommon: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1400&q=80',
+  umbiloExterior: 'https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1400&q=80',
+  umbiloStudio: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1400&q=80',
+  umbiloKitchenette: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1400&q=80',
+  loftShared: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1400&q=80',
+};
+
+export const defaultBuildingCoordinates: Record<string, BuildingCoordinates> = {
+  'musgrave-study-suites': { latitude: -29.8417, longitude: 31.0134 },
+  'glenwood-shared-house': { latitude: -29.8536, longitude: 31.0009 },
+  'umbilo-campus-lofts': { latitude: -29.8678, longitude: 30.9904 },
+};
+
+export const campusAnchors: CampusAnchor[] = [
+  {
+    id: 'ukzn',
+    name: 'UKZN Howard College',
+    shortLabel: 'UKZN',
+    coordinates: { latitude: -29.8675, longitude: 30.9799 },
+  },
+  {
+    id: 'dut',
+    name: 'DUT City Campus',
+    shortLabel: 'DUT',
+    coordinates: { latitude: -29.8574, longitude: 31.0292 },
+  },
+];
+
+export const defaultNearbyPlaces: Record<string, NearbyPlace[]> = {
+  'musgrave-study-suites': [
+    {
+      id: 'musgrave-checkers',
+      name: 'Musgrave Centre Grocery Run',
+      category: 'grocery',
+      distance: '6 min walk',
+      coordinates: { latitude: -29.8408, longitude: 31.0161 },
+    },
+    {
+      id: 'musgrave-taxi',
+      name: 'Berea Taxi Connection',
+      category: 'transport',
+      distance: '4 min walk',
+      coordinates: { latitude: -29.8423, longitude: 31.0118 },
+    },
+    {
+      id: 'musgrave-cafe',
+      name: 'Quiet Study Cafe',
+      category: 'study',
+      distance: '8 min walk',
+      coordinates: { latitude: -29.8401, longitude: 31.0142 },
+    },
+  ],
+  'glenwood-shared-house': [
+    {
+      id: 'glenwood-spar',
+      name: 'Glenwood Village Grocery',
+      category: 'grocery',
+      distance: '7 min walk',
+      coordinates: { latitude: -29.8527, longitude: 31.0032 },
+    },
+    {
+      id: 'glenwood-bus',
+      name: 'Howard Route Stop',
+      category: 'transport',
+      distance: '3 min walk',
+      coordinates: { latitude: -29.8544, longitude: 31.0017 },
+    },
+    {
+      id: 'glenwood-food',
+      name: 'Shared Dinner Strip',
+      category: 'food',
+      distance: '9 min walk',
+      coordinates: { latitude: -29.8519, longitude: 31.0002 },
+    },
+  ],
+  'umbilo-campus-lofts': [
+    {
+      id: 'umbilo-market',
+      name: 'Umbilo Essentials Market',
+      category: 'grocery',
+      distance: '5 min walk',
+      coordinates: { latitude: -29.867, longitude: 30.9924 },
+    },
+    {
+      id: 'umbilo-rail',
+      name: 'Campus Taxi Link',
+      category: 'transport',
+      distance: '4 min walk',
+      coordinates: { latitude: -29.8687, longitude: 30.9892 },
+    },
+    {
+      id: 'umbilo-study',
+      name: 'Late Study Lounge',
+      category: 'study',
+      distance: '6 min walk',
+      coordinates: { latitude: -29.8663, longitude: 30.9918 },
+    },
+  ],
+};
+
+export function createFallbackNearbyPlaces(area: string, coordinates: BuildingCoordinates): NearbyPlace[] {
+  const slugBase = area.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+  return [
+    {
+      id: `${slugBase}-grocery`,
+      name: `${area} grocery stop`,
+      category: 'grocery',
+      distance: '6 min walk',
+      coordinates: { latitude: coordinates.latitude + 0.0012, longitude: coordinates.longitude + 0.0018 },
+    },
+    {
+      id: `${slugBase}-transport`,
+      name: `${area} transport link`,
+      category: 'transport',
+      distance: '4 min walk',
+      coordinates: { latitude: coordinates.latitude - 0.001, longitude: coordinates.longitude + 0.0011 },
+    },
+    {
+      id: `${slugBase}-study`,
+      name: `${area} study spot`,
+      category: 'study',
+      distance: '8 min walk',
+      coordinates: { latitude: coordinates.latitude + 0.0008, longitude: coordinates.longitude - 0.0014 },
+    },
+  ];
+}
 
 export const rentalWorkflowStages = [
   {
@@ -98,6 +254,8 @@ export const defaultBuildings: BuildingItem[] = [
     area: 'Musgrave, Durban',
     badge: 'Quiet academic block',
     priceFrom: 4200,
+    coordinates: defaultBuildingCoordinates['musgrave-study-suites'],
+    nearbyPlaces: defaultNearbyPlaces['musgrave-study-suites'],
     campusAccess: {
       ukzn: '12 minutes to Howard College corridor',
       dut: '18 minutes to city campus route',
@@ -105,27 +263,27 @@ export const defaultBuildings: BuildingItem[] = [
     headline: 'A calmer Berea base for students who want study structure and a cleaner daily routine.',
     summary:
       'Musgrave Study Suites is designed around focused student living: controlled access, strong desk setups, stable shared amenities, and practical movement to UKZN and DUT routes.',
-    heroImage: '/buildings/musgrave-exterior.svg',
+    heroImage: propertyPhotography.musgraveExterior,
     gallery: [
       {
-        src: '/buildings/musgrave-exterior.svg',
-        alt: 'Musgrave Study Suites exterior',
-        caption: 'Street-facing arrival with controlled access and visible lighting.',
+        src: propertyPhotography.musgraveExterior,
+        alt: 'Musgrave Study Suites exterior mood',
+        caption: 'A calmer residential edge with quick access to the Berea student corridor.',
       },
       {
-        src: '/buildings/room-study.svg',
-        alt: 'Study lounge concept',
-        caption: 'Shared study lounge for evening prep and quieter work sessions.',
+        src: propertyPhotography.musgraveStudy,
+        alt: 'Study-ready kitchen and shared work zone',
+        caption: 'A brighter shared interior that supports longer study hours and quieter routines.',
       },
       {
-        src: '/buildings/room-single.svg',
-        alt: 'Private single room concept',
-        caption: 'Single-room layout with desk, storage wall, and natural light.',
+        src: propertyPhotography.musgraveSingle,
+        alt: 'Private single room with desk and natural light',
+        caption: 'Single-room layouts prioritise a desk setup, storage, and a more private rhythm.',
       },
       {
-        src: '/buildings/room-sharing.svg',
-        alt: 'Shared room concept',
-        caption: 'Sharing setup with separated sleep zones and common utility storage.',
+        src: propertyPhotography.glenwoodShared,
+        alt: 'Sharing room layout with twin beds',
+        caption: 'Sharing options lower the monthly spend while keeping the building context in view.',
       },
     ],
     amenities: ['Wi-Fi ready floors', '24/7 controlled access', 'Shared study lounge', 'Laundry room', 'Water backup'],
@@ -145,7 +303,7 @@ export const defaultBuildings: BuildingItem[] = [
         availability: '5 rooms available',
         leaseTerm: '12-month lease',
         occupancy: '1 tenant',
-        image: '/buildings/room-single.svg',
+        image: propertyPhotography.musgraveSingle,
         summary: 'A private room with a study desk, wardrobe, bed base, and access to shared kitchen and lounge spaces.',
         features: ['Dedicated desk', 'Lockable room', 'Bed and wardrobe included', 'Weekly common-area cleaning'],
         utilities: ['Wi-Fi included', 'Water included', 'Electricity capped'],
@@ -159,7 +317,7 @@ export const defaultBuildings: BuildingItem[] = [
         availability: '2 rooms available',
         leaseTerm: '12-month lease',
         occupancy: '1 tenant',
-        image: '/buildings/room-study.svg',
+        image: propertyPhotography.musgraveStudy,
         summary: 'A larger private room on the quieter side of the building with stronger natural light and extra storage.',
         features: ['Larger floor area', 'Corner-window layout', 'Extra shelving', 'Closer to study lounge'],
         utilities: ['Wi-Fi included', 'Water included', 'Electricity capped'],
@@ -173,7 +331,7 @@ export const defaultBuildings: BuildingItem[] = [
         availability: '4 beds available',
         leaseTerm: 'Semester or 12-month lease',
         occupancy: '2 tenants',
-        image: '/buildings/room-sharing.svg',
+        image: propertyPhotography.glenwoodShared,
         summary: 'A shared room setup for renters who want the location and amenities at a more accessible monthly price.',
         features: ['Split storage zones', 'Shared desk wall', 'Access to shared kitchen', 'Quiet hours policy'],
         utilities: ['Wi-Fi included', 'Water included', 'Electricity capped'],
@@ -191,6 +349,8 @@ export const defaultBuildings: BuildingItem[] = [
     area: 'Glenwood, Durban',
     badge: 'Community co-living',
     priceFrom: 3200,
+    coordinates: defaultBuildingCoordinates['glenwood-shared-house'],
+    nearbyPlaces: defaultNearbyPlaces['glenwood-shared-house'],
     campusAccess: {
       ukzn: '10 minutes to Howard College precinct',
       dut: '22 minutes to central DUT route',
@@ -198,27 +358,27 @@ export const defaultBuildings: BuildingItem[] = [
     headline: 'A sociable house-style setup for students who want affordability, shared routines, and easy Howard College access.',
     summary:
       'Glenwood Shared House groups students into a more communal living pattern with shared kitchens, furnished rooms, and practical budgets for semester-focused renters.',
-    heroImage: '/buildings/glenwood-exterior.svg',
+    heroImage: propertyPhotography.glenwoodExterior,
     gallery: [
       {
-        src: '/buildings/glenwood-exterior.svg',
-        alt: 'Glenwood Shared House exterior',
-        caption: 'Neighbourhood-facing entrance in a popular student housing pocket.',
+        src: propertyPhotography.glenwoodExterior,
+        alt: 'Glenwood Shared House exterior mood',
+        caption: 'A house-style setting in a student-friendly pocket close to Howard College routes.',
       },
       {
-        src: '/buildings/room-sharing.svg',
-        alt: 'Sharing room concept',
-        caption: 'Shared sleeping zone designed around storage and movement.',
+        src: propertyPhotography.glenwoodShared,
+        alt: 'Shared room with twin bed arrangement',
+        caption: 'Shared layouts keep budgets lower while maintaining a comfortable common living rhythm.',
       },
       {
-        src: '/buildings/room-study.svg',
-        alt: 'Communal desk area concept',
-        caption: 'Common study nook close to the kitchen and laundry areas.',
+        src: propertyPhotography.glenwoodCommon,
+        alt: 'Shared lounge and common area',
+        caption: 'Common spaces matter here as much as the bedroom because the house is lived in collectively.',
       },
       {
-        src: '/buildings/room-single.svg',
-        alt: 'Private room concept in shared house',
-        caption: 'Single occupancy room option inside the wider shared house layout.',
+        src: propertyPhotography.musgraveSingle,
+        alt: 'Private room in a shared house setting',
+        caption: 'Private rooms remain available for students who want the house feel with more privacy.',
       },
     ],
     amenities: ['Furnished bedrooms', 'Shared kitchen', 'Laundry corner', 'Weekly cleaning rota', 'Access-control gate'],
@@ -238,7 +398,7 @@ export const defaultBuildings: BuildingItem[] = [
         availability: '3 rooms available',
         leaseTerm: 'Semester or 12-month lease',
         occupancy: '1 tenant',
-        image: '/buildings/room-single.svg',
+        image: propertyPhotography.musgraveSingle,
         summary: 'A single bedroom inside the house for students who want privacy while still using shared kitchen and laundry spaces.',
         features: ['Furnished room', 'Study desk', 'House Wi-Fi', 'Shared kitchen access'],
         utilities: ['Wi-Fi included', 'Water included', 'Electricity fair-use'],
@@ -252,7 +412,7 @@ export const defaultBuildings: BuildingItem[] = [
         availability: '6 beds available',
         leaseTerm: 'Semester lease',
         occupancy: '2 tenants',
-        image: '/buildings/room-sharing.svg',
+        image: propertyPhotography.glenwoodShared,
         summary: 'A lower-cost shared room option with separate cupboards, study positions, and access to all house amenities.',
         features: ['Separate storage', 'Shared desk wall', 'Cleaning rota', 'Access-control gate'],
         utilities: ['Wi-Fi included', 'Water included', 'Electricity fair-use'],
@@ -266,7 +426,7 @@ export const defaultBuildings: BuildingItem[] = [
         availability: '2 beds available',
         leaseTerm: 'Semester or 12-month lease',
         occupancy: '2 tenants',
-        image: '/buildings/room-study.svg',
+        image: propertyPhotography.glenwoodCommon,
         summary: 'A sharing room with slightly more space and easier access to the outdoor courtyard for students who want breathing room.',
         features: ['Wider layout', 'Courtyard access', 'Extra shelving', 'Shared kitchen access'],
         utilities: ['Wi-Fi included', 'Water included', 'Electricity fair-use'],
@@ -284,6 +444,8 @@ export const defaultBuildings: BuildingItem[] = [
     area: 'Umbilo, Durban',
     badge: 'Independent studio living',
     priceFrom: 5100,
+    coordinates: defaultBuildingCoordinates['umbilo-campus-lofts'],
+    nearbyPlaces: defaultNearbyPlaces['umbilo-campus-lofts'],
     campusAccess: {
       ukzn: '14 minutes to medical and Howard College routes',
       dut: '16 minutes to city access route',
@@ -291,27 +453,27 @@ export const defaultBuildings: BuildingItem[] = [
     headline: 'Compact loft-style rooms for renters who want more privacy without losing access to Durban campus corridors.',
     summary:
       'Umbilo Campus Lofts is a more independent option with ensuite-style units, secure access, and a cleaner studio feel for students and young professionals.',
-    heroImage: '/buildings/umbilo-exterior.svg',
+    heroImage: propertyPhotography.umbiloExterior,
     gallery: [
       {
-        src: '/buildings/umbilo-exterior.svg',
-        alt: 'Umbilo Campus Lofts exterior',
-        caption: 'Modern block presence close to Durban health and education movement routes.',
+        src: propertyPhotography.umbiloExterior,
+        alt: 'Umbilo Campus Lofts exterior mood',
+        caption: 'A more contemporary exterior feel for renters who want studio-style privacy.',
       },
       {
-        src: '/buildings/room-single.svg',
-        alt: 'Studio sleeping area concept',
-        caption: 'Compact single layout with private entry feel and integrated storage.',
+        src: propertyPhotography.umbiloStudio,
+        alt: 'Compact studio sleeping area',
+        caption: 'Studios here favour self-contained layouts and a more independent daily setup.',
       },
       {
-        src: '/buildings/room-study.svg',
-        alt: 'Loft study corner concept',
-        caption: 'Desk and kitchenette zone built for independent daily routines.',
+        src: propertyPhotography.umbiloKitchenette,
+        alt: 'Studio kitchenette and study zone',
+        caption: 'Kitchenette and desk zones make the room work better for longer, self-managed stays.',
       },
       {
-        src: '/buildings/room-sharing.svg',
-        alt: 'Shared loft room concept',
-        caption: 'Optional sharing loft format for tenants splitting a more premium building.',
+        src: propertyPhotography.loftShared,
+        alt: 'Shared loft-style room',
+        caption: 'Sharing loft options reduce the entry price without leaving the building entirely out of reach.',
       },
     ],
     amenities: ['Ensuite-style rooms', 'Laundry access', 'Controlled entry', 'Backup lighting', 'Furnished units'],
@@ -331,7 +493,7 @@ export const defaultBuildings: BuildingItem[] = [
         availability: '4 rooms available',
         leaseTerm: '12-month lease',
         occupancy: '1 tenant',
-        image: '/buildings/room-single.svg',
+        image: propertyPhotography.umbiloStudio,
         summary: 'A compact private room with ensuite setup, bed base, wardrobe, desk, and kitchenette zone for independent living.',
         features: ['Ensuite bathroom', 'Mini kitchenette zone', 'Desk and bed included', 'Laundry access'],
         utilities: ['Wi-Fi ready', 'Water included', 'Electricity prepaid'],
@@ -345,7 +507,7 @@ export const defaultBuildings: BuildingItem[] = [
         availability: '1 room available',
         leaseTerm: '12-month lease',
         occupancy: '1 tenant',
-        image: '/buildings/room-study.svg',
+        image: propertyPhotography.umbiloKitchenette,
         summary: 'A more premium single unit with stronger light, a balcony edge, and a bit more room for independent study and storage.',
         features: ['Balcony access', 'Larger floor area', 'Ensuite bathroom', 'Kitchenette zone'],
         utilities: ['Wi-Fi ready', 'Water included', 'Electricity prepaid'],
@@ -359,7 +521,7 @@ export const defaultBuildings: BuildingItem[] = [
         availability: '2 beds available',
         leaseTerm: 'Semester or 12-month lease',
         occupancy: '2 tenants',
-        image: '/buildings/room-sharing.svg',
+        image: propertyPhotography.loftShared,
         summary: 'A lower-cost way into the building for two tenants sharing a loft-style unit with split storage and a shared kitchenette.',
         features: ['Split storage', 'Shared ensuite', 'Kitchenette zone', 'Laundry access'],
         utilities: ['Wi-Fi ready', 'Water included', 'Electricity prepaid'],
@@ -412,7 +574,7 @@ export const defaultEvents: EventItem[] = [
 
 export const defaultProducts: ProductItem[] = [
   {
-    image: '/buildings/room-single.svg',
+    image: propertyPhotography.musgraveSingle,
     name: 'Standard Single Room',
     price: 4200,
     sizes: ['Room Only', 'Furnished', 'Furnished + Wi-Fi'],
@@ -420,7 +582,7 @@ export const defaultProducts: ProductItem[] = [
     edition: 'Monthly from',
   },
   {
-    image: '/buildings/room-sharing.svg',
+    image: propertyPhotography.glenwoodShared,
     name: 'Shared Two-Bed Apartment',
     price: 5350,
     sizes: ['Sharing', 'Single Occupancy'],
@@ -428,7 +590,7 @@ export const defaultProducts: ProductItem[] = [
     edition: 'Monthly from',
   },
   {
-    image: '/buildings/room-study.svg',
+    image: propertyPhotography.umbiloStudio,
     name: 'Ensuite Studio',
     price: 6900,
     sizes: ['Standard', 'Balcony Unit'],

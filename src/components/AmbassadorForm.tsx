@@ -30,10 +30,10 @@ const AmbassadorForm: React.FC<AmbassadorFormProps> = ({ onSubmit }) => {
           className="mt-2 text-2xl font-bold text-[#121522] md:text-3xl tracking-tight"
           style={{ fontFamily: 'var(--font-space), sans-serif' }}
         >
-          Property Owner Inquiry
+          Viewing Request
         </h3>
         <p className="mt-1 text-sm text-muted">
-          Tell us about your building, rental model, and the type of students or young renters you want to attract.
+          Share the building, room type, and move-in timing you have in mind so the team can prepare the right next step.
         </p>
       </div>
 
@@ -58,7 +58,7 @@ const AmbassadorForm: React.FC<AmbassadorFormProps> = ({ onSubmit }) => {
       </div>
 
       <textarea
-        placeholder="Share location, room mix, rental range, lease terms, and what makes the property a strong fit for students in Durban."
+        placeholder="Tell us which building you prefer, whether you want a single or sharing room, your budget, and when you want to move in."
         value={motivation}
         onChange={e => setMotivation(e.target.value)}
         className="min-h-32 w-full rounded-xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#2e4f7a] focus:ring-2 focus:ring-[#caa86a] transition"
@@ -73,12 +73,12 @@ const AmbassadorForm: React.FC<AmbassadorFormProps> = ({ onSubmit }) => {
         aria-busy={sent}
         disabled={sent}
       >
-        {sent ? 'Submitted!' : 'Send Property Details'}
+        {sent ? 'Submitted!' : 'Send Viewing Request'}
       </button>
 
       {sent && (
         <div className="rounded-xl border border-[#b8d8c7] bg-[#eef9f1] px-4 py-3 text-sm font-medium text-[#1e6a45]">
-          Thanks. We have your property details and will follow up about next steps.
+          Thanks. Your viewing request has been received and the team will follow up with the next step.
         </div>
       )}
     </form>

@@ -49,16 +49,16 @@ const NavBar = () => {
   return (
     <header className="sticky top-0 z-50 px-3 pt-3 md:px-5">
       <nav
-        className={`mx-auto w-full max-w-[1200px] rounded-2xl border transition-all duration-300 ${
+        className={`mx-auto w-full max-w-[1200px] rounded-[1.6rem] border transition-all duration-300 ${
           scrolled
-            ? 'border-[#d6dae2] bg-[rgba(250,250,248,0.92)] shadow-[0_10px_30px_rgba(18,24,33,0.10)] backdrop-blur-xl'
-            : 'border-transparent bg-[rgba(250,250,248,0.64)] backdrop-blur-md'
+            ? 'border-[#d2d6dc] bg-[rgba(251,249,244,0.94)] shadow-[0_16px_36px_rgba(18,24,33,0.10)] backdrop-blur-xl'
+            : 'border-[rgba(216,214,207,0.65)] bg-[rgba(251,249,244,0.76)] backdrop-blur-md'
         }`}
         aria-label="Main navigation"
       >
-        <div className="flex items-center justify-between gap-4 px-4 py-3 md:px-6">
+        <div className="grid-fade flex items-center justify-between gap-4 px-4 py-3 md:px-6">
           <Link href="/" className="flex items-center gap-3 focus-visible:ring-2 focus-visible:ring-[#caa86a] rounded-xl transition" onClick={closeAllMenus}>
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#cad0d9] bg-[linear-gradient(135deg,#1f3350,#d6a45d)] text-sm font-bold text-white shadow-sm">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#d3c2a7] bg-[linear-gradient(135deg,#18314d,#b99258)] text-sm font-bold text-white shadow-sm">
               DS
             </span>
             <span>
@@ -69,7 +69,7 @@ const NavBar = () => {
                 Durban Student Stays
               </span>
               <span className="block text-[10px] uppercase tracking-[0.18em] text-[#64758b]">
-                Buildings near UKZN and DUT
+                Student accommodation in Durban
               </span>
             </span>
           </Link>
@@ -83,14 +83,14 @@ const NavBar = () => {
                   href={link.href}
                   className={`relative rounded-full px-2.5 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] focus-visible:ring-2 focus-visible:ring-[#caa86a] transition ${
                     isActive
-                      ? 'bg-[#2e4f7a] text-white'
+                      ? 'bg-[#1f3a5a] text-white'
                       : 'text-[#2a2f37] hover:bg-white hover:text-[#1f3350]'
                   }`}
                   aria-current={isActive ? 'page' : undefined}
                 >
                   {link.label}
                   {isActive && (
-                    <span className="absolute left-1/2 -bottom-1.5 h-1 w-6 -translate-x-1/2 rounded-full bg-gradient-to-r from-[#2e4f7a] to-[#caa86a] opacity-80 animate-pulse" />
+                    <span className="absolute left-1/2 -bottom-1.5 h-1 w-6 -translate-x-1/2 rounded-full bg-gradient-to-r from-[#1f3a5a] to-[#b99258] opacity-80" />
                   )}
                 </Link>
               );
@@ -101,6 +101,10 @@ const NavBar = () => {
             <div className="hidden items-center gap-2 lg:flex">
               <Link href="/signin" className="rounded-full border border-[#d6dce6] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#1f3350] hover:border-[#8ca0ba]">
                 Sign In
+              </Link>
+
+              <Link href="/contact" className="btn-primary px-4 py-2 text-xs uppercase tracking-[0.08em]">
+                Book A Viewing
               </Link>
 
               <button
@@ -118,7 +122,7 @@ const NavBar = () => {
             </div>
 
             {isMoreMenuOpen && (
-              <div className="absolute right-0 top-12 z-50 hidden w-56 rounded-2xl border border-[#d6dae2] bg-white p-2 shadow-[0_12px_28px_rgba(20,25,35,0.14)] lg:block">
+              <div className="absolute right-0 top-14 z-50 hidden w-56 rounded-2xl border border-[#d6dae2] bg-white p-2 shadow-[0_12px_28px_rgba(20,25,35,0.14)] lg:block">
                 <div className="grid gap-1">
                   {moreNavLinks.map((link) => {
                     const isActive = pathname === link.href;
@@ -218,6 +222,9 @@ const NavBar = () => {
                 </Link>
               );
             })}
+            <Link href="/contact" onClick={closeAllMenus} className="btn-primary mt-2 text-center">
+              Book A Viewing
+            </Link>
             {authLinks.map((link) => (
               <Link
                 key={link.href}

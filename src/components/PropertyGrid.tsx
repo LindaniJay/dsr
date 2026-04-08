@@ -9,12 +9,17 @@ import BuildingCard from './BuildingCard';
 
 type PropertyGridProps = {
   limit?: number;
+  buildings?: BuildingItem[];
 };
 
-export default function PropertyGrid({ limit }: PropertyGridProps) {
-  const [buildings, setBuildings] = useState<BuildingItem[]>(defaultBuildings);
+export default function PropertyGrid({ limit, buildings: providedBuildings }: PropertyGridProps) {
+  const [fetchedBuildings, setFetchedBuildings] = useState<BuildingItem[]>(defaultBuildings);
 
   useEffect(() => {
+    if (providedBuildings) {
+      return;
+    }
+
     const loadProperties = async () => {
       try {
         const db = getFirestore(app);
@@ -24,7 +29,7 @@ export default function PropertyGrid({ limit }: PropertyGridProps) {
           .filter((item): item is BuildingItem => item !== null);
 
         if (parsed.length > 0) {
-          setBuildings(parsed);
+          setFetchedBuildings(parsed);
         }
       } catch {
         // Keep default buildings when Firestore content is unavailable.
@@ -32,8 +37,9 @@ export default function PropertyGrid({ limit }: PropertyGridProps) {
     };
 
     loadProperties();
-  }, []);
+  }, [providedBuildings]);
 
+  const buildings = providedBuildings ?? fetchedBuildings;
   const visibleBuildings = typeof limit === 'number' ? buildings.slice(0, limit) : buildings;
 
   return (

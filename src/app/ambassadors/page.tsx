@@ -69,7 +69,7 @@ export default function AmbassadorsPage() {
           <span className="block mt-2 animate-fade-in-up delay-150">because it <span className="text-[#caa86a]">does</span></span>
         </h1>
         <p className="mt-4 max-w-3xl text-lg text-muted md:text-xl animate-fade-in-up delay-200">
-          This guide helps renters read a property the way a more experienced architect or operator would: from site logic and circulation to room mode, cost structure, and image sequence.
+          Use this guide to compare location, room setup, shared spaces, and monthly costs with a clearer eye before you book a viewing.
         </p>
       </section>
 
@@ -79,7 +79,7 @@ export default function AmbassadorsPage() {
             className="text-2xl font-semibold text-[#121522]"
             style={{ fontFamily: 'var(--font-space), sans-serif' }}
           >
-            The order of a strong rental decision
+            How to compare with confidence
           </h2>
           <ul className="mt-4 space-y-2">
             {decisionLayers.map((req, idx) => (
@@ -95,14 +95,14 @@ export default function AmbassadorsPage() {
             className="text-2xl font-semibold text-[#121522]"
             style={{ fontFamily: 'var(--font-space), sans-serif' }}
           >
-            What the admin team controls now
+            What to check on every listing
           </h2>
           <ul className="mt-4 space-y-2">
             {[
-              'Properties are added centrally in the admin dashboard.',
-              'Each building page can carry a stronger narrative, gallery sequence, and room-mode split.',
-              'Room Types stay as a comparison layer, not the main discovery flow.',
-              'Renters now move through a cleaner, more intentional browsing journey.',
+              'Read the building first, then compare the rooms inside it.',
+              'Use photo order to understand arrival, shared spaces, and the room itself.',
+              'Check what is included in rent before you ask about availability.',
+              'Keep your shortlist focused on places that suit your route and budget.',
             ].map((benefit, idx) => (
               <li key={idx} className="rounded-lg border border-[#d7dce5] bg-white px-3 py-2 text-sm text-[#2d3746]">
                 {benefit}
@@ -120,11 +120,11 @@ export default function AmbassadorsPage() {
               className="mt-2 text-3xl font-semibold text-[#121522]"
               style={{ fontFamily: 'var(--font-space), sans-serif' }}
             >
-              How a disciplined renter should move through the site
+              A practical way to compare options
             </h2>
           </div>
           <p className="max-w-xl text-sm text-muted md:text-base">
-            The aim is to make selection calmer and more rational: understand the building, then inspect the room mode, then ask better questions before you book a viewing.
+            Start with the building, narrow down the room type, and ask the questions that affect your monthly cost and day-to-day comfort.
           </p>
         </div>
 
@@ -181,17 +181,17 @@ export default function AmbassadorsPage() {
           className="text-2xl font-semibold text-[#121522]"
           style={{ fontFamily: 'var(--font-space), sans-serif' }}
         >
-          Why the site reads differently now
+          Why building context matters
         </h2>
         <div className="mt-4 space-y-3 text-sm text-muted">
           <p>
-            Property creation now belongs inside the admin workflow, which keeps the public experience focused on renters.
+            A room can look good on its own and still be in the wrong building for your routine. Location, access, and shared spaces shape the experience just as much as the room itself.
           </p>
           <p>
-            That shift also allows the interface to feel more deliberate. Instead of switching audiences mid-journey, the public side stays entirely about choosing, comparing, and enquiring.
+            Looking at the full property first helps you judge the details that affect everyday living, from travel time to kitchen quality and study space.
           </p>
           <p className="font-medium text-[#243041]">
-            The best rental pages feel like a well-edited presentation board: fewer distractions, better sequencing, and stronger trust.
+            Good rental decisions come from clear information, honest photos, and a room choice that fits your budget.
           </p>
         </div>
       </section>
@@ -201,10 +201,10 @@ export default function AmbassadorsPage() {
           <div>
             <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">Next Move</span>
             <h2 className="mt-2 text-3xl font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
-              Use this guide, then open a building
+              Use the guide, then shortlist a building
             </h2>
             <p className="mt-3 text-sm text-muted md:text-base">
-              The strongest next step is to test the guide against a real property page, switch room modes, and then contact the team with a focused viewing request.
+              Pick a building that suits your route, compare the room options inside it, and then send a viewing request with the details already in mind.
             </p>
           </div>
 

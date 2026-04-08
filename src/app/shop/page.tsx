@@ -17,7 +17,7 @@ const premiumHighlights = [
   },
   {
     title: 'Shortlist First',
-    text: 'This page helps renters save promising options before they reach out about viewings and availability.',
+    text: 'Build a shortlist of room options before you ask about viewings and availability.',
   },
 ];
 
@@ -25,6 +25,21 @@ const shoppingAssurance = [
   'Ask whether rent includes Wi-Fi, water, and electricity before committing.',
   'Check walking or taxi access to your specific campus, not only central Durban.',
   'Confirm deposit, lease length, and house rules before move-in.',
+];
+
+const roomSignals = [
+  {
+    title: 'Single rooms',
+    text: 'Best when privacy, storage, and longer study hours matter more than the lowest monthly rate.',
+  },
+  {
+    title: 'Shared rooms',
+    text: 'Useful when lowering monthly spend matters most and the building itself already suits your route.',
+  },
+  {
+    title: 'Studios',
+    text: 'A stronger fit for renters who want an independent routine and self-contained daily living.',
+  },
 ];
 
 function parseProduct(raw: Record<string, unknown>): ProductItem | null {
@@ -93,39 +108,31 @@ export default function ShopPage() {
 
   return (
     <div className="app-shell section-spacing">
-      {/* Hero Section with layered glassmorphism and animated floating shapes */}
-      <section className="panel rise overflow-hidden p-6 md:p-10 relative">
-        {/* Animated gradient background */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 animate-gradient-move bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#caa86a]/30 via-[#2e4f7a]/10 to-transparent opacity-80" />
-        {/* Glassmorphism overlay */}
-        <div aria-hidden="true" className="absolute left-1/2 top-0 z-0 h-[340px] w-[600px] -translate-x-1/2 rounded-3xl bg-white/30 shadow-2xl backdrop-blur-2xl blur-2xl" style={{ filter: 'blur(28px)' }} />
-        {/* Floating shapes for depth */}
-        <div aria-hidden="true" className="absolute top-10 left-10 w-20 h-20 rounded-full bg-[#caa86a]/30 blur-2xl animate-float-slow" />
-        <div aria-hidden="true" className="absolute bottom-10 right-10 w-28 h-28 rounded-full bg-[#2e4f7a]/20 blur-2xl animate-float-medium" />
+      <section className="page-hero rise px-6 py-8 md:px-10 md:py-12">
         <div className="grid gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-end relative z-10">
           <div>
             <span className="kicker">Room Types</span>
             <h1
-              className="architect-heading mt-5 text-4xl font-extrabold text-[#121522] md:text-6xl tracking-tight animate-fade-in-up"
+              className="architect-heading mt-5 text-4xl font-extrabold text-[#121522] md:text-6xl tracking-tight"
               style={{ fontFamily: 'var(--font-space), sans-serif', letterSpacing: '-0.03em' }}
             >
-              <span className="inline-block bg-gradient-to-r from-[#2e4f7a] via-[#caa86a] to-[#2e4f7a] bg-clip-text text-transparent animate-gradient-text drop-shadow-lg">Compare room formats after you pick a building</span>
+              Compare room formats after you shortlist the building.
             </h1>
-            <p className="mt-4 max-w-3xl text-lg text-muted md:text-xl animate-fade-in-up delay-200">
-              The main journey now starts on the Buildings page. This page works as a secondary comparison layer for renters who already know the type of room they want to ask about.
+            <p className="mt-4 max-w-3xl text-lg text-muted md:text-xl">
+              Use this space to compare privacy, layout, furnishing, and rent band once you already know which buildings suit your route and budget.
             </p>
           </div>
 
-          <div className="rounded-2xl border border-[#d7dde7] bg-[linear-gradient(145deg,#f6f8fb,#ffffff)/80] p-5 glassmorphism">
-            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">Selection Promise</p>
+          <div className="tonal-card p-5 text-white">
+            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-white/70">Selection Promise</p>
             <h2
-              className="mt-2 text-2xl font-semibold text-[#121522] animate-gradient-text"
+              className="mt-2 text-2xl font-semibold text-white"
               style={{ fontFamily: 'var(--font-space), sans-serif' }}
             >
               Compare before you enquire
             </h2>
-            <p className="mt-3 text-base text-muted">
-              Use this after browsing buildings when you want a tighter read on privacy level, furnishing, and rent band.
+            <p className="mt-3 text-base text-white/78">
+              Narrow your choices by room style, then reach out with a clearer idea of what you want.
             </p>
           </div>
         </div>
@@ -133,8 +140,8 @@ export default function ShopPage() {
 
       <section className="mt-8 grid gap-4 md:grid-cols-3">
         {premiumHighlights.map((item, idx) => (
-          <article key={item.title} className="panel rise p-6" style={{ animationDelay: `${idx * 70}ms` }}>
-            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">Premium Standard</p>
+          <article key={item.title} className="editorial-card rise p-6" style={{ animationDelay: `${idx * 70}ms` }}>
+            <p className="stat-label">Premium Standard</p>
             <h2
               className="mt-2 text-2xl font-semibold text-[#121522]"
               style={{ fontFamily: 'var(--font-space), sans-serif' }}
@@ -146,19 +153,22 @@ export default function ShopPage() {
         ))}
       </section>
 
+      <section className="mt-8 grid gap-4 md:grid-cols-3">
+        {roomSignals.map((item, idx) => (
+          <article key={item.title} className="panel rise p-6" style={{ animationDelay: `${idx * 70}ms` }}>
+            <p className="stat-label">Room Signal</p>
+            <h2 className="mt-2 text-2xl font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
+              {item.title}
+            </h2>
+            <p className="mt-3 text-sm text-muted">{item.text}</p>
+          </article>
+        ))}
+      </section>
+
       {success && (
-        <section className="rise relative overflow-hidden">
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 animate-gradient-move bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#caa86a]/30 via-[#2e4f7a]/10 to-transparent opacity-80" />
+        <section className="mt-8 editorial-card rise px-6 py-5">
           <span className="kicker">Shortlist</span>
-          <h1
-            className="architect-heading mt-5 text-4xl font-bold text-[#121522] md:text-6xl tracking-tight animate-fade-in-up"
-            style={{ fontFamily: 'var(--font-space), sans-serif' }}
-          >
-            <span className="inline-block bg-gradient-to-r from-[#2e4f7a] via-[#caa86a] to-[#2e4f7a] bg-clip-text text-transparent animate-gradient-text">Shortlisted room options</span>
-          </h1>
-          <p className="mt-4 max-w-3xl text-base text-muted md:text-lg">
-            {success}
-          </p>
+          <p className="mt-3 text-base text-[#243041] md:text-lg">{success}</p>
         </section>
       )}
 
@@ -181,7 +191,7 @@ export default function ShopPage() {
           </div>
         </div>
 
-        <aside className="panel rise p-6 lg:sticky lg:top-28" style={{ animationDelay: '120ms' }}>
+        <aside className="editorial-card rise p-6 lg:sticky lg:top-28" style={{ animationDelay: '120ms' }}>
           <p className="text-xs font-semibold uppercase tracking-[0.1em] text-[#5f7695]">Shortlist Summary</p>
           <h2
             className="mt-2 text-2xl font-semibold text-[#121522]"
