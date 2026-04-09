@@ -3,9 +3,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const socialLinks = [
-  { href: 'https://www.instagram.com/', label: 'Instagram', icon: '/icons/instagram.svg' },
-  { href: 'https://www.facebook.com/', label: 'Facebook', icon: '/icons/facebook.svg' },
-  { href: 'https://www.tiktok.com/', label: 'TikTok', icon: '/icons/tiktok.svg' },
+  { href: 'https://www.instagram.com/durbanstudentrentals', label: 'Instagram', icon: '/icons/instagram.svg' },
+  { href: 'https://www.facebook.com/durbanstudentrentals', label: 'Facebook', icon: '/icons/facebook.svg' },
+  { href: 'https://www.tiktok.com/@durbanstudentrentals', label: 'TikTok', icon: '/icons/tiktok.svg' },
 ];
 
 export default function Footer() {
@@ -29,6 +29,7 @@ export default function Footer() {
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#6b7a92]">Explore</p>
           <nav className="mt-4 grid gap-3 text-sm font-medium text-[#334155]">
             <Link href="/buildings">Buildings</Link>
+            <Link href="/events">Events</Link>
             <Link href="/apply">Application Guide</Link>
             <Link href="/ambassadors">Rental Guide</Link>
             <Link href="/contact">Contact</Link>
@@ -53,7 +54,7 @@ export default function Footer() {
           </div>
           <div className="mt-5 grid gap-3 text-sm text-[#566476]">
             <p>For viewings and availability, use the contact page to send your preferred area, room type, and move-in timing.</p>
-            <p>WhatsApp: +27 00 000 0000</p>
+            <p>WhatsApp: +27 61 000 0000</p>
             <p>Viewing hours: Monday to Saturday, 09:00 to 17:00</p>
             <p>Response time: usually within one working day</p>
           </div>

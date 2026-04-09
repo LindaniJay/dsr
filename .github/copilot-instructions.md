@@ -1,7 +1,7 @@
 - [x] Project folder renamed to 'ighost' and Next.js scaffolded successfully.
-- [ ] Customize the project: Add Home, Events, Shop, Ambassadors, About & Contact pages. Integrate Firebase, Stripe, TailwindCSS. Create EventCard, ProductCard, AmbassadorForm components.
-- [ ] Install Required Extensions
-- [ ] Compile the Project
-- [ ] Create and Run Task
-- [ ] Launch the Project
-- [ ] Ensure Documentation is Complete
+- [x] Customize the project: Add Home, Events, Shop, Ambassadors, About & Contact pages. Integrate Firebase, Stripe, TailwindCSS. Create EventCard, ProductCard, AmbassadorForm components.
+- [x] Install Required Extensions
+- [x] Compile the Project
+- [x] Create and Run Task
+- [x] Launch the Project
+- [x] Ensure Documentation is Complete

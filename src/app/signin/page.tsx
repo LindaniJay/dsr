@@ -1,10 +1,38 @@
 "use client";
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { getFirebaseAuth } from '@/utils/firebase';
 
 export default function SignInPage() {
-  const [sent, setSent] = React.useState(false);
+  const router = useRouter();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [error, setError] = React.useState('');
+  const [busy, setBusy] = React.useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError('');
+    setBusy(true);
+    try {
+      await signInWithEmailAndPassword(getFirebaseAuth(), email, password);
+      router.push('/buildings');
+    } catch (err: unknown) {
+      const code = (err as { code?: string }).code ?? '';
+      if (code === 'auth/user-not-found' || code === 'auth/wrong-password' || code === 'auth/invalid-credential') {
+        setError('Invalid email or password. Please try again.');
+      } else if (code === 'auth/too-many-requests') {
+        setError('Too many attempts. Please wait a moment and try again.');
+      } else {
+        setError('Unable to sign in. Check your connection and try again.');
+      }
+    } finally {
+      setBusy(false);
+    }
+  }
 
   return (
     <div className="app-shell section-spacing">
@@ -24,11 +52,7 @@ export default function SignInPage() {
       <section className="mt-8 grid gap-4 md:grid-cols-[1fr_0.9fr]">
         <form
           className="panel rise flex flex-col gap-5 p-6 md:p-8"
-          onSubmit={(e) => {
-            e.preventDefault();
-            setSent(true);
-            setTimeout(() => setSent(false), 2600);
-          }}
+          onSubmit={handleSubmit}
         >
           <div>
             <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.08em] text-[#5e6673]">
@@ -39,6 +63,8 @@ export default function SignInPage() {
               placeholder="name@example.com"
               className="w-full rounded-xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#5f7695] focus:ring-2 focus:ring-[#d6dfec]"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -51,6 +77,8 @@ export default function SignInPage() {
               placeholder="Enter your password"
               className="w-full rounded-xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#5f7695] focus:ring-2 focus:ring-[#d6dfec]"
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
@@ -59,18 +87,15 @@ export default function SignInPage() {
               <input type="checkbox" className="h-4 w-4 rounded border-[#c9d1dc]" />
               Keep me signed in
             </label>
-            <button type="button" className="text-[#2e4f7a] hover:text-[#233c5f]">
-              Forgot password?
-            </button>
           </div>
 
-          <button type="submit" className="btn-primary w-full justify-center">
-            Sign In
+          <button type="submit" className="btn-primary w-full justify-center" disabled={busy}>
+            {busy ? 'Signing in…' : 'Sign In'}
           </button>
 
-          {sent && (
-            <div className="rounded-xl border border-[#b9d8c7] bg-[#edf8f2] px-4 py-3 text-sm font-medium text-[#1f6946]">
-              Sign-in request received. Connect this form to your auth provider for live login.
+          {error && (
+            <div className="rounded-xl border border-[#e8b4b4] bg-[#fdf2f2] px-4 py-3 text-sm font-medium text-[#991b1b]">
+              {error}
             </div>
           )}
 

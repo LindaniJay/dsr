@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const faqs = [
   {
     question: 'What kinds of rentals are listed here?',
@@ -87,8 +89,8 @@ export default function FAQPage() {
           Get in touch and we will help you find the right building and room for your situation.
         </p>
         <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          <a href="/contact" className="btn-primary w-full text-center sm:w-auto">Contact Us</a>
-          <a href="/buildings" className="btn-secondary w-full text-center sm:w-auto">Browse Buildings</a>
+          <Link href="/contact" className="btn-primary w-full text-center sm:w-auto">Contact Us</Link>
+          <Link href="/buildings" className="btn-secondary w-full text-center sm:w-auto">Browse Buildings</Link>
         </div>
       </section>
     </div>

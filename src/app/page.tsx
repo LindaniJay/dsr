@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import FeaturedRoomGrid from '../components/FeaturedRoomGrid';
 import { defaultBuildings } from '../utils/contentData';
 import { neighbourhoodGuides } from '../utils/siteExperience';
@@ -138,10 +139,11 @@ export default function Home() {
               style={{ animationDelay: `${i * 80}ms` }}
             >
               <div className="relative aspect-[16/10] overflow-hidden">
-                <img
+                <Image
                   src={ng.image}
                   alt={ng.name}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,17,26,0.04),rgba(12,17,26,0.72))]" />
                 <div className="absolute inset-x-4 bottom-4 text-white">

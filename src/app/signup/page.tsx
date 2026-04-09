@@ -1,10 +1,50 @@
 "use client";
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { getFirebaseAuth } from '@/utils/firebase';
 
 export default function SignUpPage() {
-  const [sent, setSent] = React.useState(false);
+  const router = useRouter();
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [confirm, setConfirm] = React.useState('');
+  const [interest, setInterest] = React.useState('');
+  const [error, setError] = React.useState('');
+  const [busy, setBusy] = React.useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError('');
+    if (password !== confirm) {
+      setError('Passwords do not match.');
+      return;
+    }
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters.');
+      return;
+    }
+    setBusy(true);
+    try {
+      const cred = await createUserWithEmailAndPassword(getFirebaseAuth(), email, password);
+      await updateProfile(cred.user, { displayName: name });
+      router.push('/buildings');
+    } catch (err: unknown) {
+      const code = (err as { code?: string }).code ?? '';
+      if (code === 'auth/email-already-in-use') {
+        setError('An account with this email already exists.');
+      } else if (code === 'auth/weak-password') {
+        setError('Password is too weak. Use at least 6 characters.');
+      } else {
+        setError('Unable to create account. Check your connection and try again.');
+      }
+    } finally {
+      setBusy(false);
+    }
+  }
 
   return (
     <div className="app-shell section-spacing">
@@ -24,11 +64,7 @@ export default function SignUpPage() {
       <section className="mt-8 grid gap-4 md:grid-cols-[1fr_0.9fr]">
         <form
           className="panel rise flex flex-col gap-5 p-6 md:p-8"
-          onSubmit={(e) => {
-            e.preventDefault();
-            setSent(true);
-            setTimeout(() => setSent(false), 2800);
-          }}
+          onSubmit={handleSubmit}
         >
           <div>
             <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.08em] text-[#5e6673]">
@@ -39,6 +75,8 @@ export default function SignUpPage() {
               placeholder="Your full name"
               className="w-full rounded-xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#5f7695] focus:ring-2 focus:ring-[#d6dfec]"
               required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
 
@@ -51,6 +89,8 @@ export default function SignUpPage() {
               placeholder="name@example.com"
               className="w-full rounded-xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#5f7695] focus:ring-2 focus:ring-[#d6dfec]"
               required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -64,6 +104,8 @@ export default function SignUpPage() {
                 placeholder="Create password"
                 className="w-full rounded-xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#5f7695] focus:ring-2 focus:ring-[#d6dfec]"
                 required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div>
@@ -75,6 +117,8 @@ export default function SignUpPage() {
                 placeholder="Confirm password"
                 className="w-full rounded-xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#5f7695] focus:ring-2 focus:ring-[#d6dfec]"
                 required
+                value={confirm}
+                onChange={(e) => setConfirm(e.target.value)}
               />
             </div>
           </div>
@@ -85,7 +129,8 @@ export default function SignUpPage() {
             </label>
             <select
               className="w-full rounded-xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#5f7695] focus:ring-2 focus:ring-[#d6dfec]"
-              defaultValue=""
+              value={interest}
+              onChange={(e) => setInterest(e.target.value)}
               required
             >
               <option value="" disabled>
@@ -97,14 +142,13 @@ export default function SignUpPage() {
             </select>
           </div>
 
-          <button type="submit" className="btn-primary w-full justify-center">
-            Create Account
+          <button type="submit" className="btn-primary w-full justify-center" disabled={busy}>
+            {busy ? 'Creating account…' : 'Create Account'}
           </button>
 
-          {sent && (
-            <div className="rounded-xl border border-[#b9d8c7] bg-[#edf8f2] px-4 py-3 text-sm font-medium text-[#1f6946]">
-              Account request captured. Connect this form to your auth backend to enable live
-              registration.
+          {error && (
+            <div className="rounded-xl border border-[#e8b4b4] bg-[#fdf2f2] px-4 py-3 text-sm font-medium text-[#991b1b]">
+              {error}
             </div>
           )}
 

@@ -1,7 +1,9 @@
 {
-  "name": "ighost",
-  "version": "0.1.0",
+  "name": "durban-student-accommodation",
+  "version": "1.0.0",
   "private": true,
+  "description": "Browse student accommodation in Durban near UKZN and DUT — compare buildings, explore rooms, and book viewings.",
+  "repository": "https://github.com/LindaniJay/dsr.git",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

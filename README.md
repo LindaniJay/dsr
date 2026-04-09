@@ -1,90 +1,88 @@
-# IGHOST Edutainment
+# Durban Student Accommodation
 
-A modern Next.js site for IGHOST Edutainment, featuring:
-- Home, Events, Shop, Ambassadors, About, Contact, Gallery, FAQ, Testimonials
-- Firebase integration for event registration
-- South Africa payment options (EFT, PayFast, Ozow, Yoco)
-- TailwindCSS for beautiful styling
-- Animated gradient backgrounds
-- Custom components: EventCard, ProductCard, AmbassadorForm
+A modern Next.js site for browsing student accommodation in Durban, South Africa. Compare buildings near UKZN and DUT, explore room modes, and book viewings.
+
+## Features
+
+- **Buildings browser** with interactive Leaflet map, filters, and side-by-side comparison
+- **Room explorer** — toggle between single and sharing modes per building
+- **Events page** — open days, webinar announcements, and viewing slots (Firestore-backed)
+- **Shop / products** — room listings with category and edition filtering
+- **Rental Guide** — step-by-step guide to choosing and securing a room
+- **Application Guide** — readiness steps and before-you-commit checklist
+- **Neighbourhood profiles** — Musgrave-Berea, Glenwood, Umbilo, City Centre
+- **Contact form** — sends viewing requests to Firestore
+- **FAQ, Testimonials, Gallery** pages
+- **Firebase Authentication** — sign-in and sign-up with email/password
+- **Admin dashboard** (`/admin`) — manage buildings, rooms, and enquiries via Firestore
+
+## Tech Stack
+
+- **Next.js 16** (App Router, static export)
+- **React 19**, **TypeScript 5**
+- **Tailwind CSS 4**
+- **Firebase** (Firestore, Authentication)
+- **Leaflet + react-leaflet** (interactive maps)
 
 ## Getting Started
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-2. Create your local env file and fill in your keys:
-   ```bash
-   cp .env.example .env.local
-   ```
-   Add your Firebase values, South Africa payment variables, and `NEXT_PUBLIC_ADMIN_ACCESS_CODE` in `.env.local`.
-3. Run the development server:
-   ```bash
-   npm run dev
-   ```
-4. Build for production:
-   ```bash
-   npm run build
-   ```
+```bash
+npm install
+cp .env.example .env.local   # fill in your Firebase keys
+npm run dev                   # http://localhost:3000
+```
 
-## Features
-- Dynamic event registration (Firebase)
-- Shop cart and checkout with South Africa methods (EFT, PayFast, Ozow, Yoco)
-- No-code admin content manager for events and products
-- Ambassador application form
-- Responsive, modern UI
-- Animated backgrounds
-- Social links and contact form
+### Production build
+
+```bash
+npm run build
+npm start
+```
+
+## Environment Variables
+
+See `.env.example` for the full list. At minimum you need:
+
+| Variable | Purpose |
+|----------|---------|
+| `NEXT_PUBLIC_FIREBASE_API_KEY` | Firebase Web API key |
+| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | Firebase Auth domain |
+| `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | Firestore project ID |
+| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | Firebase Storage bucket |
+| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | FCM sender ID |
+| `NEXT_PUBLIC_FIREBASE_APP_ID` | Firebase App ID |
+| `NEXT_PUBLIC_ADMIN_ACCESS_CODE` | Admin unlock code for `/admin` |
 
 ## Folder Structure
-- `src/app/` — Pages
-- `src/components/` — UI components
-- `src/utils/` — Utility files (Firebase, EFT reference generation)
 
-## No-Code Content Management
-Use `/admin` to manage website content without coding.
+```
+src/
+  app/          — Pages (Home, Buildings, Events, Shop, About, Contact, etc.)
+  components/   — UI components (NavBar, Footer, EventCard, BuildingMap, etc.)
+  hooks/        — Custom React hooks (useSavedBuildings)
+  utils/        — Firebase init, content data, property records, site experience
+public/
+  about/        — About page images
+  buildings/    — Building exterior & room SVGs
+  icons/        — Social media SVG icons
+```
 
-### What can be managed
-- Events displayed on `/events`
-- Products displayed on `/shop`
+## Admin Dashboard
 
-### How it works
-1. Open `/admin`
-2. Enter `NEXT_PUBLIC_ADMIN_ACCESS_CODE` (if configured)
-3. Use the Events or Products tab
-4. Create, edit, or delete entries
-5. Changes appear automatically on public pages
+1. Navigate to `/admin`
+2. Enter the admin access code
+3. Manage buildings, rooms, and viewing requests
+4. Changes sync to Firestore and appear on public pages
 
-### Firestore collections used
-- `events`
-   - `title` (string)
-   - `date` (string, `YYYY-MM-DD`)
-   - `location` (string)
-   - `description` (string)
-   - `stream` (string)
-   - `format` (string)
-   - `seatsLeft` (number)
-   - `createdAt` (timestamp)
-   - `updatedAt` (timestamp)
+### Firestore Collections
 
-- `products`
-   - `name` (string)
-   - `image` (string URL or `/public` path)
-   - `price` (number)
-   - `sizes` (string[])
-   - `category` (string)
-   - `edition` (string)
-   - `createdAt` (timestamp)
-   - `updatedAt` (timestamp)
-
-### Important setup note
-Firestore security rules should restrict write access to trusted admins only before going live.
-
-## Customization
-- Update content in page files
-- Add images to `public/`
-- Extend components as needed
+| Collection | Purpose |
+|------------|---------|
+| `properties` | Building records with rooms, images, coordinates |
+| `events` | Open days, webinars, viewings |
+| `products` | Room type listings for the shop |
+| `viewingRequests` | Contact form submissions |
 
 ## License
+
 MIT

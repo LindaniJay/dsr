@@ -213,7 +213,7 @@ function LeafletMap({
 
 /* ── toggle chip (layer / tile) ────────────────────── */
 
-function Chip({ active, label, icon, onClick }: { active: boolean; label: string; icon?: string; onClick: () => void }) {
+function Chip({ active, label, onClick }: { active: boolean; label: string; onClick: () => void }) {
   return (
     <button
       type="button"
@@ -267,9 +267,9 @@ export default function BuildingMap({ buildings, activeSlug, onActiveSlugChange 
         {/* ── floating layer controls (top-left) ── */}
         <div className="absolute top-3 left-3 z-[400] flex flex-col gap-2">
           <div className="flex flex-wrap gap-1.5 rounded-xl border border-white/40 bg-white/80 px-2.5 py-2 shadow-lg backdrop-blur-sm">
-            <Chip active={layers.campuses} label="Campuses" icon="🏛" onClick={() => toggleLayer('campuses')} />
-            <Chip active={layers.nearby} label="Nearby" icon="📍" onClick={() => toggleLayer('nearby')} />
-            <Chip active={layers.commute} label="Commute" icon="⤸" onClick={() => toggleLayer('commute')} />
+            <Chip active={layers.campuses} label="Campuses" onClick={() => toggleLayer('campuses')} />
+            <Chip active={layers.nearby} label="Nearby" onClick={() => toggleLayer('nearby')} />
+            <Chip active={layers.commute} label="Commute" onClick={() => toggleLayer('commute')} />
           </div>
         </div>
 
