@@ -7,7 +7,7 @@ const faqs = [
   },
   {
     question: 'Which areas in Durban are a good starting point for students?',
-    answer: 'We currently have buildings in a few key areas close to UKZN and DUT, with more being added. Each area has a different travel rhythm and price range.'
+    answer: 'We currently have buildings in a few key areas close to Durban\'s major campuses, with more being added. Each area has a different travel rhythm and price range.'
   },
   {
     question: 'How do I find a room?',

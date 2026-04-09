@@ -21,7 +21,7 @@ export default function Footer() {
             </div>
           </div>
           <p className="mt-4 max-w-md text-sm text-[#566476]">
-            Browse well-located student rentals near UKZN and DUT, compare private and sharing options, and enquire with a clearer picture of the building before you book a viewing.
+            Browse well-located student rentals near Durban’s major campuses, compare private and sharing options, and enquire with a clearer picture of the building before you book a viewing.
           </p>
         </div>
 

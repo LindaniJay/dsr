@@ -1279,7 +1279,7 @@ export default function AdminPage() {
                   placeholder="A short quote." rows={4} />
                 <PropertyInput label="Resident Name" value={propertyForm.reviewResident}
                   onChange={(value) => setPropertyForm((prev) => ({ ...prev, reviewResident: value }))}
-                  placeholder="Nomfundo, UKZN student" />
+                  placeholder="Nomfundo, Durban student" />
                 <PropertyInput label="Resident Detail" value={propertyForm.reviewDetail}
                   onChange={(value) => setPropertyForm((prev) => ({ ...prev, reviewDetail: value }))}
                   placeholder="Stayed for two semesters while commuting from Berea." />

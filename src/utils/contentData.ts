@@ -369,7 +369,7 @@ export const rentalWorkflowStages = [
 
 export const buildingCompareChecklist = [
   'Compare total rent, not only the base price. Ask what happens with Wi-Fi, electricity, and laundry access.',
-  'Check how you will get to the specific UKZN or DUT campus you actually attend during your normal travel hours.',
+  'Check how you will get to the specific campus you actually attend during your normal travel hours.',
   'Verify whether the quoted rate is per room, per bed, or per person in a shared setup.',
   'Ask whether the building supports semester leases, annual leases, or flexible move-in dates.',
 ];
@@ -389,7 +389,7 @@ export const defaultBuildings: BuildingItem[] = [
     },
     headline: 'A calmer Berea base for students who want study structure and a cleaner daily routine.',
     summary:
-      'Musgrave Study Suites is designed around focused student living: controlled access, strong desk setups, stable shared amenities, and practical movement to UKZN and DUT routes.',
+      'Musgrave Study Suites is designed around focused student living: controlled access, strong desk setups, stable shared amenities, and practical movement to major campus routes.',
     heroImage: propertyPhotography.musgraveExterior,
     gallery: [
       {
@@ -466,7 +466,7 @@ export const defaultBuildings: BuildingItem[] = [
     ],
     review: {
       quote: 'What stood out was that I could judge the building first. Once I saw the travel time and the study spaces, choosing between sharing and a single room became much easier.',
-      resident: 'Nomfundo, UKZN student',
+      resident: 'Nomfundo, Durban student',
       detail: 'Stayed for two semesters while commuting between Berea and campus.',
     },
   },
@@ -656,7 +656,7 @@ export const defaultBuildings: BuildingItem[] = [
     ],
     review: {
       quote: 'The page made the image flow much clearer. We could compare the building feel, then the actual room mode, then what questions to ask before booking a viewing.',
-      resident: 'Thando, DUT student',
+      resident: 'Thando, Durban student',
       detail: 'Preferred Umbilo for flexibility between class and city movement.',
     },
   },
@@ -672,15 +672,15 @@ export const defaultBuildings: BuildingItem[] = [
       ukzn: '25 min to UKZN Howard College by bus',
       dut: '8 min walk to DUT ML Sultan Campus',
     },
-    headline: 'Right in the middle of Durban — walk to DUT, catch a bus to UKZN, and have everything you need on your doorstep.',
+    headline: 'Right in the middle of Durban — walk to campus, catch a bus across town, and have everything you need on your doorstep.',
     summary:
-      'City Centre Towers puts you in the heart of Durban CBD with easy DUT access, affordable rooms, and the energy of city living. Great if you want everything close by.',
+      'City Centre Towers puts you in the heart of Durban CBD with easy campus access, affordable rooms, and the energy of city living. Great if you want everything close by.',
     heroImage: propertyPhotography.cityHighrise,
     gallery: [
       {
         src: propertyPhotography.cityHighrise,
         alt: 'City Centre Towers exterior view',
-        caption: 'A high-rise block in the CBD with views over the city and quick access to DUT.',
+        caption: 'A high-rise block in the CBD with views over the city and quick access to nearby campuses.',
       },
       {
         src: propertyPhotography.cityStudio,
@@ -700,7 +700,7 @@ export const defaultBuildings: BuildingItem[] = [
     ],
     amenities: ['24/7 security', 'Lift access', 'Wi-Fi ready', 'On-site laundry', 'Study lounge', 'CCTV'],
     highlights: [
-      'Walk to DUT City Campus in under 10 minutes.',
+      'Walk to nearby campuses in under 10 minutes.',
       'Surrounded by shops, food spots, and public transport.',
       'Secure high-rise with controlled access and CCTV.',
     ],
@@ -744,15 +744,15 @@ export const defaultBuildings: BuildingItem[] = [
         leaseTerm: 'Semester or 12-month lease',
         occupancy: '2 tenants',
         image: propertyPhotography.cityShared,
-        summary: 'An affordable shared room in the city centre — split the cost and still be walking distance from DUT.',
+        summary: 'An affordable shared room in the city centre — split the cost and still be walking distance from campus.',
         features: ['Separate storage', 'Shared desk space', 'Shared kitchen', 'Laundry access'],
         utilities: ['Wi-Fi included', 'Water included', 'Electricity prepaid'],
       },
     ],
     review: {
-      quote: 'Being in the CBD meant I could walk to DUT and still grab everything I needed without catching a taxi. The rent is lower here too.',
-      resident: 'Zanele, DUT student',
-      detail: 'Stayed for a full year while studying at DUT City Campus.',
+      quote: 'Being in the CBD meant I could walk to campus and still grab everything I needed without catching a taxi. The rent is lower here too.',
+      resident: 'Zanele, Durban student',
+      detail: 'Stayed for a full year while studying at a city centre campus.',
     },
   },
   {
@@ -845,8 +845,8 @@ export const defaultBuildings: BuildingItem[] = [
       },
     ],
     review: {
-      quote: 'Living at the Point was a different vibe. I had my own space, could walk along the harbour, and still got to DUT on time every morning.',
-      resident: 'Sipho, DUT final-year student',
+      quote: 'Living at the Point was a different vibe. I had my own space, could walk along the harbour, and still got to campus on time every morning.',
+      resident: 'Sipho, final-year student',
       detail: 'Chose Point for the independence and the waterfront lifestyle.',
     },
   },
@@ -891,7 +891,7 @@ export const defaultBuildings: BuildingItem[] = [
     amenities: ['Gate access control', 'Wi-Fi included', 'Shared kitchen', 'Laundry room', 'Study corner', 'Cleaning schedule'],
     highlights: [
       'Some of the most affordable student rooms available near the city centre.',
-      'Walking distance to DUT and easy taxi access to UKZN.',
+      'Walking distance to major campuses and easy taxi access across the city.',
       'Structured house rules keep things fair for everyone.',
     ],
     workflowNotes: ['Ask about the cleaning rota', 'Confirm bed allocation for sharing rooms', 'Check semester vs annual lease options'],
@@ -940,8 +940,8 @@ export const defaultBuildings: BuildingItem[] = [
       },
     ],
     review: {
-      quote: 'I needed something affordable and close to DUT. Greyville was basic but clean, the Wi-Fi worked, and I could focus on my studies without stressing about rent.',
-      resident: 'Nompumelelo, DUT student',
+      quote: 'I needed something affordable and close to campus. Greyville was basic but clean, the Wi-Fi worked, and I could focus on my studies without stressing about rent.',
+      resident: 'Nompumelelo, Durban student',
       detail: 'Stayed for two semesters on a tight NSFAS budget.',
     },
   },
@@ -957,7 +957,7 @@ export const defaultEvents: EventItem[] = [
     date: '2026-05-01',
     location: 'Musgrave, Durban',
     description:
-      'Private rooms in a managed apartment block with Wi-Fi, study desks, security access, and straightforward access to DUT and the Berea transport corridor.',
+      'Private rooms in a managed apartment block with Wi-Fi, study desks, security access, and straightforward access to the Berea transport corridor and nearby campuses.',
     stream: 'Private Room',
     format: '12 Month Lease',
     seatsLeft: 6,
@@ -967,7 +967,7 @@ export const defaultEvents: EventItem[] = [
     date: '2026-04-20',
     location: 'Glenwood, Durban',
     description:
-      'Student-focused co-living with furnished bedrooms, shared kitchen access, weekly cleaning, and a quieter setup popular with UKZN Howard College students.',
+      'Student-focused co-living with furnished bedrooms, shared kitchen access, weekly cleaning, and a quieter setup popular with students from nearby institutions.',
     stream: 'Shared Apartment',
     format: 'Semester Stay',
     seatsLeft: 4,
@@ -977,7 +977,7 @@ export const defaultEvents: EventItem[] = [
     date: '2026-06-01',
     location: 'Umbilo, Durban',
     description:
-      'Compact ensuite units built for independent renters who want privacy, secure entry, laundry access, and a practical route to both UKZN medical and DUT precincts.',
+      'Compact ensuite units built for independent renters who want privacy, secure entry, laundry access, and a practical route to nearby university and college campuses.',
     stream: 'Ensuite Studio',
     format: 'Flexible Lease',
     seatsLeft: 3,

@@ -64,7 +64,7 @@ export const neighbourhoodGuides: NeighbourhoodGuide[] = [
     strapline: 'Independent-feeling units with practical movement to city and campus routes.',
     image: 'https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1400&q=80',
     hero: 'Umbilo works for renters who want more privacy, studio-style layouts, or a setup that can flex beyond a traditional student house.',
-    commuteFocus: 'Useful for students moving between UKZN, DUT, and healthcare-linked routes.',
+    commuteFocus: 'Useful for students moving between major campuses and healthcare-linked routes.',
     rentPositioning: 'Often slightly higher for true single occupancy, with sharing used as the lower-cost entry point.',
     atmosphere: 'More self-contained, more independent, and often better suited to structured weekday living.',
     bestFor: ['Studio-minded renters', 'Independent daily routines', 'Young professionals near student zones'],
@@ -74,15 +74,15 @@ export const neighbourhoodGuides: NeighbourhoodGuide[] = [
   {
     slug: 'city-centre',
     name: 'City Centre and Point',
-    strapline: 'Central Durban living with DUT on your doorstep and the harbour nearby.',
+    strapline: 'Central Durban living with campuses on your doorstep and the harbour nearby.',
     image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1400&q=80',
-    hero: 'The city centre works for students who want to be in the middle of everything — DUT is walkable, transport is everywhere, and food and shops are right outside.',
-    commuteFocus: 'Best for DUT City Campus. UKZN requires a bus or taxi but transport links are frequent.',
+    hero: 'The city centre works for students who want to be in the middle of everything — campuses are walkable, transport is everywhere, and food and shops are right outside.',
+    commuteFocus: 'Best for city-based campuses. Other institutions require a bus or taxi but transport links are frequent.',
     rentPositioning: 'Generally the most affordable area with the widest range from budget sharing to waterfront studios.',
     atmosphere: 'Busy, urban, and energetic. Not the quietest, but the most convenient for city-based students.',
-    bestFor: ['DUT students', 'Budget-conscious renters', 'Students who want city convenience'],
+    bestFor: ['City-campus students', 'Budget-conscious renters', 'Students who want city convenience'],
     watchFor: ['Confirm building security level', 'Check noise if you need quiet study time', 'Ask about parking availability'],
-    landmarks: ['DUT City Campus', 'City Hall', 'Point Waterfront', 'Durban Harbour'],
+    landmarks: ['City Campus precinct', 'City Hall', 'Point Waterfront', 'Durban Harbour'],
   },
 ];
 
@@ -136,9 +136,9 @@ const buildingExperienceMap: Record<string, BuildingExperience> = {
     },
   },
   'city-centre-towers': {
-    bestFor: 'DUT students who want to walk to campus',
+    bestFor: 'Students who want to walk to city-based campuses',
     neighbourhoodSlug: 'city-centre',
-    trustSignals: ['24/7 security and CCTV', 'Walking distance to DUT', 'Affordable CBD pricing'],
+    trustSignals: ['24/7 security and CCTV', 'Walking distance to city campuses', 'Affordable CBD pricing'],
     costSummary: {
       depositRule: 'Deposit matches one month of the selected room rate.',
       utilitiesPolicy: 'Wi-Fi and water included. Electricity is prepaid per unit.',

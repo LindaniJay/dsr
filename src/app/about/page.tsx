@@ -1,57 +1,53 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { type ReactNode } from 'react';
 
 /* ── Stats ── */
 const platformStats = [
   { figure: '6', label: 'Buildings Listed', accent: false },
   { figure: '30+', label: 'Room Options', accent: false },
   { figure: '5', label: 'Neighbourhoods', accent: false },
-  { figure: '2', label: 'University Anchors', accent: true },
+  { figure: '5+', label: 'Campus Anchors', accent: true },
 ];
 
 /* ── Values ── */
-const coreValues = [
+const coreValues: { icon: ReactNode; title: string; text: string }[] = [
   {
-    icon: '🏘️',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" className="text-[#2e4f7a]">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3 4.5h.008v.008H18v-.008Zm0 3h.008v.008H18v-.008Zm0 3h.008v.008H18v-.008Z" />
+      </svg>
+    ),
     title: 'Neighbourhood-first',
     text: 'We organise listings around where students actually live and commute — not by random price feeds.',
   },
   {
-    icon: '💡',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" className="text-[#b99258]">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
+      </svg>
+    ),
     title: 'Transparent Pricing',
     text: 'Every room shows monthly rent, deposit, and lease terms upfront so you can compare without guesswork.',
   },
   {
-    icon: '🗺️',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" className="text-[#2e4f7a]">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+      </svg>
+    ),
     title: 'Campus Proximity',
-    text: 'Distance to UKZN and DUT campuses is core to every listing — because your commute shapes your year.',
+    text: 'Distance to nearby campuses — UKZN, DUT, Varsity College, Regent, Mancosa and more — is core to every listing because your commute shapes your year.',
   },
   {
-    icon: '🔍',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" className="text-[#b99258]">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.745 3.745 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+      </svg>
+    ),
     title: 'Quality Over Quantity',
     text: 'We verify building information before publishing it. Fewer listings, better decisions.',
-  },
-];
-
-/* ── Team ── */
-const teamMembers = [
-  {
-    name: 'Lindani Jay',
-    role: 'Founder & Lead Developer',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80',
-    bio: 'Built the platform from scratch to solve the accommodation discovery problem he saw first-hand as a Durban student.',
-  },
-  {
-    name: 'Operations Team',
-    role: 'Property & Renter Relations',
-    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80',
-    bio: 'Handles building onboarding, renter enquiries, and property verification across all listed neighbourhoods.',
-  },
-  {
-    name: 'Community Advisors',
-    role: 'Student Feedback Network',
-    image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80',
-    bio: 'Current and former Durban students who test listings, rate neighbourhoods, and shape the search experience.',
   },
 ];
 
@@ -66,7 +62,7 @@ const milestones = [
 
 /* ── Why Durban ── */
 const durbanFacts = [
-  'Home to UKZN (one of Africa\'s leading universities) and DUT (33,000+ students).',
+  'Home to UKZN, DUT, Varsity College, Regent Business School, Mancosa, and other higher-learning institutions serving over 100,000 students.',
   'Warm coastal climate with strong public transport corridors along key student routes.',
   'Massive annual influx of students creates recurring demand that outpaces available quality housing.',
 ];
@@ -185,7 +181,7 @@ export default function AboutPage() {
               className="rounded-[1.2rem] border border-[#d9dee8] bg-white p-5 rise"
               style={{ animationDelay: `${idx * 70}ms` }}
             >
-              <span className="text-2xl">{value.icon}</span>
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f5f3ee]">{value.icon}</span>
               <h3 className="mt-3 text-lg font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
                 {value.title}
               </h3>
@@ -214,7 +210,7 @@ export default function AboutPage() {
           </div>
           <div className="p-6">
             <p className="text-sm leading-relaxed text-muted">
-              Durban is one of South Africa&apos;s largest metros — warm climate, major transport corridors, and two anchor universities that draw tens of thousands of students every year.
+              Durban is one of South Africa&apos;s largest metros — warm climate, major transport corridors, and multiple universities, colleges, and private institutions that draw over 100,000 students every year.
             </p>
           </div>
         </article>
@@ -236,48 +232,6 @@ export default function AboutPage() {
             ))}
           </ul>
         </article>
-      </section>
-
-      {/* ═══ TEAM ═══ */}
-      <section className="mt-8 editorial-card p-6 md:p-8 rise" style={{ animationDelay: '20ms' }}>
-        <div className="section-heading">
-          <span className="kicker">Our Team</span>
-          <h2 className="text-3xl font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
-            The people behind the platform
-          </h2>
-          <p className="text-sm text-muted md:text-base">
-            A small, focused group working to make Durban student accommodation easier to discover and compare.
-          </p>
-        </div>
-
-        <div className="mt-6 grid gap-5 md:grid-cols-3">
-          {teamMembers.map((member, idx) => (
-            <article
-              key={member.name}
-              className="rounded-[1.4rem] border border-[#d9dee8] bg-white p-3 rise"
-              style={{ animationDelay: `${idx * 80}ms` }}
-            >
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.1rem]">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 30vw"
-                />
-              </div>
-              <div className="p-3">
-                <h3 className="text-lg font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
-                  {member.name}
-                </h3>
-                <p className="mt-0.5 text-xs font-semibold uppercase tracking-[0.08em] text-[#2e4f7a]">
-                  {member.role}
-                </p>
-                <p className="mt-2 text-sm text-muted">{member.bio}</p>
-              </div>
-            </article>
-          ))}
-        </div>
       </section>
 
       {/* ═══ HOW IT WORKS ═══ */}

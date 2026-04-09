@@ -23,7 +23,7 @@ export default function ContactPageClient() {
     roomId: '',
     roomTitle: '',
     roomMode: 'Not sure yet',
-    campus: 'UKZN',
+    campus: 'Not sure yet',
     moveInMonth: 'Flexible',
     budget: 'R3500 - R5000',
     preferredViewingDate: '',
@@ -201,7 +201,11 @@ export default function ContactPageClient() {
               <select value={form.campus} onChange={(event) => handleChange('campus', event.target.value)} className="w-full rounded-2xl border border-[#d2d7e0] bg-white px-4 py-3 text-sm outline-none focus:border-[#2e4f7a] focus:ring-2 focus:ring-[#caa86a]">
                 <option>UKZN</option>
                 <option>DUT</option>
-                <option>Both / flexible</option>
+                <option>Varsity College</option>
+                <option>Regent</option>
+                <option>Mancosa</option>
+                <option>Other</option>
+                <option>Not sure yet</option>
               </select>
             </label>
             <label className="grid gap-2 text-sm text-[#243041]">

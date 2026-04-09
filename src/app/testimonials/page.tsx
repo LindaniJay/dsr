@@ -2,12 +2,12 @@ import Image from 'next/image';
 
 const testimonials = [
   {
-    name: 'Londiwe, UKZN student',
+    name: 'Londiwe, Durban student',
     text: 'What helps most is seeing room types and location context together. It cuts out a lot of guessing before you enquire.',
     lens: 'Private-room search',
   },
   {
-    name: 'Akhona, DUT student',
+    name: 'Akhona, Durban student',
     text: 'Shared apartments near the Berea route are usually where I start. This kind of site makes that much clearer than random classifieds.',
     lens: 'Shared-living comparison',
   },

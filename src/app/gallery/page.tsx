@@ -36,12 +36,12 @@ const galleryItems: GalleryItem[] = [
   },
   {
     title: 'Howard College Access',
-    tag: 'UKZN demand route',
+    tag: 'Campus demand route',
     image: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1400&q=80',
     description: 'Travel time and route reliability matter more than straight-line distance when classes start early.',
   },
   {
-    title: 'DUT City Movement',
+    title: 'City Campus Movement',
     tag: 'Inner-city convenience',
     image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80',
     description: 'Central access is useful, but the best value often comes from balancing city reach with quieter living pockets.',

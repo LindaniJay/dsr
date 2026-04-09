@@ -1,6 +1,6 @@
 # Durban Student Accommodation
 
-A modern Next.js site for browsing student accommodation in Durban, South Africa. Compare buildings near UKZN and DUT, explore room modes, and book viewings.
+A modern Next.js site for browsing student accommodation in Durban, South Africa. Compare buildings near major campuses, explore room modes, and book viewings.
 
 ## Features
 

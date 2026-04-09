@@ -34,7 +34,7 @@ export default function Home() {
               Find well-located student accommodation with less guesswork.
             </h1>
             <p className="mt-5 max-w-2xl text-base text-muted md:text-xl">
-              Looking for a place near UKZN or DUT? Browse buildings in your area, check out the rooms inside, and pick the one that fits your budget and routine.
+              Looking for a place near your campus? Browse buildings in your area, check out the rooms inside, and pick the one that fits your budget and routine.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link href="/buildings" className="btn-primary w-full text-center shadow-lg sm:w-auto">

@@ -22,7 +22,7 @@ const guideStages = [
 ];
 
 const decisionLayers = [
-  'Neighbourhood and travel logic to UKZN or DUT',
+  'Neighbourhood and travel logic to your campus',
   'Arrival quality, access control, and daily safety signals',
   'Kitchen, laundry, and shared-space condition',
   'Single-room versus sharing tradeoff at the exact building',
