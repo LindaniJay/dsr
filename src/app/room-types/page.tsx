@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, getFirestore, orderBy, query } from 'firebase/firestore';
-import ProductCard from '../../components/ProductCard';
+import RoomTypeCard from '../../components/RoomTypeCard';
 import app from '../../utils/firebase';
 import { defaultProducts, type ProductItem } from '../../utils/contentData';
 
@@ -180,7 +180,7 @@ export default function ShopPage() {
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {products.map((product, idx) => (
               <div key={product.name + product.edition} className="rise" style={{ animationDelay: `${idx * 70}ms` }}>
-                <ProductCard
+                <RoomTypeCard
                   {...product}
                   onAddToCart={(selectedSize) => handleAddToCart(product, selectedSize)}
                   selectorLabel="Select Room Package"

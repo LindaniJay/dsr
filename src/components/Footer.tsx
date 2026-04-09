@@ -31,7 +31,7 @@ export default function Footer() {
             <Link href="/buildings">Buildings</Link>
             <Link href="/events">Events</Link>
             <Link href="/apply">Application Guide</Link>
-            <Link href="/ambassadors">Rental Guide</Link>
+            <Link href="/rental-guide">Rental Guide</Link>
             <Link href="/contact">Contact</Link>
           </nav>
         </div>

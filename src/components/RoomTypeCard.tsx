@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import { CartIcon } from './Icons';
 
-interface ProductCardProps {
+interface RoomTypeCardProps {
   image: string;
   name: string;
   price: number;
@@ -16,7 +16,7 @@ interface ProductCardProps {
   actionLabel?: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ 
+const RoomTypeCard: React.FC<RoomTypeCardProps> = ({ 
   image, 
   name, 
   price, 
@@ -126,4 +126,4 @@ const ProductCard: React.FC<ProductCardProps> = ({
   );
 };
 
-export default ProductCard;
+export default RoomTypeCard;

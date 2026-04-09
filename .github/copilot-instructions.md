@@ -1,5 +1,5 @@
 - [x] Next.js project scaffolded successfully (Durban Student Accommodation).
-- [x] Customize the project: Add Home, Events, Shop, Ambassadors, About & Contact pages. Integrate Firebase, Stripe, TailwindCSS. Create EventCard, ProductCard, AmbassadorForm components.
+- [x] Customize the project: Add Home, Events, Room Types, Rental Guide, About & Contact pages. Integrate Firebase, TailwindCSS. Create EventCard, RoomTypeCard components.
 - [x] Install Required Extensions
 - [x] Compile the Project
 - [x] Create and Run Task

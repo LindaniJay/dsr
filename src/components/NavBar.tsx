@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 const primaryNavLinks = [
   { href: '/', label: 'Home' },
   { href: '/buildings', label: 'Buildings' },
-  { href: '/ambassadors', label: 'Rental Guide' },
+  { href: '/rental-guide', label: 'Rental Guide' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ];
