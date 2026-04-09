@@ -1,4 +1,4 @@
-- [x] Project folder renamed to 'ighost' and Next.js scaffolded successfully.
+- [x] Next.js project scaffolded successfully (Durban Student Accommodation).
 - [x] Customize the project: Add Home, Events, Shop, Ambassadors, About & Contact pages. Integrate Firebase, Stripe, TailwindCSS. Create EventCard, ProductCard, AmbassadorForm components.
 - [x] Install Required Extensions
 - [x] Compile the Project
