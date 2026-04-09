@@ -125,9 +125,9 @@ const buildingExperienceMap: Record<string, BuildingExperience> = {
 };
 
 export const homepageProofSignals = [
-  { label: 'Verified building stories', value: 'Every public property is shown as a full building journey, not a disconnected room tile.' },
-  { label: 'Application-ready guidance', value: 'Deposits, utilities, lease timing, and viewing logic are surfaced before renters enquire.' },
-  { label: 'Neighbourhood context', value: 'Students can compare Musgrave, Glenwood, and Umbilo with route and daily-living context.' },
+  { label: 'Buildings you can explore', value: 'Each building has its own page with photos, amenities, and all rooms inside it.' },
+  { label: 'Room details upfront', value: 'Click any room to see the full gallery, pricing, features, utilities, and deposit before you enquire.' },
+  { label: 'Campus route context', value: 'Every building shows travel time to UKZN and DUT so you can compare by your actual commute.' },
 ];
 
 export const applicationReadinessSteps = [

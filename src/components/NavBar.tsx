@@ -13,8 +13,6 @@ const primaryNavLinks = [
 ];
 
 const moreNavLinks = [
-  { href: '/shop', label: 'Room Types' },
-  { href: '/gallery', label: 'Neighbourhoods' },
   { href: '/apply', label: 'Application Guide' },
   { href: '/testimonials', label: 'Reviews' },
   { href: '/faq', label: 'FAQ' },

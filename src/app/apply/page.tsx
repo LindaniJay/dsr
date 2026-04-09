@@ -63,7 +63,7 @@ export default function ApplyPage() {
           Choose the building first, then send a viewing request with real context.
         </h2>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          <Link href="/buildings" className="btn-secondary w-full text-center !border-white/35 !bg-white !text-[#1d2a3d] sm:w-auto">Browse Buildings</Link>
+          <Link href="/buildings" className="btn-secondary w-full text-center !border-white/35 !bg-white !text-[#1d2a3d] sm:w-auto">Browse Rooms</Link>
           <Link href="/contact" className="btn-secondary w-full text-center !border-white/35 !bg-transparent !text-white hover:!bg-white/10 sm:w-auto">Request a Viewing</Link>
         </div>
       </section>

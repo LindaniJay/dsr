@@ -1,24 +1,52 @@
 const faqs = [
   {
     question: 'What kinds of rentals are listed here?',
-    answer: 'The site is currently set up for student-friendly rooms, shared apartments, and private studios around Durban.'
+    answer: 'The site focuses on student-friendly rooms, shared apartments, and private studios around Durban — primarily in Musgrave, Glenwood, and Umbilo.'
   },
   {
     question: 'Which areas in Durban are a good starting point for students?',
-    answer: 'Musgrave, Glenwood, and Umbilo are practical starter zones because they sit within common routes to UKZN and DUT precincts.'
+    answer: 'Musgrave, Glenwood, and Umbilo are practical starter zones because they sit within common routes to UKZN and DUT precincts. Each one has a different travel rhythm and price range.'
   },
   {
-    question: 'How does new property inventory get added?',
-    answer: 'Property inventory is managed from the admin dashboard, so the public site stays focused on renters and the building-first search flow.'
+    question: 'How do I find a room?',
+    answer: 'Start on the Buildings page, choose a building based on location and feel, then click into it to see all available rooms with photos, pricing, and features. Click any room for full details.'
+  },
+  {
+    question: 'Can I choose between private and sharing rooms?',
+    answer: 'Yes. Inside each building page you can toggle between private and sharing room modes. Each mode shows different pricing, occupancy, and what is included.'
+  },
+  {
+    question: 'What is included in the monthly rent?',
+    answer: 'Most rooms include Wi-Fi and water. Electricity policies vary — some buildings include it, some cap usage, and others use prepaid meters. Each room listing spells out exactly what is covered.'
+  },
+  {
+    question: 'How much deposit is required?',
+    answer: 'Deposit usually matches one month of rent for the chosen room. The exact amount is shown on each room card so there are no surprises.'
+  },
+  {
+    question: 'Can I do a semester lease or only a full year?',
+    answer: 'It depends on the building. Some rooms offer a semester lease, while others require a 12-month commitment. The lease term is shown on every room listing.'
+  },
+  {
+    question: 'How do I book a viewing?',
+    answer: 'From any room detail page, click "Ask to View" to send a viewing request. You can also use the Contact page and select the building and room you are interested in.'
   },
   {
     question: 'Are these rentals only for students?',
-    answer: 'The positioning is student-focused, but the concept also works for young professionals looking for room rentals in Durban.'
+    answer: 'The positioning is student-focused, but the buildings also work for young professionals looking for affordable, well-located accommodation near Durban campuses.'
   },
   {
-    question: 'Why does the site mention UKZN and DUT so often?',
-    answer: 'Those institutions are the clearest demand anchors for student accommodation in Durban, so the product is designed around that reality.'
-  }
+    question: 'How does new property inventory get added?',
+    answer: 'Property inventory is managed from the admin dashboard. New buildings and rooms appear on the site after photos and details are verified.'
+  },
+  {
+    question: 'Is there a way to compare buildings?',
+    answer: 'The Buildings page shows all properties side by side with key stats like price range, campus distance, and neighbourhood. You can shortlist and compare before clicking in.'
+  },
+  {
+    question: 'What documents do I need to apply?',
+    answer: 'Generally you will need an ID or passport, proof of student registration, and emergency contact details. Check the Application Guide page for a full checklist.'
+  },
 ];
 
 export default function FAQPage() {
@@ -49,6 +77,19 @@ export default function FAQPage() {
             <p className="mt-2 text-sm text-muted">{faq.answer}</p>
           </article>
         ))}
+      </section>
+
+      <section className="mt-10 editorial-card rise p-6 md:p-8">
+        <h2 className="text-2xl font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
+          Still have questions?
+        </h2>
+        <p className="mt-3 text-sm text-muted md:text-base">
+          Get in touch and we will help you find the right building and room for your situation.
+        </p>
+        <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <a href="/contact" className="btn-primary w-full text-center sm:w-auto">Contact Us</a>
+          <a href="/buildings" className="btn-secondary w-full text-center sm:w-auto">Browse Buildings</a>
+        </div>
       </section>
     </div>
   );

@@ -29,8 +29,6 @@ export default function Footer() {
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#6b7a92]">Explore</p>
           <nav className="mt-4 grid gap-3 text-sm font-medium text-[#334155]">
             <Link href="/buildings">Buildings</Link>
-            <Link href="/shop">Room Types</Link>
-            <Link href="/gallery">Neighbourhoods</Link>
             <Link href="/apply">Application Guide</Link>
             <Link href="/ambassadors">Rental Guide</Link>
             <Link href="/contact">Contact</Link>

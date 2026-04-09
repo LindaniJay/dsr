@@ -102,6 +102,40 @@ export default function PropertyDetailClient({ slug, initialBuilding }: Property
         </div>
       </section>
 
+      <section className="mt-10 grid gap-6 lg:grid-cols-2">
+        <article className="panel rise p-6 md:p-8">
+          <span className="kicker">Resident Review</span>
+          <blockquote className="mt-4 text-lg font-medium leading-relaxed text-[#1e2a3a] md:text-xl">
+            &ldquo;{building.review.quote}&rdquo;
+          </blockquote>
+          <div className="mt-5 border-t border-[#e3e7ed] pt-4">
+            <p className="text-sm font-semibold text-[#121522]">{building.review.resident}</p>
+            <p className="mt-0.5 text-xs text-muted">{building.review.detail}</p>
+          </div>
+        </article>
+
+        <article className="panel rise p-6 md:p-8">
+          <span className="kicker">Operator Info</span>
+          <h2 className="mt-4 text-2xl font-semibold text-[#121522]" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
+            What to expect when you enquire
+          </h2>
+          <div className="mt-5 grid gap-3">
+            <div className="rounded-xl border border-[#e1e6ee] bg-[#fbfcfe] px-4 py-3 text-sm text-[#324052]">
+              <span className="font-semibold text-[#162033]">Response time:</span> {experience.operator.responseTime}
+            </div>
+            <div className="rounded-xl border border-[#e1e6ee] bg-[#fbfcfe] px-4 py-3 text-sm text-[#324052]">
+              <span className="font-semibold text-[#162033]">Viewing days:</span> {experience.operator.viewingDays}
+            </div>
+            <div className="rounded-xl border border-[#e1e6ee] bg-[#fbfcfe] px-4 py-3 text-sm text-[#324052]">
+              <span className="font-semibold text-[#162033]">Deposit rule:</span> {experience.costSummary.depositRule}
+            </div>
+            <div className="rounded-xl border border-[#e1e6ee] bg-[#fbfcfe] px-4 py-3 text-sm text-[#324052]">
+              <span className="font-semibold text-[#162033]">Move-in window:</span> {experience.costSummary.moveInWindow}
+            </div>
+          </div>
+        </article>
+      </section>
+
       <section className="mt-10 editorial-card rise p-6 md:p-8">
         <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
           <div>
