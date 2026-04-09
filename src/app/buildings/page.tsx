@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import PropertyGrid from '../../components/PropertyGrid';
+import PropertyBrowser from '../../components/PropertyBrowser';
 import { buildingCompareChecklist } from '../../utils/contentData';
 
 export default function BuildingsPage() {
@@ -10,10 +10,10 @@ export default function BuildingsPage() {
           <div className="section-heading">
             <span className="kicker">Our Buildings</span>
             <h1 className="architect-heading mt-4 text-3xl font-semibold text-[#121522] md:text-6xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
-              Choose a building, then explore the rooms inside.
+              Pick a building, then check out the rooms inside.
             </h1>
             <p className="mt-5 max-w-3xl text-base text-muted md:text-lg">
-              Each building has its own character, location, and room options. Click on a building to see all the rooms available, with photos, pricing, and what is included.
+              Each building has its own location, vibe, and room options. Click on one to see everything available — photos, prices, and what you get.
             </p>
           </div>
 
@@ -23,21 +23,21 @@ export default function BuildingsPage() {
               Pick a building. See the rooms. Rent what fits.
             </h2>
             <p className="mt-4 text-sm text-white/78">
-              Click any building below to see all room options inside it, with full photo galleries, pricing, and a direct way to rent or ask for a viewing.
+              Click any building below to see the rooms inside, with photos, prices, and a way to rent or book a viewing.
             </p>
           </div>
         </div>
       </section>
 
       <section className="mt-8" id="buildings">
-        <PropertyGrid />
+        <PropertyBrowser />
       </section>
 
       <section className="mt-8 grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
         <article className="panel rise p-6 md:p-8">
           <span className="kicker">Before You Enquire</span>
           <h2 className="mt-4 text-3xl font-semibold text-[#121522] md:text-4xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
-            Questions that shape your room choice
+            Things to think about before you reach out
           </h2>
           <ul className="mt-6 grid gap-3">
             {buildingCompareChecklist.map((item) => (
@@ -51,10 +51,10 @@ export default function BuildingsPage() {
         <article className="rounded-[1.8rem] border border-[#d4dae4] bg-[linear-gradient(145deg,#f8fbff,#f1ece3)] p-6 md:p-8 shadow-[0_12px_32px_rgba(17,24,39,0.08)]">
           <span className="kicker">Next Step</span>
           <h2 className="mt-4 text-3xl font-semibold text-[#121522] md:text-4xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
-            Pick a building, explore the rooms, then arrange a viewing.
+            Like what you see? Pick a building and arrange a viewing.
           </h2>
           <p className="mt-4 max-w-2xl text-sm text-muted md:text-base">
-            The strongest enquiries include the room you prefer and your expected move-in timing. That gives the next conversation a clearer starting point.
+            When you get in touch, mention the room you like and when you are looking to move in — it makes things quicker.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link href="#buildings" className="btn-primary w-full text-center sm:w-auto">Browse Buildings</Link>

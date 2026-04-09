@@ -37,7 +37,7 @@ const presentationSlides = [
   },
   {
     title: 'Neighbourhood Priorities',
-    caption: 'Berea, Musgrave, Glenwood, and Umbilo are practical starting points for a student-focused inventory strategy.',
+    caption: 'We focus on areas close to campus that students actually live in — and we keep expanding as new buildings come on board.',
   },
   {
     title: 'Positioning',

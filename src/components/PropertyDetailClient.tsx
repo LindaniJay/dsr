@@ -89,7 +89,7 @@ export default function PropertyDetailClient({ slug, initialBuilding }: Property
           <div>
             <span className="kicker">Architectural Notes</span>
             <h2 className="mt-4 text-3xl font-semibold text-[#121522] md:text-4xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
-              Why this property reads clearly at decision time
+              What makes this building stand out
             </h2>
           </div>
           <div className="grid gap-3">
@@ -141,10 +141,10 @@ export default function PropertyDetailClient({ slug, initialBuilding }: Property
           <div>
             <span className="kicker">Next Step</span>
             <h2 className="mt-4 text-3xl font-semibold text-[#121522] md:text-4xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
-              Prepare a cleaner viewing request before you apply.
+              Ready to see this place in person?
             </h2>
             <p className="mt-3 text-sm text-muted md:text-base">
-              Use the application guide to confirm your documents, rent structure, and move-in timing before you lock in this building.
+              Check the application guide to make sure you have what you need, then book a viewing.
             </p>
           </div>
           <div className="grid gap-3">

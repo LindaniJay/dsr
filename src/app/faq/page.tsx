@@ -1,11 +1,11 @@
 const faqs = [
   {
     question: 'What kinds of rentals are listed here?',
-    answer: 'The site focuses on student-friendly rooms, shared apartments, and private studios around Durban — primarily in Musgrave, Glenwood, and Umbilo.'
+    answer: 'We list student-friendly rooms, shared apartments, and private studios in areas around Durban that work well for students — and we are adding more all the time.'
   },
   {
     question: 'Which areas in Durban are a good starting point for students?',
-    answer: 'Musgrave, Glenwood, and Umbilo are practical starter zones because they sit within common routes to UKZN and DUT precincts. Each one has a different travel rhythm and price range.'
+    answer: 'We currently have buildings in a few key areas close to UKZN and DUT, with more being added. Each area has a different travel rhythm and price range.'
   },
   {
     question: 'How do I find a room?',

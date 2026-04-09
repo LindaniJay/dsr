@@ -45,6 +45,15 @@ const NavBar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isMobileMenuOpen || isMoreMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isMobileMenuOpen, isMoreMenuOpen]);
+
   return (
     <header className="sticky top-0 z-50 px-3 pt-3 md:px-5">
       <nav
@@ -203,7 +212,7 @@ const NavBar = () => {
       </nav>
 
       {isMobileMenuOpen && (
-        <div className="app-shell mt-2 rounded-2xl border border-[#d6dae2] bg-[rgba(255,255,255,0.94)] p-4 shadow-[0_8px_30px_rgba(20,25,35,0.11)] backdrop-blur lg:hidden">
+        <div className="app-shell mt-2 max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain rounded-2xl border border-[#d6dae2] bg-[rgba(255,255,255,0.94)] p-4 shadow-[0_8px_30px_rgba(20,25,35,0.11)] backdrop-blur lg:hidden">
           <div className="grid gap-2">
             {[...primaryNavLinks, ...moreNavLinks].map((link) => {
               const isActive = pathname === link.href;
@@ -221,15 +230,16 @@ const NavBar = () => {
                 </Link>
               );
             })}
-            <Link href="/contact" onClick={closeAllMenus} className="btn-primary mt-2 text-center">
-              Book A Viewing
+            <div className="my-1 h-px bg-[#e3e7ee]" />
+            <Link href="/contact" onClick={closeAllMenus} className="btn-primary mt-1 text-center">
+              Book a Viewing
             </Link>
             {authLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={closeAllMenus}
-                className={link.href === '/signup' ? 'btn-primary mt-2 text-center' : 'btn-secondary mt-2 text-center'}
+                className={link.href === '/signup' ? 'btn-primary mt-1 text-center' : 'btn-secondary mt-1 text-center'}
               >
                 {link.label}
               </Link>
@@ -239,7 +249,7 @@ const NavBar = () => {
       )}
 
       {isMoreMenuOpen && (
-        <div className="app-shell mt-2 rounded-2xl border border-[#d6dae2] bg-[rgba(255,255,255,0.94)] p-4 shadow-[0_8px_30px_rgba(20,25,35,0.11)] backdrop-blur lg:hidden">
+        <div className="app-shell mt-2 max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain rounded-2xl border border-[#d6dae2] bg-[rgba(255,255,255,0.94)] p-4 shadow-[0_8px_30px_rgba(20,25,35,0.11)] backdrop-blur lg:hidden">
           <div className="grid gap-2">
             {[...moreNavLinks, ...authLinks].map((link) => {
               const isActive = pathname === link.href;

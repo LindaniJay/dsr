@@ -71,6 +71,19 @@ export const neighbourhoodGuides: NeighbourhoodGuide[] = [
     watchFor: ['Check prepaid electricity expectations', 'Confirm appliance provision', 'Ask about night access and transport options'],
     landmarks: ['Umbilo Road', 'City access corridor', 'Medical and university movement routes'],
   },
+  {
+    slug: 'city-centre',
+    name: 'City Centre and Point',
+    strapline: 'Central Durban living with DUT on your doorstep and the harbour nearby.',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1400&q=80',
+    hero: 'The city centre works for students who want to be in the middle of everything — DUT is walkable, transport is everywhere, and food and shops are right outside.',
+    commuteFocus: 'Best for DUT City Campus. UKZN requires a bus or taxi but transport links are frequent.',
+    rentPositioning: 'Generally the most affordable area with the widest range from budget sharing to waterfront studios.',
+    atmosphere: 'Busy, urban, and energetic. Not the quietest, but the most convenient for city-based students.',
+    bestFor: ['DUT students', 'Budget-conscious renters', 'Students who want city convenience'],
+    watchFor: ['Confirm building security level', 'Check noise if you need quiet study time', 'Ask about parking availability'],
+    landmarks: ['DUT City Campus', 'City Hall', 'Point Waterfront', 'Durban Harbour'],
+  },
 ];
 
 const buildingExperienceMap: Record<string, BuildingExperience> = {
@@ -120,6 +133,54 @@ const buildingExperienceMap: Record<string, BuildingExperience> = {
       responseTime: 'Expect viewing feedback inside one working day after an enquiry.',
       viewingDays: 'Viewings are usually scheduled around weekday and Saturday availability.',
       verification: 'Unit layouts and building access notes are checked before publishing.',
+    },
+  },
+  'city-centre-towers': {
+    bestFor: 'DUT students who want to walk to campus',
+    neighbourhoodSlug: 'city-centre',
+    trustSignals: ['24/7 security and CCTV', 'Walking distance to DUT', 'Affordable CBD pricing'],
+    costSummary: {
+      depositRule: 'Deposit matches one month of the selected room rate.',
+      utilitiesPolicy: 'Wi-Fi and water included. Electricity is prepaid per unit.',
+      adminFee: 'No admin fee unless confirmed during the viewing.',
+      moveInWindow: 'Semester and annual lease options available.',
+    },
+    operator: {
+      responseTime: 'Replies within one working day.',
+      viewingDays: 'Viewings Monday to Saturday by appointment.',
+      verification: 'Building photos and room layouts verified before publishing.',
+    },
+  },
+  'point-waterfront-studios': {
+    bestFor: 'Independent students who want a lifestyle upgrade',
+    neighbourhoodSlug: 'city-centre',
+    trustSignals: ['Self-contained studios verified', 'Secure parking available', 'Waterfront common areas'],
+    costSummary: {
+      depositRule: 'Deposit matches the monthly studio rate.',
+      utilitiesPolicy: 'Wi-Fi and water included. Electricity is prepaid.',
+      adminFee: 'Confirm any once-off costs during the viewing.',
+      moveInWindow: 'Annual leases preferred. Ask about mid-year availability.',
+    },
+    operator: {
+      responseTime: 'Expect a reply within one working day.',
+      viewingDays: 'Viewings by appointment, typically weekdays and Saturdays.',
+      verification: 'Studio layouts and amenity access confirmed before publishing.',
+    },
+  },
+  'greyville-student-hub': {
+    bestFor: 'Students on NSFAS or tight budgets',
+    neighbourhoodSlug: 'city-centre',
+    trustSignals: ['Most affordable rooms verified', 'Structured house rules', 'Central location confirmed'],
+    costSummary: {
+      depositRule: 'Deposit matches one month of the room rate.',
+      utilitiesPolicy: 'Wi-Fi, water, and electricity are all included in the rent.',
+      adminFee: 'No admin fee — ask if anything changes during intake.',
+      moveInWindow: 'Semester leases available. Annual lease for private rooms.',
+    },
+    operator: {
+      responseTime: 'Replies same day or next working day.',
+      viewingDays: 'Group viewings on weekdays. Individual slots on Saturdays.',
+      verification: 'Room conditions and house rules documented before publishing.',
     },
   },
 };

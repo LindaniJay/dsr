@@ -24,8 +24,6 @@ export default function PropertyBrowser() {
   const [roomModeFilter, setRoomModeFilter] = useState<RoomModeFilter>('all');
   const [areaFilter, setAreaFilter] = useState('all');
   const [maxPrice, setMaxPrice] = useState(7000);
-  const [showNearbyPlaces, setShowNearbyPlaces] = useState(true);
-  const [commuteTargets, setCommuteTargets] = useState<Array<'ukzn' | 'dut'>>(['ukzn', 'dut']);
   const [campusFocus, setCampusFocus] = useState<CampusFocus>('all');
 
   useEffect(() => {
@@ -85,12 +83,6 @@ export default function PropertyBrowser() {
       ? activeSlug
       : filteredBuildings[0].slug;
   }, [activeSlug, filteredBuildings]);
-
-  const toggleCommuteTarget = (target: 'ukzn' | 'dut') => {
-    setCommuteTargets((prev) =>
-      prev.includes(target) ? prev.filter((item) => item !== target) : [...prev, target],
-    );
-  };
 
   return (
     <div className="space-y-8">
@@ -158,57 +150,24 @@ export default function PropertyBrowser() {
         <div className="mt-5 grid gap-3 sm:flex sm:flex-wrap">
           <button
             type="button"
-            onClick={() => {
-              setCampusFocus('all');
-              setCommuteTargets(['ukzn', 'dut']);
-            }}
+            onClick={() => setCampusFocus('all')}
             className={campusFocus === 'all' ? 'btn-primary w-full justify-center text-center sm:w-auto' : 'btn-secondary w-full justify-center text-center sm:w-auto'}
           >
             All campuses
           </button>
           <button
             type="button"
-            onClick={() => {
-              setCampusFocus('ukzn');
-              setCommuteTargets(['ukzn']);
-            }}
+            onClick={() => setCampusFocus('ukzn')}
             className={campusFocus === 'ukzn' ? 'btn-primary w-full justify-center text-center sm:w-auto' : 'btn-secondary w-full justify-center text-center sm:w-auto'}
           >
             Best for UKZN
           </button>
           <button
             type="button"
-            onClick={() => {
-              setCampusFocus('dut');
-              setCommuteTargets(['dut']);
-            }}
+            onClick={() => setCampusFocus('dut')}
             className={campusFocus === 'dut' ? 'btn-primary w-full justify-center text-center sm:w-auto' : 'btn-secondary w-full justify-center text-center sm:w-auto'}
           >
             Best for DUT
-          </button>
-        </div>
-
-        <div className="mt-5 grid gap-3 sm:flex sm:flex-wrap">
-          <button
-            type="button"
-            onClick={() => setShowNearbyPlaces((prev) => !prev)}
-            className={`${showNearbyPlaces ? 'btn-primary' : 'btn-secondary'} w-full justify-center text-center sm:w-auto`}
-          >
-            {showNearbyPlaces ? 'Hide nearby places' : 'Show nearby places'}
-          </button>
-          <button
-            type="button"
-            onClick={() => toggleCommuteTarget('ukzn')}
-            className={`${commuteTargets.includes('ukzn') ? 'btn-primary' : 'btn-secondary'} w-full justify-center text-center sm:w-auto`}
-          >
-            UKZN overlay
-          </button>
-          <button
-            type="button"
-            onClick={() => toggleCommuteTarget('dut')}
-            className={`${commuteTargets.includes('dut') ? 'btn-primary' : 'btn-secondary'} w-full justify-center text-center sm:w-auto`}
-          >
-            DUT overlay
           </button>
         </div>
       </section>
@@ -219,8 +178,6 @@ export default function PropertyBrowser() {
             buildings={filteredBuildings}
             activeSlug={resolvedActiveSlug}
             onActiveSlugChange={setActiveSlug}
-            showNearbyPlaces={showNearbyPlaces}
-            commuteTargets={commuteTargets}
           />
           <ComparisonDock buildings={buildings} />
           <PropertyGrid buildings={filteredBuildings} activeSlug={resolvedActiveSlug} />

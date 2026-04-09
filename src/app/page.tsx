@@ -33,7 +33,7 @@ export default function Home() {
               Find well-located student accommodation with less guesswork.
             </h1>
             <p className="mt-5 max-w-2xl text-base text-muted md:text-xl">
-              Explore student accommodation near UKZN and DUT by building, compare the atmosphere and daily convenience, then choose between single and sharing rooms inside the property that suits you.
+              Looking for a place near UKZN or DUT? Browse buildings in your area, check out the rooms inside, and pick the one that fits your budget and routine.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link href="/buildings" className="btn-primary w-full text-center shadow-lg sm:w-auto">
@@ -51,11 +51,11 @@ export default function Home() {
                 className="mt-2 text-2xl font-semibold text-white"
                 style={{ fontFamily: 'var(--font-space), sans-serif' }}
               >
-                Stay closer. Move through Durban with more ease.
+                Stay closer to campus. Spend less time commuting.
               </h2>
               <div className="mt-3 flex min-w-0 flex-col gap-4">
                 <p className="text-base text-white/80">
-                  From Berea to Glenwood and Umbilo, the best student rentals balance security, transport convenience, study-friendly interiors, and a manageable route to campus.
+                  We list rooms in areas that actually make sense for students — close to campus, easy to get around, and honest about what you are paying for.
                 </p>
                 <div className="mt-2 grid gap-3 md:grid-cols-3">
                   <div className="min-w-0 rounded-2xl border border-white/12 bg-white/8 px-4 py-4">
@@ -81,15 +81,15 @@ export default function Home() {
         <div className="grid gap-4 md:grid-cols-3">
           <div className="editorial-card p-6">
             <p className="stat-label">Campus Access</p>
-            <p className="mt-3 text-lg font-semibold text-[#162033]">Shortlist properties around the routes you actually use every week.</p>
+            <p className="mt-3 text-lg font-semibold text-[#162033]">See how far each building is from your campus so you can plan your commute.</p>
           </div>
           <div className="editorial-card p-6">
             <p className="stat-label">Budget Clarity</p>
-            <p className="mt-3 text-lg font-semibold text-[#162033]">See price starting points, deposits, and room formats before you enquire.</p>
+            <p className="mt-3 text-lg font-semibold text-[#162033]">Every room shows the price, deposit, and what is included — no hidden costs.</p>
           </div>
           <div className="editorial-card p-6">
             <p className="stat-label">Viewing Ready</p>
-            <p className="mt-3 text-lg font-semibold text-[#162033]">Move from browsing to a serious viewing request with better building context.</p>
+            <p className="mt-3 text-lg font-semibold text-[#162033]">Found something you like? Request a viewing or send a rent enquiry straight away.</p>
           </div>
         </div>
       </section>
@@ -103,7 +103,7 @@ export default function Home() {
               Rooms ready to rent across Durban
             </h2>
             <p className="text-sm text-muted md:text-base">
-              Each card shows the building, price, availability, and campus access so you can compare quickly.
+              Each card shows you the building, price, and availability so you can compare without clicking around.
             </p>
           </div>
           <Link href="/buildings" className="btn-secondary hidden sm:inline-flex">
@@ -123,10 +123,10 @@ export default function Home() {
         <div className="mb-7 section-heading">
           <span className="kicker">Neighbourhoods</span>
           <h2 className="architect-heading mt-4 text-3xl font-semibold text-[#121522] md:text-4xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
-            Three areas. Three different rhythms.
+            Areas we cover
           </h2>
           <p className="mt-3 max-w-3xl text-sm text-muted md:text-base">
-            Each neighbourhood near UKZN and DUT has its own travel patterns, rent range, and lifestyle. Picking the right area is the first step to the right building.
+            Different areas suit different people. Have a look at where our buildings are and what the vibe is like in each neighbourhood.
           </p>
         </div>
 
@@ -173,7 +173,7 @@ export default function Home() {
         <div className="mb-7 section-heading">
           <span className="kicker">Resident Voices</span>
           <h2 className="architect-heading mt-4 text-3xl font-semibold text-[#121522] md:text-4xl" style={{ fontFamily: 'var(--font-space), sans-serif' }}>
-            What students say about finding their room
+            Hear from students who found their room here
           </h2>
         </div>
 
@@ -210,10 +210,10 @@ export default function Home() {
                 className="mt-4 text-3xl font-semibold text-[#121522] md:text-4xl"
                 style={{ fontFamily: 'var(--font-space), sans-serif' }}
               >
-                Questions worth asking before your first viewing
+                Good questions to ask before your first viewing
               </h2>
               <p className="mt-3 text-sm text-muted md:text-base">
-                Knowing what to check upfront helps you compare buildings with more confidence and ask the right things when you arrive.
+                Knowing what to check saves you time and helps you spot the right place faster.
               </p>
             </div>
 
@@ -246,10 +246,10 @@ export default function Home() {
             className="mt-3 max-w-2xl text-3xl font-semibold md:text-4xl"
             style={{ fontFamily: 'var(--font-space), sans-serif' }}
           >
-            Find a Durban room that fits your budget, campus route, and move-in timeline.
+            Ready to find your room? Start browsing and see what is available right now.
           </h2>
           <p className="mt-4 max-w-xl text-sm text-[#d9e1ec] md:text-base">
-            Pick a building, explore rooms inside, then rent or book a viewing directly.
+            Pick a building, check out the rooms, and get in touch when you see something that works.
           </p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link href="/buildings" className="btn-secondary w-full text-center !border-white/35 !bg-white !text-[#1d2a3d] sm:w-auto">
