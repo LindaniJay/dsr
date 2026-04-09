@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, getDocs, getFirestore, orderBy, query } from 'firebase/firestore';
 import RoomTypeCard from '../../components/RoomTypeCard';
 import app from '../../utils/firebase';
-import { defaultProducts, type ProductItem } from '../../utils/contentData';
+import { defaultRoomTypes, type RoomTypeItem } from '../../utils/contentData';
 
 const premiumHighlights = [
   {
@@ -42,7 +42,7 @@ const roomSignals = [
   },
 ];
 
-function parseProduct(raw: Record<string, unknown>): ProductItem | null {
+function parseProduct(raw: Record<string, unknown>): RoomTypeItem | null {
   const price = Number(raw.price);
 
   const sizes = Array.isArray(raw.sizes)
@@ -71,7 +71,7 @@ function parseProduct(raw: Record<string, unknown>): ProductItem | null {
 }
 
 export default function ShopPage() {
-  const [products, setProducts] = useState<ProductItem[]>(defaultProducts);
+  const [products, setProducts] = useState<RoomTypeItem[]>(defaultRoomTypes);
   const [contentLoading, setContentLoading] = useState(true);
   const [shortlist, setShortlist] = useState<Array<{ name: string; option: string; price: number }>>([]);
   const [success, setSuccess] = useState<string | null>(null);
@@ -85,7 +85,7 @@ export default function ShopPage() {
 
         const fetchedProducts = productsSnapshot.docs
           .map((docItem) => parseProduct(docItem.data() as Record<string, unknown>))
-          .filter((item): item is ProductItem => item !== null);
+          .filter((item): item is RoomTypeItem => item !== null);
 
         if (fetchedProducts.length > 0) {
           setProducts(fetchedProducts);
@@ -100,7 +100,7 @@ export default function ShopPage() {
     fetchProducts();
   }, []);
 
-  const handleAddToCart = (product: ProductItem, selectedSize: string) => {
+  const handleAddToCart = (product: RoomTypeItem, selectedSize: string) => {
     setShortlist((prev) => [...prev, { name: product.name, option: selectedSize, price: product.price }]);
     setSuccess(`${product.name} (${selectedSize}) added to your shortlist.`);
     setTimeout(() => setSuccess(null), 2200);

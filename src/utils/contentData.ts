@@ -8,7 +8,7 @@ export type EventItem = {
   seatsLeft: number;
 };
 
-export type ProductItem = {
+export type RoomTypeItem = {
   image: string;
   name: string;
   price: number;
@@ -984,7 +984,7 @@ export const defaultEvents: EventItem[] = [
   },
 ];
 
-export const defaultProducts: ProductItem[] = [
+export const defaultRoomTypes: RoomTypeItem[] = [
   {
     image: propertyPhotography.musgraveSingle,
     name: 'Standard Single Room',
